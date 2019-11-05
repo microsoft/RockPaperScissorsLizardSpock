@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+@if (!hasCookie){
+  <div class="cookie-banner">
+    <div class="close" @onclick="CloseBanner"></div>
+    <div class="cookie-banner-container">
+      <p>
+        <span>
+        We use cookies to offer you a better experience. By continuing to use this website, you consent to the use of cookies in accordance with our
+        <a target="_blank" href="https://privacy.microsoft.com/en-US/">Cookie Policy</a>
+        </span>
+      </p>
+    </div>
+  </div>
+}
+
+@code
+{
+    bool hasCookie = false;
+
+    protected override void OnInitialized()
+    {
+        var cookieName = CookieAuthenticationDefaults.CookiePrefix + CookieAuthenticationDefaults.AuthenticationScheme;
+        var cookie = httpContextAccessor.HttpContext.Request.Cookies[cookieName];
+
+        hasCookie = !string.IsNullOrWhiteSpace(cookie);
+    }
+    
+    void CloseBanner()
+    {
+        hasCookie = true;
+    }
+}

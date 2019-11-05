@@ -1,0 +1,51 @@
+replicaCount: 1
+applicationName: rpsls
+
+image:
+  repository: rpslsacr.azurecr.io/python.player
+  tag: prod
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: python-acr-key
+  
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    cpu: "500m"
+  requests:
+    cpu: "100m"
+
+nodeSelector:
+  "kubernetes.io/os": linux
+
+tolerations: []
+
+affinity: {}
+
+env:
+  configmap: true
+  values: {}
+  strategies:   # Strategies to install. Each strategy is one deployment with one pod with the PICK_STRATEGY env var configured
+#    - rock
+#    - paper
+#    - scissors
+#    - lizard
+#    - spock
+    - random
+#    - iterative
+
+probes:
+  liveness:
+    path: /healthcheck
+    initialDelaySeconds: 100
+    periodSeconds: 30
+    port: http
+  readiness:
+    path: /healthcheck
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    port: http

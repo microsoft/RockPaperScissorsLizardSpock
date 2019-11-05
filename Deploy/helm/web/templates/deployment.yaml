@@ -1,0 +1,134 @@
+{{- $name := include "rpsls-web.fullname" . -}}
+{{- $cfgname := printf "%s-%s" "cfg" $name -}}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "rpsls-web.fullname" . }}
+  labels:
+    app: {{ template "rpsls-web.name" . }}
+    chart: {{ template "rpsls-web.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "rpsls-web.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rpsls-web.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      {{ if .Values.imagePullSecrets -}}
+      imagePullSecrets:
+      {{ range .Values.imagePullSecrets -}}
+        - name: {{ .name }}
+      {{- end -}}
+      {{- end }}
+      volumes:
+      - name: model-storage
+        emptyDir: {}
+      containers:
+        - name: {{ .Chart.Name }}-uploader
+          image: "{{ .Values.image.uploaderRepository }}:{{ .Values.image.uploaderTag }}"
+          volumeMounts:
+          - name: model-storage
+            mountPath: {{ .Values.uploaderModelPathMount }}         
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- if .Values.env.uploaderValues -}}
+          {{- range .Values.env.uploaderValues }}
+          - name: {{ .name }}
+            value: {{ .value | quote }}
+          {{ end -}}
+          {{- end -}}
+          - name: PathBase
+            value: {{ .Values.inf.ingress.web.uploaderPath }}
+          - name: APPINSIGHTS_INSTRUMENTATIONKEY
+            value: {{ .Values.inf.appinsights.id }}
+          ports:
+            - name: uploader
+              containerPort: 8080
+              protocol: TCP
+          {{ if .Values.probes -}}
+          {{- if .Values.probes.uploader.liveness -}}
+          livenessProbe:
+            httpGet:
+              port: {{ .Values.probes.uploader.liveness.port }}
+              path: {{ .Values.probes.uploader.liveness.path }}
+            initialDelaySeconds: {{ .Values.probes.uploader.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.uploader.liveness.periodSeconds }}
+          {{- end -}}
+          {{- end -}}
+          {{- if .Values.probes -}}
+          {{- if .Values.probes.uploader.readiness }}
+          readinessProbe:
+            httpGet:
+              port: {{ .Values.probes.uploader.readiness.port }}
+              path: {{ .Values.probes.uploader.readiness.path }}
+            initialDelaySeconds: {{ .Values.probes.uploader.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.uploader.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.uploader.readiness.timeoutSeconds }}
+          {{- end -}}
+          {{- end }}     
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          volumeMounts:
+          - name: model-storage
+            mountPath: {{ .Values.webModelPathMount }}         
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- if .Values.env.values -}}
+          {{- range .Values.env.values }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end -}}
+          {{- end -}}
+          {{- if .Values.env.configmap }}
+          envFrom:
+          - configMapRef:
+              name: {{ $cfgname }}
+          {{- end }}       
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          {{ if .Values.probes -}}
+          {{- if .Values.probes.web.liveness -}}
+          livenessProbe:
+            httpGet:
+              port: {{ .Values.probes.web.liveness.port }}
+              path: {{ .Values.probes.web.liveness.path }}
+            initialDelaySeconds: {{ .Values.probes.web.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.web.liveness.periodSeconds }}
+          {{- end -}}
+          {{- end -}}
+          {{- if .Values.probes -}}
+          {{- if .Values.probes.web.readiness }}
+          readinessProbe:
+            httpGet:
+              port: {{ .Values.probes.web.readiness.port }}
+              path: {{ .Values.probes.web.readiness.path }}
+            initialDelaySeconds: {{ .Values.probes.web.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.web.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.web.readiness.timeoutSeconds }}
+          {{- end -}}
+          {{- end }}     
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

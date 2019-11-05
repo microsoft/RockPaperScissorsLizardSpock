@@ -1,0 +1,6 @@
+apiVersion: v1
+appVersion: "1.0"
+description: "Rock Paper Scissors Lizard Spock PHP Player"
+name: php-player
+version: 1.0.0
+

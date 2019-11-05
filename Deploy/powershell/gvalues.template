@@ -1,0 +1,72 @@
+# Template for generating a gvalues file
+
+inf:
+  appinsights:
+    id: {{appinsightsik}}
+  googleanalytics:
+    id: {{googleanalyticsid}}
+  ingress:
+    dotnet:
+      path: /dotnet-player
+    node:
+      path: /node-player
+    python:
+      path: /python-player
+    php:
+      path: /php-player
+    java:
+      path: /java-player
+    game:
+      path: /game-manager
+    web:
+      path: /
+      uploaderPath: /_upload
+  apiurls:
+    gameapiurl: http://game-manager:81
+    predictor: {{predictorbaseurl}}
+  challengers:
+    dotnet: "app=dotnet-player"
+    node: "app=node-player"
+    python: "app=python-player"
+    php: "app=php-player"
+    java: "app=java-player"
+
+auth:
+  twitter:
+    key: {{twitterKey}}
+    secret: {{twitterSecret}}
+
+# Autoscaling global settings
+hpa:
+  activated: false # set to true to deploy HPA for services
+  cpu:
+    averageUtilization: 40 
+  minReplicas: 1
+  maxReplicas: 40
+
+# ACR login and password
+imageCredentials:
+  registry: {{acrName}}
+  username: {{acrLogin}}
+  password: {{acrPassword}}
+
+ingress:
+  enabled: true
+  tlsEnabled: {{tlsEnabled}}
+  annotations:
+    kubernetes.io/ingress.class: {{ingressclass}}
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  hosts:
+    - {{aksHost}}
+  tls:
+    - hosts:
+      - {{aksHost}}
+      secretName: {{tlsSecretName}}
+
+kv:
+  name: {{kvName}}
+  tenant: {{kvTenant}}
+  clientid: {{kvClientId}}
+  
+  

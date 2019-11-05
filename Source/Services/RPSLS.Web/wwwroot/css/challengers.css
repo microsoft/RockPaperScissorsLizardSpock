@@ -1,0 +1,135 @@
+﻿/* Challengers Layout */
+.challengers-content {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 47px);
+    font-family: "Segoe UI", sans-serif;
+    background-image: url(../assets/images/png/spaceship_ceiling.png), url(../assets/images/png/planets.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    justify-content: space-between;
+    position: relative;
+}
+
+.challengers-content-title {
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+    font-family: "Voyager";
+    margin-bottom: 20vh;
+    margin-top: 10%;
+    position: relative;
+    text-align: center;
+    font-size: 3.75rem;
+    color: #ffaa44;
+    font-weight: 300;
+    float: left;
+    width: 100%;
+}
+
+.challengers-list {
+    background-image: url(../assets/images/png/platform_opponents.png);
+    justify-content: space-evenly;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100%;
+    display: flex;
+    height: 20vw;
+}
+
+.lang-card {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    font-family: "Segoe UI";
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.challenger-svg {
+    background-image: url(../assets/images/png/platform.png);
+    background-repeat: no-repeat;
+    padding-top: 30px;
+    background-position-y: bottom;
+    background-size: 100%;
+}
+
+.lang-card.active .challenger-svg {
+    background-image: url(../assets/images/png/platform_selected.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.lang-card:hover .challenger-svg {
+    background-image: url(../assets/images/png/platform_selected.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.lang-card:hover {
+    -webkit-animation: slide-top 0.6s ease-in-out both;
+    animation: slide-top 0.6s ease-in-out both;
+}
+
+.challenger-svg img {
+    position: relative;
+    width: 100%;
+    bottom: 2vh;
+}
+
+.lang-card:first-child,
+.lang-card:last-child {
+    margin-top: -10vw;
+}
+
+.lang-card:not(:first-child):not(:last-child) {
+    margin-top: -12vw;
+}
+
+/* Middle in a set of 5 elements */
+.lang-card:nth-child(3):nth-last-child(3) {
+    margin-top: -13vw;
+}
+
+.challenger-name {
+    text-align: center;
+    font-family: Voyager;
+    margin-top: -4.5vh;
+    color: #ffffff;
+    font-size: 1rem;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+}
+
+.challengers-base {
+    height: 10vh;
+    background-image: url(../assets/images/png/screens_panel.png);
+    position: relative;
+    background-size: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10vh;
+    flex-direction: row;
+}
+
+.custom-button.challengers-select-button {
+    margin-top: -10vh;
+}
+
+@media (max-width: 768px) {
+    .challengers-content-title {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+
+    .challengers-list {
+        height: 25vw;
+    }
+
+    .challenger-name {
+        margin-top: 0;
+    }
+}

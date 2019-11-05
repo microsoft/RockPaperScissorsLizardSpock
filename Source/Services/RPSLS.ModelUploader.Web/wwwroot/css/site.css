@@ -1,0 +1,88 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400&display=swap");
+
+/* Fonts */
+@font-face {
+    font-family: "Voyager";
+    src: url("../assets/fonts/Voyager/Voyager_Light.otf");
+}
+
+body {
+    color: #ffffff;
+    background-color: rgb(2, 0, 36);
+    background: linear-gradient( 180deg, rgba(2, 0, 36, 1) 0%, rgba(41, 6, 59, 1) 35%, rgb(69, 13, 95) 100% );
+    margin: 0;
+}
+
+.content {
+    font-family: "Segoe UI", sans-serif;
+    background-image: url(../assets/png/planets_home.png);
+    background-size: 100%;
+    background-position-x: 30px;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+    .content > div {
+        display: flex;
+        padding-top: 2rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .content h1 {
+        text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+        font-family: "Voyager";
+        font-weight: 300;
+        font-size: 2rem;
+        line-height: 3rem;
+        color: #ffaa44;
+    }
+
+    .content h2 {
+        color: #ffffff;
+        font-family: "Work Sans", sans-serif;
+        font-weight: 300;
+        font-size: 2rem;
+        margin: 30px 0;
+        align-self: center;
+    }
+
+
+[type="file"] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+    [type="file"] + label {
+        color: #fff;
+        background: #d9007d;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Voyager", sans-serif;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        outline: none;
+        padding: 1rem 50px;
+        position: relative;
+        transition: all 0.3s;
+        vertical-align: middle;
+    }
+
+        [type="file"] + label:hover {
+            background-color: #d3460d;
+        }
+
+        [type="file"] + label.custom-button {
+            background-color: #d9007d;
+            box-shadow: 0 8px 0 #52002f, 0 15px 20px #0d0229;
+            transition: none;
+        }
+
+            [type="file"] + label.custom-button:hover {
+                background-color: #ec6a9c;
+                text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+            }

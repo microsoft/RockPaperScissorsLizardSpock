@@ -1,0 +1,8 @@
+applicationName: tailwindtraders
+issuerName: letsencrypt-prod
+certName: rpsls-cert-prod
+environment: prod
+server: https://acme-v02.api.letsencrypt.org/directory
+certSecretName: rpsls-letsencrypt-prod
+issuerSecretName: letsencrypt-prod
+ingressClass: addon-http-application-routing

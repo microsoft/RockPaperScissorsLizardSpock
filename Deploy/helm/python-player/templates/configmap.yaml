@@ -1,0 +1,15 @@
+{{- $name := include "rpsls-python.fullname" . -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "rpsls-python.name" . }}
+    chart: {{ template "rpsls-python.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  APPLICATION_INSIGHTS_IKEY:  {{ .Values.inf.appinsights.id }}
+  PREDICTOR_URL: {{ .Values.inf.apiurls.predictor }}

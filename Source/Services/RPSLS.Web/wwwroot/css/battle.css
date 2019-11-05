@@ -1,0 +1,602 @@
+﻿/* Battle Layout */
+
+/* Console */
+.console-screen {
+  min-height: 25vw;
+  flex: 4;
+  margin: 10px;
+}
+
+.challenger-player img {
+  max-width: 290px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.console-text {
+  text-align: center;
+  font-family: Voyager;
+  margin: 0 15px;
+  color: #ffffff;
+  display: flex;
+  height: 1.8vw;
+  font-size: 1rem;
+  margin: 0 auto;
+  max-width: 250px;
+  padding: 0.25rem 0;
+  border-radius: 15px 15px 0 0;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+  background: #462284;
+  background: -moz-linear-gradient(top, #462284 -1%, #1e0f3f 100%);
+  background: -webkit-linear-gradient(top, #462284 -1%, #1e0f3f 100%);
+  background: linear-gradient(to bottom, #462284 -1%, #1e0f3f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#462284', endColorstr='#1e0f3f',GradientType=0 );
+  -webkit-box-shadow: 0px -8px 12px -1px rgba(72, 52, 133, 0.56);
+  -moz-box-shadow: 0px -8px 12px -1px rgba(72, 52, 133, 0.56);
+  box-shadow: 0px -8px 12px -1px rgba(72, 52, 133, 0.56);
+}
+
+.console-vs {
+  display: flex;
+  flex: 2;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Use Camera Button */
+.cam-button .cam-link {
+  font-family: Voyager;
+  color: #ffffff;
+  font-size: 1rem;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+  text-decoration: none;
+}
+
+/* Picks */
+.user-picks,
+.challenger-picks {
+  height: calc(100% - 90px);
+  min-height: 205px;
+  display: flex;
+  justify-content: center;
+  background: #2d1c5f; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #2d1c5f 0%, #7b58bf 100%);
+  background: -webkit-linear-gradient(-45deg, #2d1c5f 0%, #7b58bf 100%);
+  background: linear-gradient(135deg, #2d1c5f 0%, #7b58bf 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d1c5f', endColorstr='#7b58bf',GradientType=1 );
+  -webkit-box-shadow: 0px 10px 17px -2px rgba(45, 28, 95, 1),
+    0px -8px 23px -9px rgb(35, 21, 71);
+  -moz-box-shadow: 0px 10px 17px -2px rgba(45, 28, 95, 1),
+    0px -8px 23px -9px rgb(35, 21, 71);
+  box-shadow: 0px 10px 17px -2px rgba(45, 28, 95, 1),
+    0px -8px 23px -9px rgb(35, 21, 71);
+  border-radius: 10px;
+}
+
+.challenger-picks-container,
+.user-picks-container,
+.cam-recorder-container {
+  position: relative;
+  background: #000000;
+  width: 100%;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.challenger-picks-container {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.user-picks-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user-picks > .pick img {
+  position: relative;
+  width: 100%;
+}
+
+.pick {
+  width: 6.5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin: 5px 10px;
+  align-items: center;
+}
+
+.pick.selectable {
+  cursor: pointer;
+}
+
+.pick.active.toplay {
+  width: 50%;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.pick-text {
+  font-family: Voyager;
+  color: #ffffff;
+  font-size: 1rem;
+  margin: 0;
+  margin-top: 10px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+}
+
+.pick.active .pick-text {
+  color: #f2a140;
+}
+
+.pick.active .pick-images {
+  background: #492f93;
+  box-shadow: inset 0px 0px 0px 2px #492f93;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.pick .pick-images:hover {
+  box-shadow: inset 0px 0px 0px 2px #492f93;
+  box-sizing: border-box;
+}
+
+.pick-images {
+  line-height: 0;
+  border-radius: 100%;
+}
+
+.pick-images img {
+  position: relative;
+  width: 100%;
+}
+
+.toplay .pick-images img {
+  position: absolute;
+  width: 100%;
+  transition: all 250ms ease-in;
+  opacity: 1;
+}
+
+.toplay .pick-images img.pick {
+  position: absolute;
+  width: 100%;
+  transition: all 100ms ease-in;
+  opacity: 0;
+}
+
+.pick-images img.base {
+  position: relative;
+  transform: translateY(40%);
+  left: 0;
+}
+
+.pick-images img.base.bot {
+  transform: translateY(40%) scaleX(-1);
+}
+
+.pick-images img.animated {
+  transform-origin: bottom left;
+  animation-name: shakeStart, shakeMid;
+  animation-duration: 1s, 500ms;
+  animation-delay: 0s, 1s;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out, ease-in;
+}
+
+.pick-images img.animated-end.pick {
+  transform-origin: bottom left;
+  animation-name: shakeBack, shakeEnd, show;
+  animation-duration: 200ms, 200ms, 50ms;
+  animation-delay: 0s, 200ms, 200ms;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out, ease-out, linear;
+}
+
+.pick-images img.animated-end.placeholder {
+  transform-origin: bottom left;
+  animation-name: shakeBack, shakeEnd, hide;
+  animation-duration: 200ms, 200ms, 50ms;
+  animation-delay: 0s, 200ms, 200ms;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out, ease-out, linear;
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shakeStart {
+  0% {
+    transform: rotate(60deg) translateX(-100%) translateY(-10%);
+  }
+
+  65% {
+    transform: rotate(55deg) translateX(-100%) translateY(-15%);
+  }
+
+  80% {
+    transform: rotate(90deg) translateX(-85%) translateY(10%);
+  }
+
+  100% {
+    transform: rotate(70deg) translateX(-90%) translateY(0%);
+  }
+}
+
+@keyframes shakeMid {
+  0% {
+    transform: rotate(70deg) translateX(-90%) translateY(0%);
+  }
+
+  50% {
+    transform: rotate(90deg) translateX(-85%) translateY(10%);
+  }
+
+  100% {
+    transform: rotate(70deg) translateX(-90%) translateY(0%);
+  }
+}
+
+@keyframes shakeBack {
+  0% {
+    transform: rotate(70deg) translateX(-90%) translateY(0%);
+  }
+  /*20% {
+        transform: rotate(60deg) translateX(-100%) translateY(-10%);
+    }*/
+  100% {
+    transform: rotate(40deg) translateX(-100%) translateY(-30%);
+  }
+  /*100% {
+        transform: rotate(60deg) translateX(-100%) translateY(-10%);
+    }*/
+}
+
+@keyframes shakeEnd {
+  0% {
+    transform: rotate(40deg) translateX(-100%) translateY(-30%);
+  }
+
+  50% {
+    transform: rotate(70deg) translateX(-85%) translateY(-10%);
+  }
+
+  100% {
+    transform: rotate(60deg) translateX(-100%) translateY(-10%);
+  }
+}
+
+/* Camera Recorder */
+.cam-content,
+.label-content {
+  position: relative;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.label-content {
+  font-family: Voyager;
+  color: #ffffff;
+  font-size: 1rem;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+  text-decoration: none;
+}
+
+.cam-recorder-container video {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  margin: 10px;
+}
+
+.cam-recorder-container img {
+  position: absolute;
+  width: 5vw;
+  top: 1.7vw;
+  right: 1vw;
+  opacity: 1;
+  background: #53398d;
+  border-radius: 100px;
+}
+
+.cam-button .cam-link:hover {
+  text-shadow: 0 0 9px rgba(255, 255, 255, 0.9);
+}
+
+/* Versus */
+.vs-circle {
+  display: flex;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 0px 10px #231547;
+  align-items: center;
+  justify-content: center;
+}
+
+.vs-circle .vs-text {
+  cursor: default;
+  font-family: "Voyager";
+  font-size: 3.5rem;
+  color: #956dea;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+}
+
+.start-battle-circle {
+  display: flex;
+  cursor: pointer;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  background: #d9007d;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-box-shadow: 0 8px 0 #52002f, 0 12px 3px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0 8px 0 #52002f, 0 12px 3px rgba(0, 0, 0, 1);
+  box-shadow: 0 8px 0 #52002f, 0 12px 3px rgba(0, 0, 0, 1);
+  transition: box-shadow 0.1s ease-in-out;
+  text-decoration: none;
+  -webkit-transition: background-color 0.2s ease-in-out,
+    -webkit-transform 0.2s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out,
+    -moz-transform 0.2s ease-in-out;
+  -o-transition: background-color 0.2s ease-in-out,
+    -o-transform 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.start-battle-circle:hover,
+.start-battle-circle:hover {
+  background-color: #ec6a9c;
+  text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9),
+    0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.start-battle-circle:active,
+.start-battle-circle:active {
+  -webkit-transform: translate(0, 4px);
+  -moz-transform: translate(0, 4px);
+  -o-transform: translate(0, 4px);
+  transform: translate(0, 4px);
+  -webkit-box-shadow: 0 5px 0 #52002f, 0 8px 3px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0 5px 0 #52002f, 0 8px 3px rgba(0, 0, 0, 1);
+  box-shadow: 0 5px 0 #52002f, 0 8px 3px rgba(0, 0, 0, 1);
+}
+
+.start-battle-circle:hover,
+.start-battle-circle:hover,
+.start-battle-circle:active p,
+.start-battle-circle:active p {
+  text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9),
+    0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.start-battle-text {
+  font-family: "Voyager";
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.7rem;
+  margin: 0;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-25deg);
+  }
+  20% {
+    transform: rotate(47deg);
+  }
+  30% {
+    transform: rotate(-125deg);
+  }
+  40% {
+    transform: rotate(-25deg);
+  }
+  50% {
+    transform: rotate(25deg);
+  }
+  60% {
+    transform: rotate(165deg);
+  }
+  70% {
+    transform: rotate(42deg);
+  }
+  80% {
+    transform: rotate(180deg);
+  }
+  90% {
+    transform: rotate(-300deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin3 {
+  0% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: rotate(165deg);
+  }
+  70% {
+    transform: rotate(42deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.challenger-image {
+  position: relative;
+}
+
+.challenger-spiral {
+  position: absolute;
+  top: 20px;
+  right: -80px;
+}
+
+.challenger-spiral li {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  background: transparent;
+  border: 5px solid rgba(23, 246, 251, 1);
+  border-radius: 500px;
+  transition: all 0.5s ease;
+}
+
+li:first-child {
+  margin-left: -90px;
+  margin-top: -20px;
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border-color: #ba55d3;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: spin 12s infinite linear;
+}
+
+li:nth-child(2) {
+  margin-left: -80px;
+  margin-top: -10px;
+  width: 40px;
+  height: 40px;
+  border-color: #9370db;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  animation: spin2 12s infinite linear;
+}
+
+li:nth-child(3) {
+  margin-left: -70px;
+  margin-top: 0px;
+  width: 20px;
+  height: 20px;
+  border-color: #ee02f8;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: spin3 4s infinite linear;
+}
+
+.challenger-circle {
+  background: #ffffff;
+  border-radius: 100%;
+}
+
+.challenger-circle-small {
+  position: absolute;
+  left: -103px;
+  width: 12px;
+  height: 12px;
+  bottom: -56px;
+}
+
+.challenger-circle-big {
+  position: absolute;
+  left: -88px;
+  width: 20px;
+  height: 20px;
+  bottom: -45px;
+}
+
+@media (max-width: 1440px) {
+  .challenger-spiral {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .console-screen {
+    width: 40vw;
+    margin: 1rem;
+  }
+
+  .challenger-picks-container,
+  .user-picks-container,
+  .cam-recorder-container {
+    margin: 15px;
+  }
+
+  .start-battle-circle {
+    -webkit-box-shadow: 0 4px 0 #52002f, 0 6px 3px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0 4px 0 #52002f, 0 6px 3px rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 0 #52002f, 0 6px 3px rgba(0, 0, 0, 1);
+  }
+
+  .start-battle-text {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+
+  .start-battle-circle {
+    padding: 1rem;
+  }
+
+  .vs-circle {
+    box-shadow: inset 0px 0px 0px 5px #231547;
+    padding: 1rem;
+  }
+
+  .vs-circle .vs-text {
+    font-size: 1.5rem;
+  }
+
+  .pick-text {
+    display: none;
+  }
+
+  .cam-button .cam-link {
+    font-size: 0.8rem;
+  }
+
+  .console-text {
+    max-width: 75%;
+    font-size: 0.7rem;
+  }
+}

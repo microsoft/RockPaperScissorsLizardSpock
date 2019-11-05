@@ -1,0 +1,51 @@
+version: "3.4"
+
+services:
+  dotnet.player:
+    image: ${REGISTRY:-msftrpsls}/dotnet.player:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.DotNetPlayer.Api/
+      dockerfile: Dockerfile
+  node.player:
+    image: ${REGISTRY:-msftrpsls}/node.player:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.NodePlayer.Api/
+      dockerfile: Dockerfile
+  python.player:
+    image: ${REGISTRY:-msftrpsls}/python.player:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.PythonPlayer.Api/
+      dockerfile: Dockerfile
+  php.player:
+    image: ${REGISTRY:-msftrpsls}/php.player:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.PHPPlayer.Api/
+      dockerfile: Dockerfile
+  java.player:
+    image: ${REGISTRY:-msftrpsls}/java.player:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.JavaPlayer.Api/
+      dockerfile: Dockerfile
+  game.api:
+    image: ${REGISTRY:-msftrpsls}/game.api:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.Game.Api/
+      dockerfile: Dockerfile
+    depends_on:
+      - dotnet.player
+      - node.player
+      - python.player
+      - php.player
+      - java.player
+  web:
+    image: ${REGISTRY:-msftrpsls}/web:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.Web/
+      dockerfile: Dockerfile
+    depends_on:
+      - game.api
+  modeluploader:
+    image: ${REGISTRY:-msftrpsls}/modeluploader:${TAG:-latest}
+    build:
+      context: ./Services/RPSLS.ModelUploader.Web/
+      dockerfile: Dockerfile

@@ -1,0 +1,91 @@
+{{- $name := include "rpsls-php.fullname" $ -}}
+{{- $cfgname := printf "%s-%s" "cfg" $name -}}
+{{ range $.Values.env.strategies }}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "rpsls-php.fullname" $ }}-{{ . }}
+  labels:
+    app: {{ template "rpsls-php.name" $ }}
+    chart: {{ template "rpsls-php.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "rpsls-php.name" $ }}
+      release: {{ $.Release.Name }}
+      strategy: {{ . }} 
+  template:
+    metadata:
+      labels:
+        app: {{ template "rpsls-php.name" $ }}
+        release: {{ $.Release.Name }}
+        strategy: {{ . }} 
+    spec:
+      {{ if $.Values.imagePullSecrets -}}
+      imagePullSecrets:
+      {{ range $.Values.imagePullSecrets -}}
+        - name: {{ .name }}
+      {{- end -}}
+      {{- end }}
+      containers:
+        - name: {{ $.Chart.Name }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          env:
+          - name: PICK_STRATEGY
+            value: {{ . }}                       
+          {{- if $.Values.env.values -}}
+          {{- range $.Values.env.values }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end -}}
+          {{- end -}}
+          {{- if $.Values.env.configmap }}
+          envFrom:
+          - configMapRef:
+              name: {{ $cfgname }}
+          {{- end }}             
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          {{ if $.Values.probes -}}
+          {{- if $.Values.probes.liveness -}}
+          livenessProbe:
+            httpGet:
+              port: {{ $.Values.probes.liveness.port }}
+              path: {{ $.Values.probes.liveness.path }}
+            initialDelaySeconds: {{ $.Values.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ $.Values.probes.liveness.periodSeconds }}
+          {{- end -}}
+          {{- end -}}
+          {{- if $.Values.probes -}}
+          {{- if $.Values.probes.readiness }}
+          readinessProbe:
+            httpGet:
+              port: {{ $.Values.probes.readiness.port }}
+              path: {{ $.Values.probes.readiness.path }}
+            initialDelaySeconds: {{ $.Values.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ $.Values.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ $.Values.probes.readiness.timeoutSeconds }}
+          {{- end -}}
+          {{- end }}     
+          resources:
+{{ toYaml $.Values.resources | indent 12 }}
+    {{- with $.Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with $.Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with $.Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+---
+{{- end -}}

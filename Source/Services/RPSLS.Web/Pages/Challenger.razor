@@ -1,0 +1,53 @@
+﻿@page "/challenger"
+@attribute [Authorize]
+
+@using GameApi.Proto
+
+@inject IGameService Game
+@inject SvgHelper svgHelper
+@inject NavigationManager NavigationManager
+
+<div class="challengers-content">
+    <h1 class="challengers-content-title">choose your opponent</h1>
+    <div class="challengers">
+        <div class="challengers-list">
+            @foreach (var challenger in challengers)
+            {
+                var active = challenger.Name == Game.Challenger?.Name;
+                <div class="lang-card @(active ? "active" : string.Empty) @(challenger.Name)"
+                        @onclick="() => SelectChallenger(challenger)">
+
+                    <div class="lang-icon challenger-svg">
+                        <img src='@("/assets/images/png/"+challenger.Name+".png")'>
+                    </div>
+                    <div class="challenger-name">@challenger.DisplayName</div>
+                </div>
+            }
+        </div>
+        <div class="challengers-base">
+            <div class="custom-button challengers-select-button">
+                <a class="custom-button-link" href="@battleUrl">Select</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code
+{
+    string battleUrl = null;
+    IEnumerable<ChallengerDto> challengers = new List<ChallengerDto>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Game.Pick = -1;
+        Game.Challenger = null;
+        this.challengers = await Game.Challengers();
+    }
+
+    void SelectChallenger(ChallengerDto challenger)
+    {
+        battleUrl = "/battle";
+        Game.Challenger = challenger;
+    }
+}

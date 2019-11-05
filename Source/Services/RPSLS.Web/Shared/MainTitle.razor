@@ -1,0 +1,40 @@
+﻿
+<h1 class="game-content-title">
+    @Title
+    @if (ShowHelp)
+    {
+        <img class="info-icon" @onclick="OpenModal" src="/assets/images/png/help.png" />
+    }
+</h1>
+
+@if (hasModal)
+{
+    <div class="modal" @onclick="CloseModal">
+        <div class="modal-content">
+            <div class="relationship-diagram" onclick="event.stopPropagation();">
+                <h1>Relationship Diagram</h1>
+                <img src="/assets/images/png/relationship_diagram.png" />
+            </div>
+            <div class="close" @onclick="CloseModal"></div>
+        </div>
+    </div>
+}
+
+@functions
+{
+    [Parameter] public string Title { get; set; }
+
+    [Parameter] public bool ShowHelp { get; set; }
+
+    private bool hasModal = false;
+
+    void OpenModal()
+    {
+        hasModal = true;
+    }
+
+    void CloseModal()
+    {
+        hasModal = false;
+    }
+}

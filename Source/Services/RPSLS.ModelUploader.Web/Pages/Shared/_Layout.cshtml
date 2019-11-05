@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RPSLS.ModelUploader.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/stars.css" />
+</head>
+<body>
+    <div class="stars-container">
+        <div class="stars-item-1"></div>
+        <div class="stars-item-2"></div>
+        <div class="stars-item-3"></div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <img src="~/assets/png/logo.png">
+            @*<h1>Rock, Paper, Scissors, Lizard, Spock</h1>*@
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

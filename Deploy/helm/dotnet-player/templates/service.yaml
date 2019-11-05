@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet
+  labels:
+    app: {{ template "rpsls-dotnet.name" . }}
+    chart: {{ template "rpsls-dotnet.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "rpsls-dotnet.name" . }}
+    release: {{ .Release.Name }}

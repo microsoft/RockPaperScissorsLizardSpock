@@ -1,0 +1,59 @@
+replicaCount: 1
+applicationName: rpsls
+
+image:
+  repository: rpslsacr.azurecr.io/web
+  tag: prod
+  pullPolicy: IfNotPresent
+  uploaderRepository: rpslsacr.azurecr.io/modeluploader
+  uploaderTag: prod
+
+imagePullSecrets:
+  - name: web-acr-key
+
+# Local uploader path where models are stored
+uploaderModelPathMount: /app/model
+# Local web path where models are deployed.
+webModelPathMount: /app/wwwroot/model
+# If uploader is enabled 
+uploaderEnabled: true
+
+service:
+  type: ClusterIP
+  port: 80
+  uploaderPort: 8080
+
+resources:
+  limits:
+    cpu: "500m"
+  requests:
+    cpu: "100m"
+
+nodeSelector:
+  "kubernetes.io/os": linux
+
+tolerations: []
+
+affinity: {}
+
+env:
+  configmap: true
+  values: {}
+  uploaderValues:
+    - name: ASPNETCORE_URLS
+      value: http://*:8080
+    - name: UploadPath
+      value: model
+probes:
+  web:
+    liveness:
+      path: /health
+      initialDelaySeconds: 100
+      periodSeconds: 30
+      port: http
+    readiness:
+      path: /health
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      port: http
+  uploader: {}

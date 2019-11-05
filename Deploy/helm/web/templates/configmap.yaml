@@ -1,0 +1,19 @@
+{{- $name := include "rpsls-web.fullname" . -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "rpsls-web.name" . }}
+    chart: {{ template "rpsls-web.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  APPINSIGHTS_INSTRUMENTATIONKEY:  {{ .Values.inf.appinsights.id }}
+  GoogleAnalytics: {{ .Values.inf.googleanalytics.id }}
+  GameManager__Url:  {{ .Values.inf.apiurls.gameapiurl }}   
+  Authentication__Twitter__ConsumerKey: {{ .Values.auth.twitter.key }}
+  Authentication__Twitter__ConsumerSecret: {{ .Values.auth.twitter.secret }}
+  GameManager__Grpc__GrpcOverHttp: "true"                                # true: web will use http/2 prior knowledge without TLS when using gRPC

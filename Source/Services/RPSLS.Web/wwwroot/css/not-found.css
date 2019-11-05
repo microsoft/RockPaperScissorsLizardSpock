@@ -1,0 +1,184 @@
+
+.not_found {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    font-family: "Segoe UI", sans-serif;
+    background: url(../assets/images/png/planets_home.png);
+    background-size: 100%;
+    background-position-x: 30px;
+    background-repeat: repeat;
+}
+
+    .not_found + .footer {
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+    }
+
+.not_found-ground {
+    position: absolute;
+    background-image: url('../assets/images/png/ground.png');
+    z-index: 1;
+    width: 100vw;
+    height: calc(100vh - 10rem);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 10rem;
+}
+
+.not_found-text {
+    top: 4rem;
+    position: absolute;
+    left: 32%;
+    font-family: "Work Sans";
+    z-index: 2;
+    text-align: center;
+    display: block;
+}
+
+.not_found-msg {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-left: 2rem;
+}
+
+.not_found-err {
+    position: relative;
+    line-height: 12rem;
+    font-size: 14rem;
+    font-weight: 900;
+}
+
+    .not_found-err::after {
+        content: '';
+        display: inline-block;
+        background-image: url('../assets/images/png/robot.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 15rem;
+        position: absolute;
+        right: -8.5rem;
+        height: 110%;
+        z-index: 3;
+        width: 14rem;
+    }
+
+.not_found-link {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 1.5rem;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+}
+
+.not_found-robot {
+    position: absolute;
+    background-image: url('../assets/images/png/robot.png');
+    z-index: 3;
+    background-size: contain;
+    background-repeat: no-repeat;
+    right: 11rem;
+    height: 15rem;
+    top: 6rem;
+    width: 14rem;
+}
+
+@media (min-width: 1280px) {
+    .not_found-ground {
+        margin-top: 10rem;
+    }
+
+    .not_found-text {
+        top: 6rem;
+    }
+
+    .not_found-msg {
+        font-size: 2rem;
+        margin-left: 3rem;
+    }
+
+    .not_found-err {
+        line-height: 16rem;
+        font-size: 18rem;
+    }
+
+    .not_found-saturn {
+        height: 4rem;
+        width: 6rem;
+        top: 4rem;
+        left: 5rem;
+    }
+
+    .not_found-yellow_planet {
+        height: 3rem;
+        width: 3rem;
+        top: 6rem;
+        right: 6rem;
+    }
+
+    .not_found-red_planet {
+        height: 2rem;
+        width: 2rem;
+        top: 3rem;
+        right: 3.5rem;
+    }
+
+    .not_found-robot {
+        top: 9rem;
+        right: 16rem;
+        width: 10rem;
+        height: 18rem;
+    }
+}
+
+@media (min-width: 1420px) {
+    .not_found-ground {
+        margin-top: 10rem;
+    }
+
+    .not_found-text {
+        top: 10rem;
+    }
+
+    .not_found-msg {
+        font-size: 2.3rem;
+    }
+
+    .not_found-err {
+        line-height: 18rem;
+        font-size: 20rem;
+    }
+
+    .not_found-saturn {
+        top: 5rem;
+        left: 6rem;
+        height: 5rem;
+        width: 9rem;
+    }
+
+    .not_found-yellow_planet {
+        top: 7rem;
+        right: 10rem;
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .not_found-red_planet {
+        top: 3rem;
+        right: 5rem;
+        height: 2.2rem;
+        width: 2.2rem;
+    }
+
+    .not_found-robot {
+        width: 14rem;
+        top: 13rem;
+        height: 25rem;
+        right: 37rem;
+        z-index: 3;
+    }
+}

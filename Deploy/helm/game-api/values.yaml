@@ -1,0 +1,61 @@
+replicaCount: 1
+applicationName: rpsls
+
+image:
+  repository: rpslsacr.azurecr.io/game.api
+  tag: prod
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: game-acr-key
+
+service:
+  type: ClusterIP
+  port: 80
+  grpcPort: 81
+
+resources:
+  limits:
+    cpu: "500m"
+  requests:
+    cpu: "100m"
+
+nodeSelector:
+  "kubernetes.io/os": linux
+
+tolerations: []
+
+affinity: {}
+
+env:
+  configmap: true
+  values:
+    - name: PORT
+      value: "80"
+    - name: GRPC_PORT
+      value: "81"
+
+probes:
+  liveness:
+    path: /health
+    initialDelaySeconds: 100
+    periodSeconds: 30
+    port: http
+  readiness:
+    path: /health
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    port: http
+
+
+## Keyvault values (set externally, here for reference)
+
+kv:
+  enabled: false      # True to enable KeyVault (following parameters are needed)
+  secretName: game-api-kv # Kubernetes secret name with login/id of SP
+  deploySecret: true  # True to deploy the secret in the release. False if secret already exists
+#  name: "Name of the Key Vault"
+#  tenant: "Tenant of the Key Vault"
+#  clientid: "Client ID with secret access to Key Vault"
+#  clientsecret: "Client secret"
+#  

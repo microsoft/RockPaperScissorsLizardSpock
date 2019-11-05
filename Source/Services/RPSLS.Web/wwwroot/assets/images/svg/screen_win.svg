@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="664px" height="517px" viewBox="0 0 664 517" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>bg_win</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="78.3129302%" x2="45.3452581%" y2="41.1619036%" id="linearGradient-1">
+            <stop stop-color="#805CC5" offset="0%"></stop>
+            <stop stop-color="#2D1C5F" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-2.9%" y="-4.2%" width="105.8%" height="108.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="6" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="118.971946%" id="linearGradient-3">
+            <stop stop-color="#422081" offset="0%"></stop>
+            <stop stop-color="#130A2A" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bg_win">
+            <rect id="bg" fill="url(#linearGradient-1)" x="0" y="44" width="664" height="473" rx="20"></rect>
+            <rect id="reflect" fill="#4194D7" filter="url(#filter-2)" x="20" y="64" width="624" height="433" rx="16"></rect>
+            <rect id="area" fill="#000000" x="24" y="68" width="616" height="425" rx="16"></rect>
+            <path d="M18,44 L189.005036,38 L194,38 L194,14.9880245 C194,6.71036713 200.715729,0 209,0 L455,0 C463.284271,0 470,6.71036713 470,14.9880245 L470,38 L490.564188,38 L646,43.625 L646,44 L18,44 Z" id="Combined-Shape" fill="url(#linearGradient-3)"></path>
+        </g>
+    </g>
+</svg>

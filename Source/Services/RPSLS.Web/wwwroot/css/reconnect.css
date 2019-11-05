@@ -1,0 +1,41 @@
+﻿.reconnect-modal > div {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 0.8;
+    text-align: center;
+    color: #ffffff;
+}
+
+.reconnect-modal h1 {
+    margin-top: 20px;
+    text-align: center;
+    font-family: "Voyager";
+    font-weight: 300;
+    font-size: 2rem;
+}
+
+.reconnect-modal h2 {
+    color: #fff;
+    text-align: center;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+.reconnect-modal a {
+    color: #fff;
+}
+
+.reconnect-modal a:hover {
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+
+.components-reconnect-hide > div {
+    display: none;
+}

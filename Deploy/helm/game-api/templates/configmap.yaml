@@ -1,0 +1,18 @@
+{{- $name := include "rpsls-game.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "rpsls-game.name" . }}
+    chart: {{ template "rpsls-game.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  APPINSIGHTS_INSTRUMENTATIONKEY:  {{ .Values.inf.appinsights.id }}
+  Namespace: {{ .Release.Namespace }}
+  Challengers__0__Selector:  {{ .Values.inf.challengers.dotnet }}
+  Challengers__1__Selector:  {{ .Values.inf.challengers.node }}
+  Challengers__2__Selector:  {{ .Values.inf.challengers.python }}
+  Challengers__3__Selector:  {{ .Values.inf.challengers.java }}
+  Challengers__4__Selector:  {{ .Values.inf.challengers.php }}

@@ -1,0 +1,43 @@
+﻿@layout MainLayout
+@inherits LayoutComponentBase
+@inject SvgHelper svgHelper
+
+<div class="game-content">
+    <MainTitle Title="@Title" ShowHelp="@ShowHelp"></MainTitle>
+    <div class="console">
+        <div class="console-content">
+            <div class="console-controls">
+                @svgHelper.GetImage($"/assets/images/svg/controls_left.svg")
+            </div>
+            <CascadingValue Value="this">
+                @Body
+            </CascadingValue>
+            <div class="console-controls">
+                @svgHelper.GetImage($"/assets/images/svg/controls_right.svg")
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ShowGithub)
+{
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+}
+
+
+@code
+{
+    string Title { get; set; }
+    bool ShowHelp { get; set; }
+    bool ShowGithub = false;
+
+    public void Initialize(string title, bool withHelp, bool hasToShowGithub = false)
+    {
+        this.Title = title;
+        this.ShowHelp = withHelp;
+        this.ShowGithub = hasToShowGithub;
+        this.StateHasChanged();
+    }
+}

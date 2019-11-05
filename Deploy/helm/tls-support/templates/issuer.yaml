@@ -1,0 +1,14 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: {{ .Values.issuerName }}
+  namespace: default
+  environment: {{ .Values.environment }}
+  app: {{ .Values.applicationName }}
+spec:
+  acme:
+    server: {{ .Values.server }}
+    email: not@used.com
+    privateKeySecretRef:
+      name: {{ .Values.issuerSecretName }}
+    http01: {}

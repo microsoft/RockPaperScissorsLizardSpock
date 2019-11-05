@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node
+  labels:
+    app: {{ template "rpsls-node.name" . }}
+    chart: {{ template "rpsls-node.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "rpsls-node.name" . }}
+    release: {{ .Release.Name }}

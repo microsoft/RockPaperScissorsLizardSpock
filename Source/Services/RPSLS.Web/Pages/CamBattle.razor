@@ -1,0 +1,216 @@
+@layout ConsoleLayout
+@page "/cambattle"
+@attribute [Authorize]
+
+@using Microsoft.Extensions.Options
+@using System.Threading
+@using RPSLS.Web.Config
+
+@inject IGameService Game
+@inject IJSRuntime JsRuntime
+@inject BattleHelper battleHelper
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IOptions<RecognitionSettings> options
+
+    <div class="console-screen">
+        <p class="console-text">@Username</p>
+        <div class="user-picks" id="cam-recorder">
+            @if (battleToBeStarted)
+            {
+                <div class="user-picks-container">
+                    <div class="pick active toplay">
+                        <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
+                            <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
+                            <img class="@(battleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
+                            <img class="base" src="/assets/images/png/hands/user/base.png">
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="cam-recorder-container">
+                    <video width="800" height="600" autoplay></video>
+                    <img src="@guessImage" />
+                </div>
+            }
+        </div>
+        @if (!battleToBeStarted)
+        {
+            <div class="cam-content">
+                <div class="cam-button"><a class="cam-link" href="/battle">turn off webcam</a></div>
+            </div>
+        }
+
+    </div>
+@if (Game.Pick == -1 || battleToBeStarted)
+{
+    <div class="console-vs">
+        <div class="vs-circle">
+            <p class="vs-text">VS</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="console-vs">
+        <div @onclick="async () => await StartBattle()" class="start-battle-circle">
+            <p class="start-battle-text">start</p>
+            <p class="start-battle-text">the battle</p>
+        </div>
+    </div>
+}
+<div class="console-screen">
+    <p class="console-text">@Game.Challenger?.DisplayName</p>
+    <div class="challenger-picks">
+        <div class="challenger-player challenger-picks-container">
+            @if (battleToBeStarted)
+            {
+                <div style="transform: scaleX(-1)" class="pick active toplay">
+                    <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/@Game.Challenger.Name/0.png">
+                        @if (Game.GameResult != null)
+                        {
+                            <img class="@(battleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/@Game.Challenger.Name/@(battleHelper.GetHandIcon(Game.GameResult.ChallengerPick)).png">
+                        }
+                        <img class="base bot" src="/assets/images/png/hands/@Game.Challenger.Name/base.png">
+                    </div>
+                </div>
+            }
+            else
+            {
+                @if (Game.Challenger != null)
+                {
+                    <div class="challenger-image">
+                        <div class="challenger-spiral">
+                            <ul>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <div class="challenger-circle challenger-circle-small"></div>
+                            <div class="challenger-circle challenger-circle-big"></div>
+                        </div>
+                        <img src='@("/assets/images/png/"+Game.Challenger.Name+".png")'>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="label-content">
+        model&nbsp;-&nbsp;<span id="model-label"></span>
+    </div>
+</div>
+
+@code
+{
+    private string Username = "-";
+    private CancellationTokenSource cancellationTokenSource;
+    private string guessImage = "";
+    string userHandToShow = "rock";
+    bool isTwitterUser = false;
+    bool shakeHand = false;
+    bool battleToBeStarted = false;
+
+    [CascadingParameter] ConsoleLayout Layout { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (Game.Challenger == null)
+        {
+            NavigationManager.NavigateTo("/challenger");
+        }
+
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        Username = state.User.Identity.Name;
+        isTwitterUser = state.User.Identity.AuthenticationType == "Twitter";
+
+        Game.Pick = -1;
+        cancellationTokenSource = new CancellationTokenSource();
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Layout.Initialize(title: "the battle", withHelp: true);
+            _ = PrepareWebcam(cancellationTokenSource.Token);
+        }
+
+        await JsRuntime.InvokeVoidAsync("updateModelLabel");
+    }
+
+    private async Task PrepareWebcam(CancellationToken cancellationToken)
+    {
+        await JsRuntime.InvokeVoidAsync("setVideoSource", 320, 240, "#cam-recorder");
+        await Task.Delay(500);
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            var threshold = options.Value.RecognitionThreshold;
+            var resultText = await JsRuntime.InvokeAsync<string>("predict", 320, 240, threshold, "#cam-recorder");
+            var result = MapPick(resultText);
+            var previousImage = guessImage;
+            if (result != -1)
+            {
+                guessImage = result == -1 ? "" : $"/assets/images/png/{MapPick(result)}-guess.png";
+                Game.Pick = result;
+            }
+
+            if (guessImage != previousImage) StateHasChanged();
+            await Task.Delay(500);
+        }
+    }
+
+    private async Task ShakeHand()
+    {
+        battleToBeStarted = true;
+        shakeHand = true;
+
+        await Game.Play(Username, isTwitterUser);
+        await Task.Delay(2000);
+        shakeHand = false;
+        userHandToShow = MapPick(Game.Pick);
+        StateHasChanged();
+        await Task.Delay(2000);
+    }
+
+    async Task StartBattle()
+    {
+        if (Game.Pick == -1) return;
+        cancellationTokenSource.Cancel();
+
+        await ShakeHand();
+        NavigationManager.NavigateTo("/result");
+    }
+
+    private static string MapPick(int pick)
+    {
+        return pick switch
+        {
+            0 => "rock",
+            1 => "paper",
+            2 => "scissors",
+            3 => "lizard",
+            4 => "spock",
+            _ => "unknown"
+        };
+    }
+
+    private static int MapPick(string pick)
+    {
+        if (int.TryParse(pick, out int result))
+            return result;
+
+        return pick.ToLowerInvariant() switch
+        {
+            "rock" => 0,
+            "paper" => 1,
+            "scissors" => 2,
+            "lizard" => 3,
+            "spock" => 4,
+            _ => -1
+        };
+    }
+}

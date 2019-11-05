@@ -1,0 +1,15 @@
+{{- $name := include "rpsls-dotnet.fullname" . -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  labels:
+    app: {{ template "rpsls-dotnet.name" . }}
+    chart: {{ template "rpsls-dotnet.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  APPINSIGHTS_INSTRUMENTATIONKEY:  {{ .Values.inf.appinsights.id }}
+  Predictor_Url: {{ .Values.inf.apiurls.predictor }}

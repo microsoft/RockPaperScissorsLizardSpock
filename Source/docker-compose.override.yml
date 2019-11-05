@@ -1,0 +1,64 @@
+version: "3.4"
+
+services:
+  python.player:
+    ports:
+      - "5003:5000"
+    environment:
+      - PICK_STRATEGY=scissors
+      - PREDICTOR_URL=
+  node.player:
+    ports:
+      - "5002:3000"
+    environment:
+      - PICK_STRATEGY=paper
+      - PREDICTOR_URL=
+  dotnet.player:
+    ports:
+      - "5001:80"
+    environment:
+      - PICK_STRATEGY=rock
+      - PREDICTOR_Url=
+  php.player:
+    ports:
+      - "5004:80"
+    environment:
+      - PICK_STRATEGY=lizard
+      - PREDICTOR_URL=
+  java.player:
+    ports:
+      - "5005:8080"
+    environment:
+      - PICK_STRATEGY=spock
+      - PREDICTOR_URL=
+  game.api:
+    ports:
+      - "5101:80"
+      - "5102:81"
+    environment:
+      - GRPC_PORT=81
+      - Challengers__0__Url=http://dotnet.player/
+      - Challengers__1__Url=http://node.player:3000/
+      - Challengers__2__Url=http://python.player:5000/
+      - Challengers__3__Url=http://java.player:8080/
+      - Challengers__4__Url=http://php.player/
+  web:
+    ports:
+      - "5100:80"
+    environment:
+      - GameManager__Url=http://game.api:81/
+      - GameManager__Grpc__GrpcOverHttp=true
+      - Authentication__Twitter__ConsumerKey=
+      - Authentication__Twitter__ConsumerSecret=
+    volumes:
+      - model-data:/app/wwwroot/model      
+  modeluploader:
+    ports:
+      - "5110:80"
+    environment:
+      - UploadPath=model
+    volumes:
+      - model-data:/app/model
+
+volumes:
+  model-data:

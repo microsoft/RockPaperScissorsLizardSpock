@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option csharp_namespace = "GameApi.Proto";
+
+package GameManagementApi;
+
+service GameManager {
+	rpc GetChallengers (EmptyRequest) returns (ChallengersList);
+	rpc DoPlay (GameRequest) returns (GameResponse);
+}
+
+message EmptyRequest {}
+
+message ChallengerDto {
+	string name = 1;
+	string displayName = 2;
+}
+
+message ChallengersList {
+	int32 count = 1;
+	repeated ChallengerDto challengers = 2;
+}
+
+
+message GameRequest {
+	string challenger = 1;
+	string username = 2;
+    int32 pick = 3;
+    bool twitterLogged = 4;
+}
+
+enum Result
+{
+	Tie = 0;
+	Player = 1;
+	Challenger = 2;
+}
+
+
+message GameResponse {
+	string challenger = 1;
+	int32 challengerPick = 2;
+	string user = 3;
+	int32 userPick = 4;
+	Result result = 5;
+	bool IsValid = 6;
+}
+
