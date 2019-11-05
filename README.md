@@ -10,18 +10,13 @@ The Rock, Paper, Scissors, Lizard, Spock - Sample Application shows a multilangu
 
 Languages used in this application include .NET, Node.js, Python, Java, and PHP.
 
-- Missed the session? [Watch it now](https://aka.ms/DevKeynote)
+- Missed the session? [Watch it now](https://myignite.techcommunity.microsoft.com/sessions/81591).
 
 - Play the game hosted in our Azure Subscription: [https://RockPaperScissorsLizardSpock.dev](https://RockPaperScissorsLizardSpock.dev)
 
 - Get everything that you need to deploy the code and run in your subscription from this repo as well.
 
-## Build Status
-
-| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/Web%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions)  | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/Game%20Manager%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions)  | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/DotnetPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions)  
-| :------------- | :----------: | -----------: |
-| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/NodePlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/PythonPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/JavaPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions)   |   
-[![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/workflows/PhpPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpockIgnite/actions) |
+[![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://myignite.techcommunity.microsoft.com/sessions/81591)
 
 # New to Microsoft Azure?
 
