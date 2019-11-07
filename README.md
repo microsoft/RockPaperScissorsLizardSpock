@@ -10,13 +10,13 @@ The Rock, Paper, Scissors, Lizard, Spock - Sample Application shows a multilangu
 
 Languages used in this application include .NET, Node.js, Python, Java, and PHP.
 
-- Missed the session? [Watch it now](https://myignite.techcommunity.microsoft.com/sessions/81591).
+- Missed the session? [Watch it now](https://aka.ms/devkeynote).
 
 - Play the game hosted in our Azure Subscription: [https://RockPaperScissorsLizardSpock.dev](https://RockPaperScissorsLizardSpock.dev)
 
 - Get everything that you need to deploy the code and run in your subscription from this repo as well.
 
-[![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://myignite.techcommunity.microsoft.com/sessions/81591)
+[![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://aka.ms/devkeynote)
 
 # New to Microsoft Azure?
 
@@ -90,7 +90,7 @@ To run RPSLS you need to create the Azure infrastructure. There are two ways to 
 
 An ARM template is provided so you can create the whole infrastructure required for RPSLS
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOriolBonjoch%2FRPSLS%2Fmaster%2FDeploy%2Farm%2Fdeployment.json"><img src="Documents/Images/deploy-to-azure.png" alt="Deploy to Azure"/></a>
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FRockPaperScissorsLizardSpock%2Fmaster%2FDeploy%2Farm%2Fdeployment.json"><img src="Documents/Images/deploy-to-azure.png" alt="Deploy to Azure"/></a>
 
 - `servicePrincipalId`: Id of the service principal used to create the AKS `Required`
 - `servicePrincipalSecret`: Password of the service principal `Required`
