@@ -88,7 +88,7 @@ To run RPSLS you need to create the Azure infrastructure. There are two ways to 
 
 ### <a name="create-infrastructure-portal"></a>Step 1 - Option 1: Creating infrastructure using Azure Portal
 
-An ARM template is provided so you can create the whole infrastructure requried for RPSLS
+An ARM template is provided so you can create the whole infrastructure required for RPSLS
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FOriolBonjoch%2FRPSLS%2Fmaster%2FDeploy%2Farm%2Fdeployment.json"><img src="Documents/Images/deploy-to-azure.png" alt="Deploy to Azure"/></a>
 
@@ -104,7 +104,7 @@ You can use the CLI to deploy the ARM script. Open a Powershell window from the 
 
 - `-resourceGroup`: Name of the resource group `Required`
 - `-location`: Location of the resource group `Required if resourceGroup does not exist`
-- `-clientId`: Id of the service principal uesd to create the AKS `Optional`
+- `-clientId`: Id of the service principal used to create the AKS `Optional`
 - `-password`: Password of the service principal `Optional`
 
 If service principal credentials are not passed a new one will be created.
@@ -180,7 +180,7 @@ You can **manually use docker-compose** to build and push the images to the ACR.
 
 Once set, you can use `docker-compose build` and `docker-compose push` to build and push the images.
 
-Additionaly there is a Powershell script in the `Deploy` folder, named `Build-Push.ps1`. You can use this script for building and pushing ALL images to ACR. Parameters of this script are:
+Additionally there is a Powershell script in the `Deploy` folder, named `Build-Push.ps1`. You can use this script for building and pushing ALL images to ACR. Parameters of this script are:
 
 - `resourceGroup`: Resource group where ACR is. **Required**.
 - `acrName`: ACR name (not login server). **Required**.
