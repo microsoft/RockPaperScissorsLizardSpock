@@ -65,7 +65,7 @@ if ($tryUseConsumptionPlan) {
     $funcSvcPlan="Y1"
     $hasConsumptionAvailable=$(az functionapp list-consumption-locations --query "[?name=='$location'].name" -o json | ConvertFrom-Json)[0]
     if (-not $hasConsumptionAvailable) {
-        Write-Host "Location $location do NOT support consumption plan." -ForegroundColor Yellow
+        Write-Host "Location $location does NOT support consumption plan." -ForegroundColor Yellow
         if (-not [String]::IsNullOrEmpty($alternativeFuncSvcPlan)) {
             Write-Host "Deploying using App Service Plan $alternativeFuncSvcPlan for FuncApp"
             $funcSvcPlan=$alternativeFuncSvcPlan

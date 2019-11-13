@@ -1,9 +1,10 @@
 Param(
     [parameter(Mandatory=$true)][string]$resourceGroup,
     [parameter(Mandatory=$true)][string]$location,
-    [parameter(Mandatory=$false)][string]$subscription="",
+    [parameter(Mandatory=$true)][string]$subscription="",
     [parameter(Mandatory=$true)][string]$clientId,
     [parameter(Mandatory=$true)][string]$password,
+    [parameter(Mandatory=$true)][string]$tenant,
     [parameter(Mandatory=$false)][string]$tag="latest",
     [parameter(Mandatory=$false)][bool]$deployGlobalSecret=$false
 )
@@ -12,9 +13,11 @@ $gValuesFile="configFile.yaml"
 
 Push-Location $($MyInvocation.InvocationName | Split-Path)
 
-## Connecting kubectl to AKS
-Write-Host "Login in your account" -ForegroundColor Yellow
-# az login
+## Loggin into Azure via cli
+Write-Host "Logging into your account" -ForegroundColor Yellow
+
+## Makes it unattended
+az login --service-principal -u $clientId -p $password --tenant $tenant
 
 if (-not [String]::IsNullOrEmpty($subscription)) {
     Write-Host "Choosing your subscription" -ForegroundColor Yellow
@@ -24,7 +27,12 @@ if (-not [String]::IsNullOrEmpty($subscription)) {
 Push-Location powershell
 
 ## Deploy ARM
-& ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -clientId $clientId -password $password
+if (-not [String]::IsNullOrEmpty($clientId) -and [String]::IsNullOrEmpty($password)) {
+    & ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -clientId $clientId -password $password
+}
+    else {
+        Write-Host "Please provide your clientID and password and run this script again."; exit 1
+    }
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 Write-Host "Retrieving Aks Name" -ForegroundColor Yellow
@@ -45,8 +53,13 @@ if ($deployGlobalSecret) {
 }
 
 # Set up Dev Spaces
-Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
-& ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
+
+### TODO - TRY TO MAKE WORK UNATTENDED 
+# WARNING: Installing Dev Spaces commands...
+# WARNING: A separate window will open to guide you through the installation process.
+
+# Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
+# & ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
 
 # Generate Config
 $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFile)
@@ -54,13 +67,13 @@ $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFi
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 # Build an Push
-& ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
-if (-not $?) { Pop-Location; Pop-Location; exit 1 }
+# & ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
+# if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
-# Deploy images in AKS
-$needToDeployKvSecret= -not $deployGlobalSecret
-$gValuesLocation=$(./Join-Path-Recursively.ps1 "__values", $gValuesFile)
-& ./Deploy-Images-Aks.ps1 -kvPassword $password -aksName $aksName -resourceGroup $resourceGroup -charts "*" -valuesFile $gValuesLocation -tag $tag -deployKvSecret $needToDeployKvSecret
+# # Deploy images in AKS
+# $needToDeployKvSecret= -not $deployGlobalSecret
+# $gValuesLocation=$(./Join-Path-Recursively.ps1 "__values", $gValuesFile)
+# & ./Deploy-Images-Aks.ps1 -kvPassword $password -aksName $aksName -resourceGroup $resourceGroup -charts "*" -valuesFile $gValuesLocation -tag $tag -deployKvSecret $needToDeployKvSecret
 
 Pop-Location
 Pop-Location
