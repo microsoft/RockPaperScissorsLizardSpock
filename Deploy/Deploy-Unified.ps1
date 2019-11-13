@@ -24,10 +24,11 @@ if (-not [String]::IsNullOrEmpty($subscription)) {
     az account set --subscription $subscription
 }
 
-Push-Location powershell
+#TODO need to fix for various devops tools
+Push-Location _RPSLS-Docker container-CI/drop/powershell
 
 ## Deploy ARM
-if (-not [String]::IsNullOrEmpty($clientId) -and [String]::IsNullOrEmpty($password)) {
+if (-not [String]::IsNullOrEmpty($clientId) -and -not [String]::IsNullOrEmpty($password)) {
     & ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -clientId $clientId -password $password
 }
     else {
