@@ -207,7 +207,7 @@ To just push the images (without building them before):
 You need to use Powershell and run `./Deploy-Images-Aks.ps1`. A typical call is:
 
 ```ps
-.\Deploy-Image-Aks.ps1 -resourceGroup $resourceGroup -aksName $myAks -acrName $myAcr -valuesFile $myValuesFilePath
+.\Deploy-Images-Aks.ps1 -resourceGroup $resourceGroup -aksName $myAks -acrName $myAcr -valuesFile $myValuesFilePath
 ```
 
 **Note**: Read the [documentation of this script](./Deploy/powershell/readme.md) for a list of all parameters.
