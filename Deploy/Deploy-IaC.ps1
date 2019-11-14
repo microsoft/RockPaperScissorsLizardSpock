@@ -49,13 +49,8 @@ if ($deployGlobalSecret) {
 }
 
 # Set up Dev Spaces
-
-### TODO - TRY TO MAKE WORK UNATTENDED 
-# WARNING: Installing Dev Spaces commands...
-# WARNING: A separate window will open to guide you through the installation process.
-
-# Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
-# & ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
+Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
+& ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
 
 Pop-Location
 Pop-Location
