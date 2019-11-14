@@ -1,3 +1,26 @@
+---
+page_type: sample
+name: "Rock, Paper, Scissors, Lizard, Spock"
+urlFragment: azure-rock-paper-scissors
+description: "Rock, Paper, Scissors, Lizard, Spock is the geek version of the classic Rock, Paper, Scissors game."
+languages:
+- csharp
+- powershell
+- html
+- css
+- php
+- python
+- javascript
+- java
+products:
+- azure-cosmos-db
+- azure-kubernetes-service
+- dotnet-core
+- azure-cognitive-services
+- vs
+- vscode
+---
+
 # Rock, Paper, Scissors, Lizard, Spock - Sample Application
 
 We are happy to announce the release of Rock, Paper, Scissors, Lizard, Spock sample application running in Azure presented at [Microsoft Ignite 2019](https://aka.ms/DevKeynote) by [Scott Hanselman](https://www.hanselman.com) and friends. 
