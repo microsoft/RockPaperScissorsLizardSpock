@@ -43,9 +43,10 @@ Write-Host "The name of your AKS: $aksName" -ForegroundColor Yellow
 Write-Host "Retrieving credentials" -ForegroundColor Yellow
 az aks get-credentials -n $aksName -g $resourceGroup
 
+# -- will use helm3 #
 # Add Tiller
-& ./Add-Tiller.ps1
-if (-not $?) { Pop-Location; Pop-Location; exit 1 }
+# & ./Add-Tiller.ps1
+# if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 if ($deployGlobalSecret) {
     # Deploys the global secret to access keyvault. Secret can also be installed
@@ -68,8 +69,8 @@ $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFi
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 # Build an Push
-& ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
-if (-not $?) { Pop-Location; Pop-Location; exit 1 }
+# & ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
+# if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 # Deploy images in AKS
 $needToDeployKvSecret= -not $deployGlobalSecret
