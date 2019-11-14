@@ -3,49 +3,46 @@
 @attribute [Authorize]
 
 @inject IGameService Game
+@inject SvgHelper svgHelper
 @inject BattleHelper battleHelper
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-    <div class="console-screen">
-        <p class="console-text">@Username</p>
-        <div class="user-picks">
-            <div class="user-picks-container">
-                @if (battleToBeStarted)
-                {
-                    <div class="pick active toplay">
-                        <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
-                            <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
-                            <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
-                            <img class="base" src="/assets/images/png/hands/user/base.png">
-                        </div>
+<div class="console-screen">
+    <p class="console-text">@Username</p>
+    <div class="user-picks">
+        <div class="user-picks-container">
+            @if (battleToBeStarted)
+            {
+                <div class="pick active toplay">
+                    <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
+                        <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
+                        <img class="base" src="/assets/images/png/hands/user/base.png">
                     </div>
-                }
-                else
+                </div>
+            }
+            else
+            {
+                @foreach (var pick in picks)
                 {
-                    @foreach (var pick in picks)
+                    var active = pick.Value == Game.Pick;
+                    <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
+                        <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Image+".png")'></div>
+                        <p class="pick-text">@pick.Text</p>
+                    </div>
+                    @if (pick.BreakAfter)
                     {
-                        var active = pick.Value == Game.Pick;
-                        <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
-                            <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Image+".png")'></div>
-                            <p class="pick-text">@pick.Text</p>
-                        </div>
-                        @if (pick.BreakAfter)
-                        {
-                            <div class="break"></div>
-                        }
+                        <div class="break"></div>
                     }
                 }
-            </div>
+            }
         </div>
-
-        @if (!battleToBeStarted)
-        {
-            <div class="cam-content">
-                <div class="cam-button"><a class="cam-link" href="/cambattle">use webcam</a></div>
-            </div>
-        }
     </div>
+    <div class="cam-content">
+        <div class="cam-button"><a class="cam-link" href="/cambattle">use webcam</a></div>
+    </div>
+</div>
 
 @if (Game.Pick == -1 || battleToBeStarted)
 {
@@ -85,18 +82,7 @@ else
             {
                 @if (Game.Challenger != null)
                 {
-                    <div class="challenger-image">
-                        <div class="challenger-spiral">
-                            <ul>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                            <div class="challenger-circle challenger-circle-big"></div>
-                            <div class="challenger-circle challenger-circle-small"></div>
-                        </div>
-                        <img src='@("/assets/images/png/"+Game.Challenger.Name+".png")'>
-                    </div>
+                    <img src='@("/assets/images/png/"+Game.Challenger.Name+".png")'>
                 }
             }
         </div>
@@ -110,7 +96,7 @@ else
 
     string Username = "-";
     bool battleToBeStarted = false;
-    string userHandToShow = "rock";
+    string userHandToShow = "";
     bool shakeHand = false;
     RPSLSViewModel pickedToPlay;
     RPSLSViewModel[] picks;

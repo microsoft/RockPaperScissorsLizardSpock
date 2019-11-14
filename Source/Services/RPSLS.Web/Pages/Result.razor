@@ -18,9 +18,9 @@
                 <p class="pick-text">@MapPick(result.UserPick)</p>
 
                 <p class="pick-text text-result">@resultMessage</p>
-                @if (userIsWinner || userIsLoser)
+                @if (userIsWinner)
                 {
-                    <p class="pick-text text-message">@CreateMessage(result.UserPick, result.ChallengerPick)</p>
+                    <p class="pick-text text-message">@MapPick(result.UserPick) @GetAction() @MapPick(result.ChallengerPick)</p>
                 }
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="challenger-result challenger-picks-container">
             @if (result.IsValid)
             {
-                <div class="challenger-picks-items">
+                <div>
                     <div class="opponent-hand">
                         <img src='@("/assets/images/png/hands/" + result.Challenger + "/" + result.ChallengerPick + ".png")' />
                     </div>
@@ -52,8 +52,8 @@
             else if (error != null)
             {
                 <div class="opponent-hand-error">
-                    <img src='@("/assets/images/png/" + error.Image)'>
                     <h2>@error.Text</h2>
+                    <img src='@("/assets/images/png/" + error.Image)'>
                 </div>
             }
         </div>
@@ -70,7 +70,6 @@
     ResultDto result = new ResultDto();
     string resultMessage = null;
     bool userIsWinner = false;
-    bool userIsLoser = false;
     string resultStyle = "";
     ChallengerErrorViewModel error = null;
     ChallengerErrorViewModel[] errors = new ChallengerErrorViewModel[]
@@ -80,7 +79,7 @@
         new ChallengerErrorViewModel() { Name = "dotnet", Text = "how did I end here?", Image = "node-error.png" },
         new ChallengerErrorViewModel() { Name = "java", Text = "how did I end here?", Image = "node-error.png" },
         new ChallengerErrorViewModel() { Name = "php", Text = "how did I end here?", Image = "node-error.png" }
-            };
+        };
 
     [CascadingParameter] ConsoleLayout Layout { get; set; }
 
@@ -88,7 +87,7 @@
     {
         if (firstRender)
         {
-            Layout.Initialize(title: "results", withHelp: true, hasToShowGithub: true);
+            Layout.Initialize(title: "the battle", withHelp: true, hasToShowGithub: true);
         }
     }
 
@@ -103,10 +102,7 @@
         result = Game.GameResult;
 
         resultMessage = CreateResult(result.Result);
-
         userIsWinner = result.Result == 1;
-        userIsLoser = result.Result == 2;
-
         resultStyle = GetResultClass(result.Result);
         error = errors.FirstOrDefault(c => c.Name == result.Challenger);
     }
@@ -144,6 +140,16 @@
         };
     }
 
+    private string GetAction()
+    {
+        if (userIsWinner)
+        {
+            return MapAction(result.UserPick, result.ChallengerPick);
+        };
+
+        return MapAction(result.ChallengerPick, result.UserPick);
+    }
+
     private static string MapAction(int winner, int loser)
     {
         return winner switch
@@ -155,18 +161,5 @@
             4 => loser == 0 ? "vaporizes" : "smashes",
             _ => "ties"
         };
-    }
-
-    private string CreateMessage(int userPick, int challengerPick)
-    {
-        var userPickText = MapPick(userPick);
-        var challengerPickText = MapPick(challengerPick);
-
-        if(userIsWinner)
-        {
-            return $"{userPickText} {MapAction(result.UserPick, result.ChallengerPick)} {challengerPickText}";
-        }
-
-        return $"{challengerPickText} {MapAction(result.ChallengerPick, result.UserPick)} {userPickText}";
     }
 }

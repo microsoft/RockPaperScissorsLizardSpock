@@ -79,18 +79,18 @@
     bottom: 2vh;
 }
 
-.lang-card:first-child,
-.lang-card:last-child {
+.lang-card.python,
+.lang-card.php {
+    margin-top: -8vw;
+}
+
+.lang-card.java,
+.lang-card.node {
     margin-top: -10vw;
 }
 
-.lang-card:not(:first-child):not(:last-child) {
+.lang-card.dotnet {
     margin-top: -12vw;
-}
-
-/* Middle in a set of 5 elements */
-.lang-card:nth-child(3):nth-last-child(3) {
-    margin-top: -13vw;
 }
 
 .challenger-name {

@@ -1,9 +1,9 @@
 from flask.views import View
-from flask import request, current_app as app
+from flask import request
 import os
+import logging
 
 from .rpsls import RPSLS
-from .rpsls_dto import get_rpsls_dto_json
 from .strategies import fixed_strategy, random_strategy, iterative_strategy
 from .proxy_predictor import get_pick_predicted
 
@@ -23,17 +23,13 @@ class Picker(View):
 
         if(username != ''):
             try:
-                predicted_result = get_pick_predicted(username)
-                app.logger.info(f'Against user [{username}] predictor played {predicted_result.name}')
-                return get_rpsls_dto_json(predicted_result)
+                return get_pick_predicted(username)
             except Exception as ex:
-                app.logger.error(ex)
+                logging.error(ex)
 
         strategy = self.get_strategy()
-        pick = strategy_map[strategy]
-        result = pick()
-        app.logger.info(f'Against some user, strategy {strategy} played {result.name}')
-        return get_rpsls_dto_json(result)
+        pick = strategy_map[strategy]        
+        return pick()
 
     @staticmethod
     def get_strategy():

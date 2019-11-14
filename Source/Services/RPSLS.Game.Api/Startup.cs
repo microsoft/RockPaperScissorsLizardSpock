@@ -26,7 +26,6 @@ namespace RPSLS.Game.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddApplicationInsightsTelemetry();
             services.AddControllers();
             services.AddHealthChecks();
             services.AddScoped<ResultsDao>(sp => new ResultsDao(Configuration["cosmos-constr"], sp.GetService<ILoggerFactory>()));

@@ -15,10 +15,10 @@ body {
 
 .content {
     font-family: "Segoe UI", sans-serif;
-    background-image: url(../assets/png/planets_home.png);
+    background-image: url(../assets/png/planets_home.png), url(../assets/png/stars.png);
     background-size: 100%;
-    background-position-x: 30px;
-    background-repeat: no-repeat;
+    background-position-x: 30px, center, center;
+    background-repeat: no-repeat, repeat;
     min-height: 100vh;
 }
 
@@ -44,7 +44,7 @@ body {
         font-family: "Work Sans", sans-serif;
         font-weight: 300;
         font-size: 2rem;
-        margin: 30px 0;
+        margin: 10px 0;
         align-self: center;
     }
 

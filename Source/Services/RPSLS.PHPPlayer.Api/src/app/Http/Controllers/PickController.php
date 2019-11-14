@@ -26,18 +26,18 @@ class PickController extends BaseController
     public function index() 
     {
         $username = Request::get('username', '');
+
         if($username != '') {
             try {
                 $predicted = $this->_predictor->getPickPredicted($username);
-                Log::info('Against user ['.$username.'] predictor played '.$predicted->text);
                 return response()->json($predicted);
-            } catch(\Throwable $e) {
-                Log::error('Predictor had a problem');
+            }
+            catch(Exception $e) {
+                Log::error($e->getMessage());
             }
         }
 
         $response = $this->_context->getChoice();
-        Log::info('Against some user, strategy'.$this->_strategy.' played '.$response->text);
         return response()->json($response);
     }
 }

@@ -37,9 +37,9 @@ services:
       - "5102:81"
     environment:
       - GRPC_PORT=81
-      - Challengers__0__Url=http://dotnet.player/
+      - Challengers__0__Url=http://python.player:5000/
       - Challengers__1__Url=http://node.player:3000/
-      - Challengers__2__Url=http://python.player:5000/
+      - Challengers__2__Url=http://dotnet.player/
       - Challengers__3__Url=http://java.player:8080/
       - Challengers__4__Url=http://php.player/
   web:

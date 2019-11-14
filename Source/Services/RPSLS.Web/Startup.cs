@@ -25,7 +25,6 @@ namespace RPSLS.Web
         {
             services.AddHttpContextAccessor();
             services.AddHealthChecks();
-            services.AddApplicationInsightsTelemetry();
             services.AddRazorPages();
             services.AddServerSideBlazor(opt =>
             {

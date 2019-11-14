@@ -39,12 +39,12 @@
             <g id="controls_left" transform="translate(1764.000000, 426.000000)">
                 <g id="button-on">
                     <circle id="Oval" fill="#130532" cx="23" cy="23" r="16"></circle>
-                    <circle id="Oval" class="button-illuminated-1" fill="#C12980" cx="23" cy="23" r="12"></circle>
+                    <circle id="Oval" fill="#C12980" cx="23" cy="23" r="12"></circle>
                     <circle id="Oval" fill="#C02980" opacity="0.527250744" filter="url(#filter-1)" cx="23" cy="23" r="23"></circle>
                 </g>
                 <g id="button-on-copy" transform="translate(41.000000, 40.000000)">
                     <circle id="Oval" fill="#130532" cx="23" cy="23" r="16"></circle>
-                    <circle class="button-illuminated-1" id="Oval" fill="#C12980" cx="23" cy="23" r="12"></circle>
+                    <circle id="Oval" fill="#C12980" cx="23" cy="23" r="12"></circle>
                     <circle id="Oval" fill="#C02980" opacity="0.527250744" filter="url(#filter-2)" cx="23" cy="23" r="23"></circle>
                 </g>
                 <g id="Group-3" transform="translate(10.000000, 103.000000)">
@@ -57,14 +57,14 @@
                     </g>
                     <g id="slider" transform="translate(39.000000, 0.000000)">
                         <rect id="Rectangle" fill="#000000" x="13" y="0" width="5" height="89" rx="2.5"></rect>
-                        <g id="Rectangle" class="move-control-left">
+                        <g id="Rectangle">
                             <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
                             <use fill="#D9007D" fill-rule="evenodd" xlink:href="#path-5"></use>
                         </g>
                     </g>
                     <g id="slider" transform="translate(78.000000, 0.000000)">
                         <rect id="Rectangle" fill="#000000" x="13" y="0" width="5" height="89" rx="2.5"></rect>
-                        <g id="Rectangle" class="move-control-up">
+                        <g id="Rectangle">
                             <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
                             <use fill="#D9007D" fill-rule="evenodd" xlink:href="#path-7"></use>
                         </g>
@@ -72,18 +72,18 @@
                 </g>
                 <g id="button-panel" transform="translate(10.000000, 216.000000)">
                     <rect id="Rectangle" fill="#130532" x="0" y="0" width="109" height="124" rx="11"></rect>
-                    <rect id="Rectangle" class="button-fill-1" fill="#7A56C9" x="8" y="12" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle" fill="#7A56C9" x="8" y="12" width="26" height="20" rx="4"></rect>
                     <rect id="Rectangle-Copy-3" fill="#7A56C9" opacity="0.403204055" x="8" y="40" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-6" class="button-fill-3" fill="#7A56C9" x="8" y="68" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-9" class="button-fill-1" fill="#7A56C9" x="8" y="96" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy" class="button-fill-2" fill="#7A56C9" opacity="0.402064732" x="42" y="12" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-4" class="button-fill-1" fill="#7A56C9" x="42" y="40" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-6" fill="#7A56C9" x="8" y="68" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-9" fill="#7A56C9" x="8" y="96" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy" fill="#7A56C9" opacity="0.402064732" x="42" y="12" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-4" fill="#7A56C9" x="42" y="40" width="26" height="20" rx="4"></rect>
                     <rect id="Rectangle-Copy-7" fill="#7A56C9" x="42" y="68" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-10" class="button-fill-2" fill="#7A56C9" opacity="0.402064732" x="42" y="96" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-2" class="button-fill-3" fill="#7A56C9" x="75" y="12" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-5" class="button-fill-2" fill="#7A56C9" x="75" y="40" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-10" fill="#7A56C9" opacity="0.402064732" x="42" y="96" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-2" fill="#7A56C9" x="75" y="12" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-5" fill="#7A56C9" x="75" y="40" width="26" height="20" rx="4"></rect>
                     <rect id="Rectangle-Copy-8" fill="#7A56C9" opacity="0.397065662" x="75" y="68" width="26" height="20" rx="4"></rect>
-                    <rect id="Rectangle-Copy-11" class="button-fill-3"  fill="#7A56C9" x="75" y="96" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-11" fill="#7A56C9" x="75" y="96" width="26" height="20" rx="4"></rect>
                 </g>
                 <g id="Group" transform="translate(87.000000, 366.000000)">
                     <ellipse id="Oval" fill="#130532" cx="16" cy="16.4848485" rx="16" ry="15.5151515"></ellipse>

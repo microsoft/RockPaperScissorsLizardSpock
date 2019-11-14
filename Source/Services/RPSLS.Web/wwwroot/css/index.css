@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 4rem;
+  padding-bottom: 80px;
 }
 
 .login-section {
@@ -44,7 +44,7 @@
   color: #ffffff;
   font-family: "Work Sans", sans-serif;
   font-weight: 300;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin: 0;
   align-self: center;
 }
@@ -123,7 +123,7 @@ form {
   }
 
   .login-section .subtitle {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   .custom-button {

@@ -37,7 +37,6 @@ namespace RPSLS.DotNetPlayer.API.Controllers
                 try
                 {
                     var prediction = await _predictorProxy.GetPickPredicted(username);
-                    _logger.LogInformation($"Against user [{username}] predictor played {prediction.Text}");
                     return prediction;
                 }
                 catch (System.Exception ex)
@@ -50,7 +49,6 @@ namespace RPSLS.DotNetPlayer.API.Controllers
             _strategyFactory.SetDefaultStrategy(envStrategy);
             var strategy = _strategyFactory.GetStrategy();
             var result = strategy.GetChoice();
-            _logger.LogInformation($"Against some user, strategy {envStrategy} played {result.Text}");
             return result;
         }
     }

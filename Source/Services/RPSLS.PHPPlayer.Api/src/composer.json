@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": "^7.2",
-        "guzzlehttp/guzzle": "^6.4",
         "laravel/lumen-framework": "^6.0"
     },
     "require-dev": {

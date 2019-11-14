@@ -24,7 +24,6 @@ namespace RPSLS.ModelUploader.Web
         {
             services.AddOptions();
             services.Configure<Settings>(Configuration);
-            services.AddApplicationInsightsTelemetry();
             services.AddRazorPages();
         }
 
