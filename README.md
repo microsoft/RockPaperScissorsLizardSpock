@@ -68,9 +68,7 @@ Learn more about it with [Microsoft Learn - Introduction to Azure](https://docs.
 
 # <a name="diagram"></a>Application Diagram
 
-<p align="center">
-<img src="Documents/Images/RPSLS-Diagram.png"/>
-</p>
+![](Documents/Images/RPSLS-Diagram.png)
 
 # <a name="getting-started"></a>Getting Started
 
