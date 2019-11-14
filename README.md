@@ -17,7 +17,7 @@ products:
 - dotnet-core
 - azure-cognitive-services
 - vs
-- vscode
+- vs-code
 ---
 
 # Rock, Paper, Scissors, Lizard, Spock - Sample Application
