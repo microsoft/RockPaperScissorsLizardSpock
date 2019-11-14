@@ -7,7 +7,6 @@ languages:
 - csharp
 - powershell
 - html
-- css
 - php
 - python
 - javascript
