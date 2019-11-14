@@ -4,19 +4,15 @@ applicationName: rpsls
 image:
   repository: rpslsacr.azurecr.io/web
   tag: prod
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   uploaderRepository: rpslsacr.azurecr.io/modeluploader
   uploaderTag: prod
 
 imagePullSecrets:
   - name: web-acr-key
 
-# Local uploader path where models are stored
 uploaderModelPathMount: /app/model
-# Local web path where models are deployed.
 webModelPathMount: /app/wwwroot/model
-# If uploader is enabled 
-uploaderEnabled: true
 
 service:
   type: ClusterIP

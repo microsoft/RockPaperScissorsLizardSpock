@@ -33,9 +33,9 @@ env:
 #    - rock
 #    - paper
 #    - scissors
-#    - lizard
+    - lizard
 #    - spock
-    - random
+#    - random
 #    - iterative
 
 probes:

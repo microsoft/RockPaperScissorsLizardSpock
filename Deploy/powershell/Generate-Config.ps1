@@ -79,7 +79,6 @@ else {
     }
 }
 
-
 Write-Host "=======================================" -ForegroundColor Yellow
 Write-Host "RG: $subscription/$resourceGroup" -ForegroundColor Yellow
 if (-not $useCustomRegistry) {
@@ -129,7 +128,7 @@ else {
     $tokens.acrPassword=$registryPassword
 }
 
-$aks=$(az aks list -g $resourceGroup --query "[0]" --subscription $subscription | ConvertFrom-Json)
+$aks=$(az aks list -g $resourceGroup --query "[0]" --subscription $subscription -o json | ConvertFrom-Json)
 
 if ([String]::IsNullOrEmpty($aksHost)) {
     # get the AKS hostname
@@ -152,7 +151,7 @@ else {
 $tokens.tlsSecretName=$tlsSecretName
 
 # get the Key Vayult name, tenant and clientid
-$kv=$(az keyvault list -g $resourceGroup --query "[0]" --subscription $subscription  | ConvertFrom-Json)
+$kv=$(az keyvault list -g $resourceGroup --query "[0]" --subscription $subscription -o json | ConvertFrom-Json)
 $tokens.kvName = $kv.name
 $tokens.kvTenant = $kv.properties.tenantId
 if (-not $kvClientId) {

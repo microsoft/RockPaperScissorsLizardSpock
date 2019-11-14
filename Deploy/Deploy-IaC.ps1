@@ -48,9 +48,9 @@ if ($deployGlobalSecret) {
     kubectl create secret generic game-api-kv --from-literal clientid=$clientId --from-literal clientsecret=$password --type=azure/kv
 }
 
-# Set up Dev Spaces
-Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
-& ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
+# # Set up Dev Spaces
+# Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
+# & ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
 
 Pop-Location
 Pop-Location

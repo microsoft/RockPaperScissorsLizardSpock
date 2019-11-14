@@ -12,4 +12,4 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   APPLICATION_INSIGHTS_IKEY:  {{ .Values.inf.appinsights.id }}
-  PREDICTOR_URL: {{ .Values.inf.apiurls.predictor }}
+  

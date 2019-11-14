@@ -30,12 +30,12 @@ env:
   configmap: true
   values: {}
   strategies:   # Strategies to install. Each strategy is one deployment with one pod with the PICK_STRATEGY env var configured
-#    - rock
+    - rock
 #    - paper
 #    - scissors
 #    - lizard
 #    - spock
-    - random
+#    - random
 #    - iterative
 
 probes:

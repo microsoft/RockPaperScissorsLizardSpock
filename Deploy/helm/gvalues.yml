@@ -1,0 +1,46 @@
+# Template for generating a gvalues file
+
+inf:
+  appinsights:
+    id: "insert-app-insights-id-here"
+  ingress:
+    dotnet:
+      path: /dotnet-player
+    node:
+      path: /node-player
+    python:
+      path: /python-player
+    php:
+      path: /php-player
+    java:
+      path: /java-player
+    game:
+      path: /game-manager
+    web:
+      path: /
+  apiurls:
+    gameapiurl: http://game-manager:81
+  challengers:
+    dotnet: "app=dotnet-player"
+    node: "app=node-player"
+    python: "app=python-player"
+    php: "app=php-player"
+    java: "app=java-player"
+
+# Shared ingress configurations
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+# Autoscaling global settings
+hpa:
+  activated: false # set to true to deploy HPA for services
+  cpu:
+    averageUtilization: 40 
+  minReplicas: 1
+  maxReplicas: 40

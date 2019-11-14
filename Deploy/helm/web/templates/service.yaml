@@ -14,12 +14,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-{{- if .Values.uploaderEnabled }}
     - port: {{ .Values.service.uploaderPort }}
       targetPort: uploader
       protocol: TCP
       name: uploader
-{{- end }}
   selector:
     app: {{ template "rpsls-web.name" . }}
     release: {{ .Release.Name }}

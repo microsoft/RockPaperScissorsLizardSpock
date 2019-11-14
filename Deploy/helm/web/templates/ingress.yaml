@@ -16,9 +16,7 @@ metadata:
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
-{{- if .Values.uploaderEnabled }}
     nginx.ingress.kubernetes.io/proxy-body-size: 10m
-{{- end }}
 spec:
 {{- if .Values.ingress.tlsEnabled }}
   tls:
@@ -39,11 +37,9 @@ spec:
           backend:
             serviceName: web
             servicePort: http
-{{- if $.Values.uploaderEnabled }}
         - path: {{ $uploaderPath }}
           backend:
             serviceName: web
-            servicePort: uploader
-{{- end }}
+            servicePort: uploader             
   {{- end }}
 {{- end }}
