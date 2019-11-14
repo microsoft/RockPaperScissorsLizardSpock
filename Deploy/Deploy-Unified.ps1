@@ -25,7 +25,7 @@ if (-not [String]::IsNullOrEmpty($subscription)) {
 }
 
 #TODO need to fix for various devops tools
-Push-Location _RPSLS-Docker container-CI/drop/powershell
+Push-Location powershell
 
 ## Deploy ARM
 if (-not [String]::IsNullOrEmpty($clientId) -and -not [String]::IsNullOrEmpty($password)) {
@@ -68,13 +68,13 @@ $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFi
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 # Build an Push
-# & ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
-# if (-not $?) { Pop-Location; Pop-Location; exit 1 }
+& ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
+if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
-# # Deploy images in AKS
-# $needToDeployKvSecret= -not $deployGlobalSecret
-# $gValuesLocation=$(./Join-Path-Recursively.ps1 "__values", $gValuesFile)
-# & ./Deploy-Images-Aks.ps1 -kvPassword $password -aksName $aksName -resourceGroup $resourceGroup -charts "*" -valuesFile $gValuesLocation -tag $tag -deployKvSecret $needToDeployKvSecret
+# Deploy images in AKS
+$needToDeployKvSecret= -not $deployGlobalSecret
+$gValuesLocation=$(./Join-Path-Recursively.ps1 "__values", $gValuesFile)
+& ./Deploy-Images-Aks.ps1 -kvPassword $password -aksName $aksName -resourceGroup $resourceGroup -charts "*" -valuesFile $gValuesLocation -tag $tag -deployKvSecret $needToDeployKvSecret
 
 Pop-Location
 Pop-Location
