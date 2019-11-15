@@ -53,7 +53,7 @@ jobs:
       shell: pwsh
       run: |
         az extension add --name application-insights
-        Deploy/powershell/Generate-Config.ps1 -gvaluesTemplate gvalues.template.gh -resourceGroup ${{ secrets.RESOURCE_GROUP }} -outputFile _values-gh.yaml -twitterKey ${{ secrets.TWITTER_KEY }} -twitterSecret ${{ secrets.TWITTER_SECRET }} -sslSupport prod -aksHost ${{ secrets.AKS_HOST }} -googleanalytics ${{ secrets.GOOGLE_ANALYTICS }} -configScale y -resourceGroupAcr ${{ secrets.RESOURCE_GROUP_ACR }}
+        Deploy/powershell/Generate-Config.ps1 -gvaluesTemplate gvalues.template.gh -resourceGroup ${{ secrets.RESOURCE_GROUP }} -outputFile _values-gh.yaml -twitterKey ${{ secrets.TWITTER_KEY }} -twitterSecret ${{ secrets.TWITTER_SECRET }} -sslSupport custom -aksHost ${{ secrets.AKS_HOST }} -googleanalytics ${{ secrets.GOOGLE_ANALYTICS }} -configScale y -resourceGroupAcr ${{ secrets.RESOURCE_GROUP_ACR }}
     - name: Install Helm Chart
       run: |
         helm repo update
