@@ -1,0 +1,67 @@
+name: PRFlow NodePlayerAPI
+
+on: 
+  pull_request:
+    branches:
+    - master
+    paths:
+    - Source/Services/RPSLS.NodePlayer.Api/**
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+    steps:
+    
+    - uses: actions/checkout@master
+    
+    - uses: greenie-msft/container-actions/docker-login@master
+      with:
+        login-server: ${{ secrets.CONTAINER_REGISTRY }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+    - run: |
+        docker build Source/Services/RPSLS.NodePlayer.Api/ -t ${{ secrets.CONTAINER_REGISTRY }}/node-player:$GITHUB_SHA
+        docker push ${{ secrets.CONTAINER_REGISTRY }}/node-player:$GITHUB_SHA
+      
+    - uses: azure/k8s-actions/aks-set-context@master
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ secrets.CLUSTER_NAME }}
+        resource-group: ${{ secrets.RESOURCE_GROUP }}
+                
+    - name: Create child namespaces and add Dev Spaces labels
+      run:  |
+        if [ -n "$(kubectl get namespace $GITHUB_HEAD_REF --ignore-not-found -o name)" ]; then exit 0; fi
+        kubectl create namespace $GITHUB_HEAD_REF
+        kubectl label namespace $GITHUB_HEAD_REF azds.io/parent-space=${{ secrets.MASTER_SPACE }} 
+        kubectl label namespace $GITHUB_HEAD_REF azds.io/space=true
+        kubectl label namespace $GITHUB_HEAD_REF azds.io/pull-request-space=true
+        
+    - uses: azure/k8s-actions/k8s-create-secret@master
+      with:
+        namespace: ${{ github.head_ref }}
+        container-registry-url: ${{ secrets.CONTAINER_REGISTRY }}
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ secrets.IMAGE_PULL_SECRET }}
+        
+    - name: Helm Install PR
+      run: |
+        cd Deploy/helm  
+        helm init --upgrade --wait 
+        helm upgrade --install --namespace $GITHUB_HEAD_REF rpsls-node-$GITHUB_HEAD_REF node-player \
+          -f gvalues.yml \
+          --set image.repository=${{ secrets.CONTAINER_REGISTRY }}/node-player \
+          --set image.tag=$GITHUB_SHA \
+          --set imageCredentials.registry=${{ secrets.CONTAINER_REGISTRY }} \
+          --set imageCredentials.username=${{ secrets.REGISTRY_USERNAME }} \
+          --set imageCredentials.password=${{ secrets.REGISTRY_PASSWORD }} \
+          --set ingress.hosts[0]=$GITHUB_HEAD_REF.s.${{ secrets.HOST }}
+           
+    - uses: azure/dev-spaces/actions/add-review-url@Releases/v1             
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }} 
+        host: ${{ secrets.HOST }}     
+ 
+ 
