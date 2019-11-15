@@ -170,7 +170,10 @@ $funcname="NextMove"
 
 Write-Host "Found funcapp $($funcapp.name) in RG $resourceGroup"
 
-$funckeys=$(az rest --method post --uri "https://management.azure.com$($funcapp.id)/functions/$funcname/listKeys?api-version=2018-02-01" -o json --subscription $subscription | ConvertFrom-Json)
+# bug in code - https://github.com/microsoft/RockPaperScissorsLizardSpock/issues/3
+# $funckeys=$(az rest --method post --uri "https://management.azure.com$($funcapp.id)/functions/$funcname/listKeys?api-version=2018-02-01" -o json --subscription $subscription | ConvertFrom-Json)
+$funckeys=$(az rest --method post --uri "https://management.azure.com$($funcapp.id)/host/default/listKeys?api-version=2018-02-01" -o json --subscription $subscription)
+
 $tokens.predictorbaseurl="https://$($funcapp.defaultHostName)/api/challenger/move?code=$($funckeys.default)"
 
 Write-Host "===========================================================" -ForegroundColor Yellow
