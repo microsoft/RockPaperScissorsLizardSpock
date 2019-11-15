@@ -1,6 +1,6 @@
 const RPSLSChoices = [
     'rock',
-    'papr',
+    'paper',
     'scissors',
     'lizard',
     'spock',
