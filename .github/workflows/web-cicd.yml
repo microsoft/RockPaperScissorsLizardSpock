@@ -1,0 +1,70 @@
+name: Web CI/CD
+
+on: 
+  push:
+    paths:
+    - Source/Services/RPSLS.Web/**
+    - .github/workflows/web-cicd.yml
+    - Source/Services/RPSLS.ModelUploader.Web/**
+    - Deploy/helm/web/**
+    branches:
+      - master    
+
+jobs:
+  buildpush:
+    runs-on: ubuntu-16.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image for Web
+      working-directory: Source/Services/RPSLS.Web
+      run: docker build . --file Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/web:gh-${{ github.sha }}
+    - name: Build the Docker image for Model Uploader
+      working-directory: Source/Services/RPSLS.ModelUploader.Web
+      run: docker build . --file Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/modeluploader:gh-${{ github.sha }}
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Set Azure subscription
+      run: |
+        az account set -s ${{ secrets.AZURE_SUBSCRIPTION }}
+    - name: Docker push
+      run: |
+        az acr login -n ${{ secrets.ACR_NAME }}
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/web:gh-${{ github.sha }}
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/modeluploader:gh-${{ github.sha }}
+    - name: Set AKS kubectl context
+      uses: azure/k8s-actions/aks-set-context@master
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ secrets.CLUSTER_NAME }}
+        resource-group: ${{ secrets.RESOURCE_GROUP }}        
+    - name: Init Helm
+      run: |
+        helm init --upgrade
+        az acr helm repo add -n ${{ secrets.ACR_NAME }}
+    - name: Package Helm chart
+      run: |
+        helm package  Deploy/helm/web -d Deploy/helm/__charts --version 1.0.0-${{ github.sha }}
+    - name: Upload chart to ACR
+      run: |
+        az acr helm push Deploy/helm/__charts/web-1.0.0-${{ github.sha }}.tgz -n ${{ secrets.ACR_NAME }}
+    - name: Generate config file
+      shell: pwsh
+      run: |
+        az extension add --name application-insights
+        Deploy/powershell/Generate-Config.ps1 -gvaluesTemplate gvalues.template.gh -resourceGroup ${{ secrets.RESOURCE_GROUP }} -outputFile _values-gh.yaml -twitterKey ${{ secrets.TWITTER_KEY }} -twitterSecret ${{ secrets.TWITTER_SECRET }} -sslSupport prod -aksHost ${{ secrets.AKS_HOST }} -googleanalytics ${{ secrets.GOOGLE_ANALYTICS }} -configScale y -resourceGroupAcr ${{ secrets.RESOURCE_GROUP_ACR }}
+    - name: Install Helm Chart
+      run: |
+        helm repo update
+        helm upgrade --install -f Deploy/powershell/_values-gh.yaml --set image.repository=${{ secrets.ACR_NAME }}.azurecr.io/web --set image.tag=gh-${{ github.sha }} --set image.uploaderRepository=${{ secrets.ACR_NAME }}.azurecr.io/modeluploader --set image.uploaderTag=gh-${{ github.sha }} --set uploaderEnabled=false --set scaleWeb=true --set replicaCount=2 web  ${{ secrets.ACR_NAME }}/web --version=1.0.0-${{ github.sha }} 
+      
+        
+    
+    
+     
+       
+       
+    
+     
+      
