@@ -1,0 +1,33 @@
+{{- if .Values.inf.web.scale.enabled -}}
+{{- if and (eq .Values.inf.web.scale.dp.provider "internal") -}}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "rpsls-web.fullname" . }}data
+  labels:
+    app: {{ template "rpsls-web.name" . }}data
+    chart: {{ template "rpsls-web.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "rpsls-web.name" . }}data
+      release: {{ .Release.Name }}  
+  template:
+    metadata:
+      labels:
+        app: {{ template "rpsls-web.name" . }}data
+        release: {{ .Release.Name }}    
+    spec:
+      containers:
+      - image: redis:5.0.6
+        imagePullPolicy: IfNotPresent
+        name: webdata
+        ports:
+          - name: redis
+            containerPort: 6379
+            protocol: TCP    
+{{- end -}}
+{{- end -}}

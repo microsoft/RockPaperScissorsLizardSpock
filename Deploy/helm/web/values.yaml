@@ -18,6 +18,33 @@ webModelPathMount: /app/wwwroot/model
 # If uploader is enabled 
 uploaderEnabled: true
 
+inf:
+  web:
+    scale:
+      enabled: false    # If true the web can be horizontally scaled.
+      dp:
+        # Setup the redis or the Azure Storage account to save Data Protection
+        # provider: Use ONLY "redis", "storage" or "internal". Any other value can generate error
+        #   redis: Use redis server
+        #   storage: Use storage account
+        #   internal: Use internal redis server deployed as a container in the cluster
+        provider: internal   
+        # If provider is
+        #   redis: Redis server connection string
+        #   storage: Storage Key. In this case must set "name" with the storage name
+        #   internal: Ignored
+        constr: ""
+        # Needed if provider is storage (storage name). Not used on internal/redis
+        name: ""
+      # If Azure SignalR is used, put its connection string here. Otherwise sticky sessions will be used
+      signalr: ""
+  
+
+
+
+
+scaleWeb: false
+
 service:
   type: ClusterIP
   port: 80

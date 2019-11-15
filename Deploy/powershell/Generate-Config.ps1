@@ -33,8 +33,10 @@ Param (
     [parameter(Mandatory=$false)][string]$registryPassword="",
     # Set to $true to use a custom docker registry. False otherwise (default value)
     [parameter(Mandatory=$false)][bool]$useCustomRegistry=$false,
-    #Set the Google Analytics Id if needed.
-    [parameter(Mandatory=$false)][string]$googleanalytics=""
+    # Set the Google Analytics Id if needed.
+    [parameter(Mandatory=$false)][string]$googleanalytics="",
+    # set script will search for resources used to scale the web (redis, storage and signalr)
+    [parameter(Mandatory=$false)][string]$configScale="n"
 )
 
 function EnsureAndReturnFistItem($arr, $restype) {
@@ -173,6 +175,52 @@ Write-Host "Found funcapp $($funcapp.name) in RG $resourceGroup"
 
 $funckeys=$(az rest --method post --uri "https://management.azure.com$($funcapp.id)/functions/$funcname/listKeys?api-version=2018-02-01" -o json --subscription $subscription | ConvertFrom-Json)
 $tokens.predictorbaseurl="https://$($funcapp.defaultHostName)/api/challenger/move?code=$($funckeys.default)"
+
+$tokens.scaleDpProvider=""
+$tokens.scaleDpName=""
+$tokens.scaleDpConstr=""
+$tokens.scaleEnabled="false"
+
+if ($configScale -eq "y" -or $configScale -eq "true") {
+    Write-Host "Searching for dataprotection storage" -ForegroundColor Yellow
+    $dpStorage=$(az storage account list --query "[?tags.rpsls == 'web-dp']|[0]" -g $resourceGroup --subscription $subscription -o json | ConvertFrom-Json)
+    if (-not $dpStorage) {
+        Write-Host "Storage not found. Searching for redis cache" -ForegroundColor Yellow
+        $dpRedis=$(az redis list --query "[0]" -g $resourceGroup --subscription $subscription -o json | ConvertFrom-Json)
+        if (-not $dpRedis) {
+            Write-Host "Redis not found. Redis deployed on AKS will be used. This is not recommended for production." -ForegroundColor Yellow
+            $tokens.scaleDpProvider="internal"
+            $tokens.scaleEnabled="true"
+        }
+        else {
+            $tokens.scaleDpProvider="redis"
+            $tokens.scaleDpName=$dpRedis.name
+            $dpRedisKey=$(az redis  list-keys -g $resourceGroup -n $dpRedis.name --subscription $subscription -o json | ConvertFrom-Json).primaryKey
+            if ($dpRedis.sslPort) {
+                $tokens.scaleDpConstr="$($dpRedis.hostName):$($dpRedis.sslPort),password=$dpRedisKey,ssl=True,abortConnect=false"
+            }
+            else {
+                $tokens.scaleDpConstr="$($dpRedis.hostName):$($dpRedis.port),password=$dpRedisKey,ssl=False,abortConnect=false"
+            }
+            $tokens.scaleEnabled="true"
+        }
+    }
+    else {
+        $tokens.scaleDpProvider="storage"
+        $tokens.scaleDpName=$dpStorage.name
+        $tokens.scaleDpConstr=$(az storage account keys list -g $resourceGroup -n $dpStorage.name --subscription $subscription -o json | ConvertFrom-Json)[0].value
+        $tokens.scaleEnabled="true"
+    }
+}
+
+$signalr=(az signalr list -g $resourceGroup --subscription $subscription -o json --query "[0]" | ConvertFrom-Json)
+if ($signalr) {
+    Write-Host "SignalR $($signalr.name) found. Will be used for Blazor web" -ForegroundColor Yellow
+    $signalrKeys=$(az signalr key list -g $resourceGroup --subscription $subscription --name $signalr.name -o json | ConvertFrom-Json)
+    $tokens.webSignalr=$signalrKeys.primaryConnectionString
+}
+
+
 
 Write-Host "===========================================================" -ForegroundColor Yellow
 Write-Host "gvalues file will be generated with values:"

@@ -20,10 +20,18 @@ inf:
       path: /game-manager
     web:
       path: /
-      uploaderPath: /_upload
+      uploaderPath: /_upload    
   apiurls:
     gameapiurl: http://game-manager:81
     predictor: {{predictorbaseurl}}
+  web:
+    scale:
+      enabled: {{scaleEnabled}}
+      dp:
+        provider: {{scaleDpProvider}}
+        constr: {{scaleDpConstr}}
+        name: {{scaleDpName}}
+    signalr: {{webSignalr}}    
   challengers:
     dotnet: "app=dotnet-player"
     node: "app=node-player"
@@ -68,5 +76,7 @@ kv:
   name: {{kvName}}
   tenant: {{kvTenant}}
   clientid: {{kvClientId}}
+
+
   
   

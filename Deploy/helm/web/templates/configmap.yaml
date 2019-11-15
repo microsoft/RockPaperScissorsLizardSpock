@@ -17,3 +17,16 @@ data:
   Authentication__Twitter__ConsumerKey: {{ .Values.auth.twitter.key }}
   Authentication__Twitter__ConsumerSecret: {{ .Values.auth.twitter.secret }}
   GameManager__Grpc__GrpcOverHttp: "true"                                # true: web will use http/2 prior knowledge without TLS when using gRPC
+{{- if .Values.inf.web.scale.enabled }}
+{{- if eq .Values.inf.web.scale.dp.provider "internal" -}}
+  DataProtectionProvider: "redis"
+  DataProtectionProviderConstr: webdata
+{{ else }}
+  DataProtectionProvider: {{ .Values.inf.web.scale.dp.provider }}
+  DataProtectionProviderConstr: {{ .Values.inf.web.scale.dp.constr }}
+  DataProtectionProviderName: {{ .Values.inf.web.scale.dp.name }}
+{{- end -}}
+{{- if .Values.inf.web.signalr }}
+  UseSignalR: {{ .Values.inf.web.signalr }}
+{{- end -}}
+{{- end -}}

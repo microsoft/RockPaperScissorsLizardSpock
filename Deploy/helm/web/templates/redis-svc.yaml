@@ -1,0 +1,23 @@
+{{- if .Values.inf.web.scale.enabled -}}
+{{- if and (eq .Values.inf.web.scale.dp.provider "internal") -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: webdata
+  labels:
+    app: {{ template "rpsls-web.name" . }}data
+    chart: {{ template "rpsls-web.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 6379
+      targetPort: redis
+      protocol: TCP
+      name: redis
+  selector:
+    app: {{ template "rpsls-web.name" . }}data
+    release: {{ .Release.Name }}
+{{- end -}}
+{{- end -}}

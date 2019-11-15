@@ -16,6 +16,12 @@ metadata:
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
+{{- if and .Values.inf.web.scale.enabled (not .Values.inf.web.signalr) }}  
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+{{- end }}
 {{- if .Values.uploaderEnabled }}
     nginx.ingress.kubernetes.io/proxy-body-size: 10m
 {{- end }}
