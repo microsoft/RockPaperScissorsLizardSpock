@@ -31,11 +31,11 @@ env:
   values: {}
   strategies:   # Strategies to install. Each strategy is one deployment with one pod with the PICK_STRATEGY env var configured
 #    - rock
-    - paper
+#    - paper
 #    - scissors
 #    - lizard
 #    - spock
-#    - random
+    - random
 #    - iterative
 
 probes:

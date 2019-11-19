@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RPSLS.Game.Api.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RPSLS.Game.Api.Data
 {
@@ -42,9 +39,7 @@ namespace RPSLS.Game.Api.Data
         public ChallengerDto Challenger { get; }
         [JsonProperty(PropertyName = "playerName")]
         public string PlayerName { get; set; }
-        [JsonProperty(PropertyName = "playerLogged")]
-        public bool PlayerLogged { get; set; }
-
+        
         [JsonProperty(PropertyName = "playerMove")]
         public MoveDto PlayerMove {get; set;}
 

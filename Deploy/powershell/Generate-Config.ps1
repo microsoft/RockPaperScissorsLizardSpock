@@ -213,6 +213,7 @@ if ($configScale -eq "y" -or $configScale -eq "true") {
     }
 }
 
+$tokens.webSignalr=""
 $signalr=(az signalr list -g $resourceGroup --subscription $subscription -o json --query "[0]" | ConvertFrom-Json)
 if ($signalr) {
     Write-Host "SignalR $($signalr.name) found. Will be used for Blazor web" -ForegroundColor Yellow
