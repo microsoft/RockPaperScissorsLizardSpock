@@ -25,7 +25,6 @@ namespace RPSLS.Game.Api.Data
         public async Task SaveMatch(PickDto pick, string username, int userPick, GameApi.Proto.Result result)
         {
             var dto = MatchDto.FromPickDto(pick);
-            dto.PlayerLogged = false;
             dto.PlayerName = username;
             dto.PlayerMove.Text = ToText(userPick);
             dto.PlayerMove.Value = userPick;

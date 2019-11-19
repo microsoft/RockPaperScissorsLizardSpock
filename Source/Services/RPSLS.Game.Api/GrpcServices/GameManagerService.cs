@@ -62,7 +62,7 @@ namespace RPSLS.Game.Api.GrpcServices
             result.Result = !result.IsValid ? Result.Player : _gameService.Check(result.UserPick, result.ChallengerPick);
             _logger.LogInformation($"Result of User {request.Username} vs Challenger {result.Challenger}, winner: {result.Result}");
 
-            if (result.IsValid)
+            if (result.IsValid && request.TwitterLogged)
             {
                 await _resultsDao.SaveMatch(pick, request.Username, request.Pick, result.Result);
             }
