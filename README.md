@@ -41,6 +41,13 @@ Languages used in this application include .NET, Node.js, Python, Java, and PHP.
 
 [![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://aka.ms/devkeynote)
 
+## Build Status
+
+| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/Web%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/Game%20Manager%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/DotnetPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
+| :------------- | :----------: | -----------: |
+| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/NodePlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/PythonPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/JavaPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
+| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/PhpPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
+
 # New to Microsoft Azure?
 
 You will need an Azure subscription to work with this demo code. You can:
@@ -170,7 +177,7 @@ Once installed, helm commands like `helm ls` should work without any error.
 
 Before deploying services using Helm, you need to setup the configuration. We refer to the configuration file with the name of _gvalues_ file. This file **contains all secrets** so beware to not commit in your repo accidentally.
 
-An example of this file is in `helm/gvalues.yaml`. The deployment scripts use this file by default, **but do not rely on editing this file**. Instead create a copy of it a folder outside the repository and use the `-valuesFile` parameter of the deployment script.
+A template of this file is in `powershell/gvalues.tempalte`. The deployment scripts use this file by default, **but do not rely on editing this file**. Instead create a copy of it a folder outside the repository and use the `-valuesFile` parameter of the deployment script.
 
 > **Note:** The folder `/Deploy/helm/__values/` is added to `.gitignore`, so you can keep all your configuration files in it, to avoid accidental pushes.
 
@@ -181,6 +188,8 @@ Please refer to the comments of the file for its usage.
 Generating a valid _gvalues_ file can be a bit harder, so there is a Powershell script that can do all work by you. This script assumes that all resources are deployed in the same resource group, and this resource group contains only the RPSLS resources. Also assumes the Azure resources have been created using the **tools provided in this repo**.
 
 > **Note** The Generate-Config.ps1 uses the _application-insights_ CLI extension to find the application insights id. Install it with `az extension add --name application-insights`
+
+> **Note** The configuration script requires the function key so internal aks services can call it, so before executing the Generate-Config.ps1 make sure that its already in azure.
 
 To auto-generate your _gvalues_ file just go to `/Deploy/powershell` folder and from a Powershell window, type the following:
 

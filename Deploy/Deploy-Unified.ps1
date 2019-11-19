@@ -48,6 +48,12 @@ if ($deployGlobalSecret) {
 Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
 & ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
 
+# Deploy Azure function in order to have its key on helm values.
+$azFunctionLocation=$(./Join-Path-Recursively.ps1 "..","..","Source","Functions","RPSLS.Python.Api")
+Push-Location $azFunctionLocation
+func azure functionapp publish rpslsfuncappjlnjrxnd5nrz2 --no-build
+Pop-Location
+
 # Generate Config
 $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFile)
 & ./Generate-Config.ps1 -resourceGroup $resourceGroup -outputFile $gValuesLocation
