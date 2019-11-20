@@ -1,23 +1,26 @@
 ﻿@layout MainLayout
 @page "/"
 
-<div class="index-content">
-    <div class="login">
-        <div class="login-section">
-            <form action="/api/account/login" method="get" autocomplete="off">
-                <img src='@("/assets/images/png/logo.png")'>
-                <div class="subtitle-container">
-                    <h2 class="subtitle">Play the geek version of rock-paper-scissors.</h2>
-                    <h2 class="subtitle">Can you defeat our bot?</h2>
-                </div>
-                <input name="username" class="user" type="text" placeholder="Type Username" required />
-                <div class="sign_twitter">or <a href="/api/account/login/twitter">Sign in with Twitter</a></div>
-                <div class="custom-button">
-                    <button type="submit" class="custom-button-link">Enter Game</button>
-                </div>
-            </form>
+    <div class="index-content">
+        <div class="login">
+            <div class="login-section">
+                <form action="/api/account/login" method="get" autocomplete="off">
+                    <img src='@("/assets/images/png/logo.png")'>
+                    <div class="subtitle-container">
+                        <h2 class="subtitle">Play the geek version of rock-paper-scissors.</h2>
+                        <h2 class="subtitle">Can you defeat our bot?</h2>
+                    </div>
+                    <input name="username" class="user" type="text" placeholder="Type Username" required />
+                    <div class="sign_twitter">or <a href="/api/account/login/twitter">Sign in with Twitter</a></div>
+                    <div class="custom-button">
+                        <button type="submit" class="custom-button-link">Enter Game</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="github">
+            <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
         </div>
     </div>
-</div>
 
 <CookiesBanner />
