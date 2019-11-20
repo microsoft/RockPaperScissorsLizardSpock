@@ -265,7 +265,7 @@ The parameter `charts` allow for a selective installation of charts. Is a list o
 
 We distributed some swag after the keynote session at Ignite (t-shirts, stickers and pins) but we had a limited amount so it made sense to open up the logo for swag.
 
-<a href="Documents/Swag/logo.png"><br/><img src="Documents/Swag/logo.png" width="250px"/></a>.
+<a href="Documents/Swag/logo.png"><br/><img src="Documents/Swag/logo.png" width="250px"/></a>
 
 # Feedback
 
