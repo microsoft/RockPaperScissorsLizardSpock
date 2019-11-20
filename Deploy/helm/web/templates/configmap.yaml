@@ -1,5 +1,7 @@
 {{- $name := include "rpsls-web.fullname" . -}}
-
+{{- $googleAnalytics := default .Values.inf.googleanalytics.id "" | quote -}}
+{{- $twitterKey := default .Values.auth.twitter.key "" | quote -}}
+{{- $twitterSecret := default .Values.auth.twitter.secret "" | quote -}}
 
 apiVersion: v1
 kind: ConfigMap
@@ -12,10 +14,10 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   APPINSIGHTS_INSTRUMENTATIONKEY:  {{ .Values.inf.appinsights.id }}
-  GoogleAnalytics: {{ .Values.inf.googleanalytics.id }}
   GameManager__Url:  {{ .Values.inf.apiurls.gameapiurl }}   
-  Authentication__Twitter__ConsumerKey: {{ .Values.auth.twitter.key }}
-  Authentication__Twitter__ConsumerSecret: {{ .Values.auth.twitter.secret }}
+  GoogleAnalytics: {{ $googleAnalytics | quote }}
+  Authentication__Twitter__ConsumerKey: {{ $twitterKey | quote }}
+  Authentication__Twitter__ConsumerSecret: {{ $twitterSecret | quote }}
   GameManager__Grpc__GrpcOverHttp: "true"                                # true: web will use http/2 prior knowledge without TLS when using gRPC
 {{- if .Values.inf.web.scale.enabled }}
 {{- if eq .Values.inf.web.scale.dp.provider "internal" -}}

@@ -70,9 +70,9 @@ Helm charts require a YAML file with some values. Those values depends on the Az
 
 This script uses AZ CLI to retrieve some data needed to generate a YAML file using the specified template. If you customize the helm charts can create your own template file.
 
-## Add-Tiller.ps1
+## Create-Kv-FlexVolume.ps1
 
-Installs _Tiller_ and _keyvault-flexvol_ on the cluster. Both are global pre-requisites that need to be installed once. No parameters are allowed.
+Installs _keyvault-flexvol_ on the cluster. Its a global pre-requisites that need to be installed once. No parameters needed.
 
 ## Add-Tls.ps1
 

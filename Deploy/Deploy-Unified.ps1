@@ -34,8 +34,8 @@ Write-Host "The name of your AKS: $aksName" -ForegroundColor Yellow
 Write-Host "Retrieving credentials" -ForegroundColor Yellow
 az aks get-credentials -n $aksName -g $resourceGroup
 
-# Add Tiller
-& ./Add-Tiller.ps1
+# Create KeyVault FlexVolume
+& ./Create-Kv-FlexVolume.ps1
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 if ($deployGlobalSecret) {
