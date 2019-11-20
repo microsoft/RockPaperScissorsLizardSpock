@@ -29,17 +29,17 @@ We are happy to announce the release of Rock, Paper, Scissors, Lizard, Spock sam
 
 Rock, Paper, Scissors, Lizard, Spock is the geek version of the classic Rock, Paper, Scissors game. Rock, Paper, Scissors, Lizard, Spock is created by [Sam Kass and Karen Bryla.](http://www.samkass.com/theories/RPSSL.html)
 
-The Rock, Paper, Scissors, Lizard, Spock - Sample Application shows a multilanguage application built with Visual Studio and Visual Studio Code, deployed with GitHub Actions, and running on Azure Kubernetes Service (AKS). The sample application also uses Machine Learning and Azure Cognitive Services (Custom Vision API).
+The Rock, Paper, Scissors, Lizard, Spock - Sample Application shows a multilanguage application built with Visual Studio and Visual Studio Code, deployed with GitHub Actions and running on Azure Kubernetes Service (AKS). The sample application also uses Machine Learning and Azure Cognitive Services (Custom Vision API). Languages used in this application include .NET, Node.js, Python, Java, and PHP.
 
-Languages used in this application include .NET, Node.js, Python, Java, and PHP.
+- Missed the keynote session? [Watch it here](https://aka.ms/devkeynote).
 
-- Missed the session? [Watch it now](https://aka.ms/devkeynote).
+[![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://aka.ms/devkeynote)
 
 - Play the game hosted in our Azure Subscription: [https://RockPaperScissorsLizardSpock.dev](https://RockPaperScissorsLizardSpock.dev)
 
-- Get everything that you need to deploy the code and run in your subscription from this repo as well.
+![](Documents/Images/RPSLS.gif)
 
-[![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://aka.ms/devkeynote)
+- Get everything that you need to deploy the code and run in your subscription.
 
 ## Build Status
 
@@ -48,15 +48,7 @@ Languages used in this application include .NET, Node.js, Python, Java, and PHP.
 | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/NodePlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/PythonPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/JavaPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
 | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/PhpPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
 
-# New to Microsoft Azure?
 
-You will need an Azure subscription to work with this demo code. You can:
-
-- Open an account for free [Azure subscription](https://azure.microsoft.com/free/). You get credits that can be used to try out paid Azure services. Even after the credits are used up, you can keep the account and use free Azure services and features, such as the Web Apps feature in Azure App Service.
-- [Activate Visual Studio subscriber benefits](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/). Your Visual Studio subscription gives you credits every month that you can use for paid Azure services.
-- Create an [Azure Student Account](https://azure.microsoft.com/free/students/) and get free credit when you create your account.
-
-Learn more about it with [Microsoft Learn - Introduction to Azure](https://docs.microsoft.com/learn/azure).
 
 # Table of contents
 
@@ -66,6 +58,8 @@ Learn more about it with [Microsoft Learn - Introduction to Azure](https://docs.
 - [Deployment scenarios](#deployment-scenarios)
   - [Deploy RPSLS using one script](#deploy-unified)
   - [Deploy RPSLS step by step](#deploy-resources)
+- [Swag](#Swag)
+- [Feedback](#feedback)
 - [Contributing](#contributing)
 
 # <a name="screens"></a>Application Screens
@@ -77,6 +71,8 @@ Learn more about it with [Microsoft Learn - Introduction to Azure](https://docs.
 # <a name="diagram"></a>Application Diagram
 
 ![](Documents/Images/RPSLS-Diagram.png)
+
+This a multilanguage application running on AKS with AI embedded. There are 5 bots (.NET, NodeJS, Python, Java and PHP) the user can select a language as the opponent and both, the user and the bot will have to select an object to play. The Game Manager which is a .NET API decides who wins based on the logic of the game. If the user is authenticated using Twitter the bots will call a predictor AI Model (Python Azure Function), this model learns from the selections of the objects that the user have done based on the history (stored in a Cosmos DB) to try to predict their next move. If the user is not authenticated the bots will select a random object. There is also a TensorFlow model created with Custom Vision to allow the user to play with their hands by using the webcam.
 
 # <a name="getting-started"></a>Getting Started
 
@@ -90,6 +86,17 @@ If you want to deploy this solution in Azure:
 1. You will need and Azure Subscription in order to deploy this.
 1. Azure CLI.
 1. Download and install helm.
+
+## New to Microsoft Azure?
+
+You will need an Azure subscription to work with this demo code. You can:
+
+- Open an account for free [Azure subscription](https://azure.microsoft.com/free/). You get credits that can be used to try out paid Azure services. Even after the credits are used up, you can keep the account and use free Azure services and features, such as the Web Apps feature in Azure App Service.
+- [Activate Visual Studio subscriber benefits](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/). Your Visual Studio subscription gives you credits every month that you can use for paid Azure services.
+- Create an [Azure Student Account](https://azure.microsoft.com/free/students/) and get free credit when you create your account.
+
+Learn more about it with [Microsoft Learn - Introduction to Azure](https://docs.microsoft.com/learn/azure).
+
 
 # <a name="deployment-scenarios"></a>Deploy to Azure
 
@@ -253,6 +260,20 @@ The parameter `charts` allow for a selective installation of charts. Is a list o
 - `jv` Java Player.
 - `web` Website
 - `gm` Game Manager
+
+# Swag
+
+We distributed some swag after the keynote session at Ignite (t-shirts, stickers and pins) but we had a limited amount so it made sense to open up the logo for swag.
+
+<a href="Documents/Swag/logo.png"><br/><img src="Documents/Swag/logo.png" width="250px"/></a>.
+
+# Feedback
+
+[Help us improve this sample application with your valuable feedback by filling up this survey.](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyg-YAZ0zypKmtaBgQnPt0tUNElFSkhLUFhZUzJEQzdPWUFLR0Y1R1VWTCQlQCN0PWcu)
+
+[![](Documents/Images/Feedback.png)](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyg-YAZ0zypKmtaBgQnPt0tUNElFSkhLUFhZUzJEQzdPWUFLR0Y1R1VWTCQlQCN0PWcu)
+
+[If you prefer you can also send us an email with your feedback](mailto:f99f7b8d.microsoft.com@amer.teams.ms).
 
 # <a name="contributing"></a>Contributing
 
