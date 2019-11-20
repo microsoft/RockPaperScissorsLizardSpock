@@ -4,6 +4,7 @@ Param(
     [parameter(Mandatory=$false)][string]$subscription="",
     [parameter(Mandatory=$true)][string]$clientId,
     [parameter(Mandatory=$true)][string]$password,
+    [parameter(Mandatory=$false)][string]$spObjectId,
     [parameter(Mandatory=$false)][string]$tag="latest",
     [parameter(Mandatory=$false)][bool]$deployGlobalSecret=$false
 )
@@ -24,7 +25,11 @@ if (-not [String]::IsNullOrEmpty($subscription)) {
 Push-Location powershell
 
 ## Deploy ARM
-& ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -clientId $clientId -password $password
+if ($spObjectId) {
+    & ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -clientId $clientId -password $password -objectId $spObjectId
+} else {
+    & ./Deploy-Arm-Azure.ps1 -resourceGroup $resourceGroup -location $location -clientId $clientId -password $password
+}
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
 Write-Host "Retrieving Aks Name" -ForegroundColor Yellow
@@ -32,7 +37,7 @@ $aksName = $(az aks list -g $resourceGroup -o json | ConvertFrom-Json).name
 Write-Host "The name of your AKS: $aksName" -ForegroundColor Yellow
 
 Write-Host "Retrieving credentials" -ForegroundColor Yellow
-az aks get-credentials -n $aksName -g $resourceGroup
+az aks get-credentials -n $aksName -g $resourceGroup --overwrite-existing
 
 # Create KeyVault FlexVolume
 & ./Create-Kv-FlexVolume.ps1
@@ -49,10 +54,13 @@ Write-Host "Setting up Azure Dev Spaces for AKS: $aksName"
 & ./Setup-Dev-Spaces.ps1 -resourceGroup $resourceGroup -aksName $aksName -rootSpace default
 
 # Deploy Azure function in order to have its key on helm values.
-$azFunctionLocation=$(./Join-Path-Recursively.ps1 "..","..","Source","Functions","RPSLS.Python.Api")
-Push-Location $azFunctionLocation
-func azure functionapp publish rpslsfuncappjlnjrxnd5nrz2 --no-build
-Pop-Location
+$funcapp=$(az functionapp list -g $resourceGroup --query "[0]" -o json | ConvertFrom-Json)
+if ($funcapp) {
+    $azFunctionLocation=$(./Join-Path-Recursively.ps1 "..","..","Source","Functions","RPSLS.Python.Api")
+    Push-Location $azFunctionLocation
+    func azure functionapp publish $($funcapp.name) --no-build
+    Pop-Location
+}
 
 # Generate Config
 $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFile)
