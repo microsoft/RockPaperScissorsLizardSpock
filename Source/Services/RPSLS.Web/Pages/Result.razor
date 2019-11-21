@@ -68,7 +68,7 @@
 @code
 {
     ResultDto result = new ResultDto();
-    string resultMessage = null;
+    string resultMessage = string.Empty;
     bool userIsWinner = false;
     bool userIsLoser = false;
     string resultStyle = "";
@@ -80,7 +80,7 @@
         new ChallengerErrorViewModel() { Name = "dotnet", Text = "how did I end here?", Image = "node-error.png" },
         new ChallengerErrorViewModel() { Name = "java", Text = "how did I end here?", Image = "node-error.png" },
         new ChallengerErrorViewModel() { Name = "php", Text = "how did I end here?", Image = "node-error.png" }
-            };
+                };
 
     [CascadingParameter] ConsoleLayout Layout { get; set; }
 
@@ -99,13 +99,16 @@
             NavigationManager.NavigateTo("/challenger");
             return;
         }
+
         result.UserPick = Game.Pick;
         result = Game.GameResult;
 
-        resultMessage = CreateResult(result.Result);
-
-        userIsWinner = result.Result == 1;
-        userIsLoser = result.Result == 2;
+        if (result.IsValid)
+        {
+            resultMessage = CreateResult(result.Result);
+            userIsWinner = result.Result == 1;
+            userIsLoser = result.Result == 2;
+        }
 
         resultStyle = GetResultClass(result.Result);
         error = errors.FirstOrDefault(c => c.Name == result.Challenger);
@@ -162,7 +165,7 @@
         var userPickText = MapPick(userPick);
         var challengerPickText = MapPick(challengerPick);
 
-        if(userIsWinner)
+        if (userIsWinner)
         {
             return $"{userPickText} {MapAction(result.UserPick, result.ChallengerPick)} {challengerPickText}";
         }
