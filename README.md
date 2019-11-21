@@ -154,6 +154,7 @@ Pre-requisites for this deployment are to have:
 - A terminal with Powershell environment
 - [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) installed.
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed with the last version (v1.16.0 at this moment).
+- [Helm 3](https://helm.sh/docs/intro/install/) installed with 3.0 or superior version (v3.0.0 at this moment).
 - Docker installed
 
 #### Service Principal
@@ -171,14 +172,6 @@ From the terminal type:
 - `az aks get-credentials -n <your-aks-name> -g <resource-group-name>` to download the configuration files that `kubectl` needs to connect to your AKS.
 
 At this point if you type `kubectl config current-context` the name of your AKS cluster should be displayed. That means that `kubectl` is ready to use your AKS
-
-#### Installing Tiller on AKS
-
-Helm is a tool to deploy resources in a Kubernetes cluster in a clean and simple manner. It is composed of two tools, one client-side (the Helm client) that needs to be installed on your machine, and a server component called _Tiller_ that has to be installed on the Kubernetes cluster.
-
-To install Helm, refer to its [installation page](https://docs.helm.sh/using_helm/#installing-helm). Once Helm is installed, _Tiller_ must be deployed on the cluster. For deploying _Tiller_ run the `./Add-Tiller.ps1` (from Powershell).
-
-Once installed, helm commands like `helm ls` should work without any error.
 
 #### Configuring services
 
