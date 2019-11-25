@@ -20,5 +20,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(PredictorProxy::class, function ($app) {
             return new PredictorProxy();
         });
+
+        $this->app->singleton(AppInsightsService::class, function($app) {
+            return new AppInsightsService();
+        });
     }
 }
