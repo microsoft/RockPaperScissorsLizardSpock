@@ -93,6 +93,7 @@ $app->register(App\Providers\AppServiceProvider::class);
 
 $app->configure('strategies');
 $app->configure('predictor');
+$app->configure('appinsights');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

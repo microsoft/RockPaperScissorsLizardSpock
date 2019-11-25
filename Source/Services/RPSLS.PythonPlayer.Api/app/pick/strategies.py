@@ -1,5 +1,4 @@
 import random
-import socket
 from flask import jsonify
 
 from .rpsls import RPSLS

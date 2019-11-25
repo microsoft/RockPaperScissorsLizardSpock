@@ -6,16 +6,6 @@ inf:
   googleanalytics:
     id: {{googleanalyticsid}}
   ingress:
-    dotnet:
-      path: /dotnet-player
-    node:
-      path: /node-player
-    python:
-      path: /python-player
-    php:
-      path: /php-player
-    java:
-      path: /java-player
     game:
       path: /game-manager
     web:

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +38,7 @@ namespace RPSLS.Web
             services.AddOptions();
             services.Configure<RecognitionSettings>(Configuration);
             services.Configure<GoogleAnalyticsSettings>(Configuration);
+            services.Configure<TwitterOptions>(Configuration.GetSection("Authentication:Twitter"));
             services.Configure<GameManagerSettings>(Configuration.GetSection("GameManager"));
             if (Configuration.GetValue<bool>("GameManager:Grpc:GrpcOverHttp", false))
             {

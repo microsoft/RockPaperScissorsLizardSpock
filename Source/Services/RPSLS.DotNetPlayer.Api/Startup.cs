@@ -7,9 +7,6 @@ using RPSLS.DotNetPlayer.Api.Services;
 using RPSLS.DotNetPlayer.Api.Settings;
 using RPSLS.DotNetPlayer.API.Services;
 using RPSLS.DotNetPlayer.API.Settings;
-using RPSLS.DotNetPlayer.API.Strategies;
-using System;
-using System.Net.Http;
 
 namespace RPSLS.DotNetPlayer.API
 {
@@ -27,6 +24,7 @@ namespace RPSLS.DotNetPlayer.API
         {
             services.Configure<StrategySettings>(Configuration);
             services.Configure<PredictorSettings>(Configuration);
+            services.AddApplicationInsightsTelemetry();
             services.AddControllers();
             services.AddHealthChecks();
             services.AddHttpClient("Predictor");

@@ -11,5 +11,6 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  APPLICATION_INSIGHTS_IKEY:  {{ .Values.inf.appinsights.id }}
+  APPLICATION_INSIGHTS_IKEY: {{ .Values.inf.appinsights.id }}
+  APPLICATION_INSIGHTS_ENABLED: {{ if .Values.inf.appinsights.id }}'true'{{ else }}'false'{{ end }}
   PREDICTOR_URL: {{ .Values.inf.apiurls.predictor }}

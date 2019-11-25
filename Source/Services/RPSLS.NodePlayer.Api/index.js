@@ -1,8 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+const appInsights = require("applicationinsights");
 
 const routes = require('./api/routes/index.route');
+
+require('dotenv').config();
+
+// Start application insights
+const applicationInsightsIK = process.env.APPLICATION_INSIGHTS_IKEY;
+if (applicationInsightsIK) {
+  appInsights.setup(applicationInsightsIK).start();
+}
 
 const app = express();
 

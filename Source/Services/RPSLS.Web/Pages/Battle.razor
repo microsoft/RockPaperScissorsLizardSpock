@@ -7,45 +7,45 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-    <div class="console-screen">
-        <p class="console-text">@Username</p>
-        <div class="user-picks">
-            <div class="user-picks-container">
-                @if (battleToBeStarted)
-                {
-                    <div class="pick active toplay">
-                        <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
-                            <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
-                            <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
-                            <img class="base" src="/assets/images/png/hands/user/base.png">
-                        </div>
+<div class="console-screen">
+    <p class="console-text">@Username</p>
+    <div class="user-picks">
+        <div class="user-picks-container">
+            @if (battleToBeStarted)
+            {
+                <div class="pick active toplay">
+                    <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
+                        <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
+                        <img class="base" src="/assets/images/png/hands/user/base.png">
                     </div>
-                }
-                else
+                </div>
+            }
+            else
+            {
+                @foreach (var pick in picks)
                 {
-                    @foreach (var pick in picks)
+                    var active = pick.Value == Game.Pick;
+                    <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
+                        <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Image+".png")'></div>
+                        <p class="pick-text">@pick.Text</p>
+                    </div>
+                    @if (pick.BreakAfter)
                     {
-                        var active = pick.Value == Game.Pick;
-                        <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
-                            <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Image+".png")'></div>
-                            <p class="pick-text">@pick.Text</p>
-                        </div>
-                        @if (pick.BreakAfter)
-                        {
-                            <div class="break"></div>
-                        }
+                        <div class="break"></div>
                     }
                 }
-            </div>
+            }
         </div>
-
-        @if (!battleToBeStarted)
-        {
-            <div class="cam-content">
-                <div class="cam-button"><a class="cam-link" href="/cambattle">use webcam</a></div>
-            </div>
-        }
     </div>
+
+    @if (!battleToBeStarted)
+    {
+        <div class="cam-content">
+            <div class="cam-button"><a class="cam-link" href="/cambattle">use webcam</a></div>
+        </div>
+    }
+</div>
 
 @if (Game.Pick == -1 || battleToBeStarted)
 {
@@ -144,7 +144,7 @@ else
             new RPSLSViewModel { Text = "Scissors", Value = 2, Image = "scissors" },
             new RPSLSViewModel { Text = "Lizard", Value = 3, Image = "lizard" },
             new RPSLSViewModel { Text = "Spock", Value = 4, Image = "spock", BreakAfter = true  }
-                };
+                    };
     }
 
     void SelectPick(RPSLSViewModel pick)
@@ -159,6 +159,12 @@ else
         shakeHand = true;
 
         await Game.Play(Username, isTwitterUser);
+        if (!Game.GameResult.IsValid)
+        {
+            shakeHand = false;
+            return;
+        }
+
         await Task.Delay(2000);
         shakeHand = false;
         userHandToShow = pickedToPlay.Image;
