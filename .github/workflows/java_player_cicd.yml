@@ -1,4 +1,6 @@
-name: JavaPlayer CI/CD
+# Java Player Workflow
+
+name: JavaPlayer
 
 on: 
   push:

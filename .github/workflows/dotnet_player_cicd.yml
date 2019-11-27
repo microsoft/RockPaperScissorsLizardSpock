@@ -1,4 +1,6 @@
-name: DotnetPlayer CI/CD
+# Dotnet player workflow
+
+name: DotnetPlayer
 
 on: 
   push:

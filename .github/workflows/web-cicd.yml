@@ -1,4 +1,6 @@
-name: Web CI/CD
+# Web Workflow
+
+name: Web
 
 on: 
   push:

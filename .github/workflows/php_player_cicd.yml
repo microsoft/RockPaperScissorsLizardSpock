@@ -1,4 +1,6 @@
-name: PhpPlayer CI/CD
+# Php Player Workflow
+
+name: PhpPlayer
 
 on: 
   push:

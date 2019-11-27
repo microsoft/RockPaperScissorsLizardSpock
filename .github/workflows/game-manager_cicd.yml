@@ -1,4 +1,6 @@
-name: Game Manager CI/CD
+# Game Manager Workflow
+
+name: Game Manager 
 
 on: 
   push:

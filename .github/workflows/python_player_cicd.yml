@@ -1,4 +1,6 @@
-name: PythonPlayer CI/CD
+# Python Player Workflow
+
+name: PythonPlayer
 
 on: 
   push:

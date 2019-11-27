@@ -1,4 +1,6 @@
-name: NodePlayer CI/CD
+# Node Player Workflow
+
+name: NodePlayer
 
 on: 
   push:
