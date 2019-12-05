@@ -12,10 +12,16 @@ metadata:
 data:
   APPINSIGHTS_INSTRUMENTATIONKEY:  {{ .Values.inf.appinsights.id }}
   GameManager__Url:  {{ .Values.inf.apiurls.gameapiurl }}
-  GoogleAnalytics: {{ .Values.inf.googleanalytics.id | quote }}
-  Authentication__Twitter__ConsumerKey: {{ .Values.auth.twitter.key | quote }}
-  Authentication__Twitter__ConsumerSecret: {{ .Values.auth.twitter.secret | quote }}
   GameManager__Grpc__GrpcOverHttp: "true"                                # true: web will use http/2 prior knowledge without TLS when using gRPC
+{{- if .Values.inf.googleanalytics.id }}
+  GoogleAnalytics: {{ .Values.inf.googleanalytics.id }}
+{{- end -}}
+{{- if .Values.auth.twitter.key }}
+  Authentication__Twitter__ConsumerKey: {{ .Values.auth.twitter.key }}
+{{- end -}}
+{{- if .Values.auth.twitter.secret }}
+  Authentication__Twitter__ConsumerSecret: {{ .Values.auth.twitter.secret }}
+{{- end -}}  
 {{- if .Values.inf.web.scale.enabled }}
 {{- if eq .Values.inf.web.scale.dp.provider "internal" -}}
   DataProtectionProvider: "redis"
