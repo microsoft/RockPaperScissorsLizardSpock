@@ -153,6 +153,7 @@ Pre-requisites for this deployment are to have:
 - The AKS and all related resources deployed in Azure
 - A terminal with Powershell environment
 - [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) installed.
+- [Azure Functions Core Tools](https://docs.microsoft.com/es-es/azure/azure-functions/functions-run-local) installed (required only to deploy Predictor).
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed with the last version (v1.16.0 at this moment).
 - [Helm 3](https://helm.sh/docs/intro/install/) installed with 3.0 or superior version (v3.0.0 at this moment).
 - Docker installed
@@ -173,6 +174,13 @@ From the terminal type:
 
 At this point if you type `kubectl config current-context` the name of your AKS cluster should be displayed. That means that `kubectl` is ready to use your AKS
 
+### Installing FlexVolume
+
+The KeyVault support is implemented through [FlexVol](https://github.com/Azure/kubernetes-keyvault-flexvol). To install Flex Volume in the AKS, type the following:
+
+```
+.\Create-Kv-FlexVolume.ps1
+```
 #### Configuring services
 
 Before deploying services using Helm, you need to setup the configuration. We refer to the configuration file with the name of _gvalues_ file. This file **contains all secrets** so beware to not commit in your repo accidentally.
@@ -189,7 +197,7 @@ Generating a valid _gvalues_ file can be a bit harder, so there is a Powershell 
 
 > **Note** The Generate-Config.ps1 uses the _application-insights_ CLI extension to find the application insights id. Install it with `az extension add --name application-insights`
 
-> **Note** The configuration script requires the function key so internal aks services can call it, so before executing the Generate-Config.ps1 make sure that its already in azure.
+> **Note** The configuration script requires the Azure function key so internal aks services can call it. So before executing the Generate-Config.ps1 make sure that the function is already published and the function key exists. 
 
 To auto-generate your _gvalues_ file just go to `/Deploy/powershell` folder and from a Powershell window, type the following:
 
