@@ -197,7 +197,7 @@ Generating a valid _gvalues_ file can be a bit harder, so there is a Powershell 
 
 > **Note** The Generate-Config.ps1 uses the _application-insights_ CLI extension to find the application insights id. Install it with `az extension add --name application-insights`
 
-> **Note** The configuration script requires the Azure function key so internal aks services can call it. So before executing the Generate-Config.ps1 make sure that the fucntion is already published and the function key exists. 
+> **Note** The configuration script requires the Azure function key so internal aks services can call it. So before executing the Generate-Config.ps1 make sure that the function is already published and the function key exists. 
 
 To auto-generate your _gvalues_ file just go to `/Deploy/powershell` folder and from a Powershell window, type the following:
 
