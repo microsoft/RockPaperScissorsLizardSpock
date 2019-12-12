@@ -1,0 +1,151 @@
+/********** Restart Button **********/
+
+.restart-button {
+    display: flex;
+    justify-content: center;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 8px 0 #52002f, 0 15px 20px #0d0229;
+    -moz-box-shadow: 0 8px 0 #52002f, 0 15px 20px #0d0229;
+    box-shadow: 0 8px 0 #52002f, 0 15px 20px #0d0229;
+    -webkit-transition: -webkit-box-shadow 0.1s ease-in-out;
+    -moz-transition: -moz-box-shadow 0.1s ease-in-out;
+    -o-transition: -o-box-shadow 0.1s ease-in-out;
+    transition: box-shadow 0.1s ease-in-out;
+    font-size: 1.25‬rem;
+    color: #fff;
+}
+
+.restart-button>span {
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 1rem 3rem;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    border: none;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #d9007d;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
+    -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.7);
+    -webkit-transition: background-color 0.2s ease-in-out, -webkit-transform 0.1s ease-in-out;
+    font-family: "Voyager";
+    -moz-transition: background-color 0.2s ease-in-out, -moz-transform 0.1s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out, -o-transform 0.1s ease-in-out;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.restart-button:hover span,
+.restart-button:hover button {
+    background-color: #ec6a9c;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.restart-button:active span,
+.restart-button:active button {
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+}
+
+
+/********** Start Button **********/
+
+.start-button {
+    display: flex;
+    cursor: pointer;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    background: #d9007d;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    -webkit-box-shadow: 0 8px 0 #52002f, 0 12px 3px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0 8px 0 #52002f, 0 12px 3px rgba(0, 0, 0, 1);
+    box-shadow: 0 8px 0 #52002f, 0 12px 3px rgba(0, 0, 0, 1);
+    transition: box-shadow 0.1s ease-in-out;
+    text-decoration: none;
+    -webkit-transition: background-color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+    -moz-transition: background-color 0.2s ease-in-out, -moz-transform 0.2s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out, -o-transform 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.start-button:hover,
+.start-button:hover {
+    background-color: #ec6a9c;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.start-button:active,
+.start-button:active {
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+    -webkit-box-shadow: 0 5px 0 #52002f, 0 8px 3px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0 5px 0 #52002f, 0 8px 3px rgba(0, 0, 0, 1);
+    box-shadow: 0 5px 0 #52002f, 0 8px 3px rgba(0, 0, 0, 1);
+}
+
+.start-button:hover,
+.start-button:hover,
+.start-button:active p,
+.start-button:active p {
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.start-button>p {
+    font-family: "Voyager";
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.7rem;
+    margin: 0;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+/********** Upload Button **********/
+
+.upload-button {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+.upload-button+label {
+    color: #fff;
+    background: #d9007d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Voyager", sans-serif;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    padding: 1rem 50px;
+    position: relative;
+    background-color: #d9007d;
+    box-shadow: 0 8px 0 #52002f, 0 15px 20px #0d0229;
+    transition: none;
+    vertical-align: middle;
+}
+
+.upload-button+label:hover {
+    background-color: #ec6a9c;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+}

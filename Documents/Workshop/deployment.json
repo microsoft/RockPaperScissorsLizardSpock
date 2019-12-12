@@ -1,0 +1,91 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "service_app_name": {
+            "defaultValue": "rpsls-training-site",
+            "type": "String"
+        },
+        "accounts_rpsls_custom_vision_name": {
+            "defaultValue": "rpsls-customvision",
+            "type": "String"
+        }
+    },
+    "variables": {
+        "service_app_name": "[parameters('service_app_name')]",
+        "service_app_plan_name": "[concat(parameters('service_app_name'), '-plan')]",
+        "accounts_rpsls_custom_vision_name": "[parameters('accounts_rpsls_custom_vision_name')]",
+        "accounts_rpsls_custom_vision_prediction_name": "[concat(parameters('accounts_rpsls_custom_vision_name'), '-prediction')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[variables('accounts_rpsls_custom_vision_prediction_name')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "CustomVision.Prediction",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.CognitiveServices/accounts",
+            "apiVersion": "2017-04-18",
+            "name": "[variables('accounts_rpsls_custom_vision_name')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "CustomVision.Training",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[variables('service_app_plan_name')]",
+            "kind": "app",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F1",
+                "tier": "Free"
+            },
+            "properties": {
+                "reserved": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[variables('service_app_name')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('service_app_plan_name'))]"
+            ],
+            "kind": "app",
+            "properties": {
+                "enabled": true,
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('service_app_plan_name'))]",
+                "reserved": false,
+                "siteConfig":{
+                    "nodeVersion": "10.14.1",
+                    "ipSecurityRestrictions": [
+                        {
+                            "ipAddress": "Any",
+                            "action": "Allow",
+                            "priority": 1,
+                            "name": "Allow all",
+                            "description": "Allow all access"
+                        }
+                    ],
+                    "appSettings":[
+                        {
+                            "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
+                            "value": "true"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

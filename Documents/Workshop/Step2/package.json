@@ -1,0 +1,16 @@
+{
+    "name": "app-rock-paper-scissors-lizard-spock",
+    "description": "Code for rock-paper-scissors-lizard-spock game used at Azure Custom Vision hands-on workshop",
+    "version": "0.0.1",
+    "private": true,
+    "license": "MIT",
+    "author": "Microsoft",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1"
+    }
+}
