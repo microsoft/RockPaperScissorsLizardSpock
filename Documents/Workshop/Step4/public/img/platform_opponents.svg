@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="385px" viewBox="0 0 1920 385" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>platform_opponents</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#9C51AA" offset="0%"></stop>
+            <stop stop-color="#7352BA" offset="7.31534091%"></stop>
+            <stop stop-color="#492F93" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02.Choose-oponent" transform="translate(0.000000, -695.000000)" fill="url(#linearGradient-1)">
+            <g id="Group" transform="translate(-114.000000, 695.000000)">
+                <path d="M1082.52664,0 C1566.97942,0 1915.82291,5.40460269 2034.05233,40.3152309 L2034.02664,193 L2034.04364,193 L2034.02664,385 L114.026636,385 L114.003,137 L114.026636,137 L113.999004,53.5766514 C241.459545,22.0272751 602.788127,0 1082.52664,0 Z" id="platform_opponents"></path>
+            </g>
+        </g>
+    </g>
+</svg>

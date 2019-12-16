@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>Rock Paper Scissors Lizard Spock</title>
+    <link href="css/buttons.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1 class="title">Rock Paper Scissors Lizard Spock</h1>
+    <h2 class="subtitle">Code and tutorial for "Rock-paper-scissors-lizard-spock" game <br />used at Azure Custom Vision hands-on workshop</h2>
+    <main class="app">
+        <div id="appContainer" class="app-content">
+            <div class="console-controls"><img src="img/controls_left.svg" alt="left panel console" /></div>
+            <div class="console-screen">
+                <p class="console-text">User</p>
+                <div class="cam-recorder-container">
+                    <div class="upload-photo-container">
+                        <input id="upload-photo" type="file" class="upload-button" />
+                        <label for="upload-photo" class="custom-button">upload file</label>
+                    </div>
+                    <video width="800" height="600" autoplay=""></video>
+                    <canvas width="800" height="600"></canvas>
+                    <img class="user-pick" src="img/user/rock.png" alt="user pick" />
+                    <div class="pick-result">
+                        <p>-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="app-action">
+                <div class="start-button">
+                    <p>start</p>
+                    <p>battle</p>
+                </div>
+                <div class="app-counter">
+                    <p class="app-counter-text">VS</p>
+                </div>
+            </div>
+            <div class="console-screen">
+                <p class="console-text">engine</p>
+                <div class="opponent-container">
+                    <img class="bot-player" src="img/bot.png" alt="engine player">
+                    <div class="bot-pick">
+                        <img class="bot-pick-img" src="img/bot/rock.png" alt="engine pick">
+                    </div>
+                </div>
+                <div class="restart-button">
+                    <span>play again</span>
+                </div>
+            </div>
+
+            <div class="console-controls"><img src="img/controls_right.svg" alt="right panel console" /></div>
+        </div>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

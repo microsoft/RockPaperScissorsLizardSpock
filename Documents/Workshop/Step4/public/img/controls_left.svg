@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="133px" height="414px" viewBox="0 0 133 414" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>controls_left</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-39.1%" y="-39.1%" width="178.3%" height="178.3%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="6" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-39.1%" y="-39.1%" width="178.3%" height="178.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="6" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <rect id="path-3" x="0" y="11" width="31" height="17" rx="3"></rect>
+        <filter x="-3.2%" y="-5.9%" width="106.5%" height="123.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-5" x="0" y="60" width="31" height="17" rx="3"></rect>
+        <filter x="-3.2%" y="-5.9%" width="106.5%" height="123.5%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-7" x="0" y="36" width="31" height="17" rx="3"></rect>
+        <filter x="-3.2%" y="-5.9%" width="106.5%" height="123.5%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-9">
+            <stop stop-color="#B4B4B4" offset="0%"></stop>
+            <stop stop-color="#797979" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.2636191%" id="linearGradient-10">
+            <stop stop-color="#D7D7D7" offset="0%"></stop>
+            <stop stop-color="#C4C4C4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03.-Battle-01" transform="translate(-1750.000000, -412.000000)">
+            <g id="controls_left" transform="translate(1764.000000, 426.000000)">
+                <g id="button-on">
+                    <circle id="Oval" fill="#130532" cx="23" cy="23" r="16"></circle>
+                    <circle id="Oval" class="button-illuminated-1" fill="#C12980" cx="23" cy="23" r="12"></circle>
+                    <circle id="Oval" fill="#C02980" opacity="0.527250744" filter="url(#filter-1)" cx="23" cy="23" r="23"></circle>
+                </g>
+                <g id="button-on-copy" transform="translate(41.000000, 40.000000)">
+                    <circle id="Oval" fill="#130532" cx="23" cy="23" r="16"></circle>
+                    <circle class="button-illuminated-1" id="Oval" fill="#C12980" cx="23" cy="23" r="12"></circle>
+                    <circle id="Oval" fill="#C02980" opacity="0.527250744" filter="url(#filter-2)" cx="23" cy="23" r="23"></circle>
+                </g>
+                <g id="Group-3" transform="translate(10.000000, 103.000000)">
+                    <g id="slider">
+                        <rect id="Rectangle" fill="#000000" x="13" y="0" width="5" height="89" rx="2.5"></rect>
+                        <g id="Rectangle">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                            <use fill="#D9007D" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        </g>
+                    </g>
+                    <g id="slider" transform="translate(39.000000, 0.000000)">
+                        <rect id="Rectangle" fill="#000000" x="13" y="0" width="5" height="89" rx="2.5"></rect>
+                        <g id="Rectangle" class="move-control-left">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                            <use fill="#D9007D" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        </g>
+                    </g>
+                    <g id="slider" transform="translate(78.000000, 0.000000)">
+                        <rect id="Rectangle" fill="#000000" x="13" y="0" width="5" height="89" rx="2.5"></rect>
+                        <g id="Rectangle" class="move-control-up">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                            <use fill="#D9007D" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        </g>
+                    </g>
+                </g>
+                <g id="button-panel" transform="translate(10.000000, 216.000000)">
+                    <rect id="Rectangle" fill="#130532" x="0" y="0" width="109" height="124" rx="11"></rect>
+                    <rect id="Rectangle" class="button-fill-1" fill="#7A56C9" x="8" y="12" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-3" fill="#7A56C9" opacity="0.403204055" x="8" y="40" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-6" class="button-fill-3" fill="#7A56C9" x="8" y="68" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-9" class="button-fill-1" fill="#7A56C9" x="8" y="96" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy" class="button-fill-2" fill="#7A56C9" opacity="0.402064732" x="42" y="12" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-4" class="button-fill-1" fill="#7A56C9" x="42" y="40" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-7" fill="#7A56C9" x="42" y="68" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-10" class="button-fill-2" fill="#7A56C9" opacity="0.402064732" x="42" y="96" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-2" class="button-fill-3" fill="#7A56C9" x="75" y="12" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-5" class="button-fill-2" fill="#7A56C9" x="75" y="40" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-8" fill="#7A56C9" opacity="0.397065662" x="75" y="68" width="26" height="20" rx="4"></rect>
+                    <rect id="Rectangle-Copy-11" class="button-fill-3"  fill="#7A56C9" x="75" y="96" width="26" height="20" rx="4"></rect>
+                </g>
+                <g id="Group" transform="translate(87.000000, 366.000000)">
+                    <ellipse id="Oval" fill="#130532" cx="16" cy="16.4848485" rx="16" ry="15.5151515"></ellipse>
+                    <ellipse id="Oval" fill="#CACACA" cx="16" cy="16.4848485" rx="13" ry="12.6060606"></ellipse>
+                    <ellipse id="Oval" fill="url(#linearGradient-9)" cx="16" cy="16.969697" rx="6" ry="5.33333333"></ellipse>
+                    <path d="M16,0.577651515 C19.3413972,0.577651515 22.0501347,3.28638911 22.0501347,6.62778626 C22.0501347,7.18487163 21.9731934,7.73928772 21.8214915,8.27532003 L19.0315784,18.1333609 C18.6581669,19.4527948 17.4537751,20.3636364 16.0825195,20.3636364 C14.7090498,20.3636364 13.5004806,19.4569339 13.1162938,18.1382908 L10.237759,8.25830478 C9.31056712,5.07590696 11.1387728,1.74442626 14.3211706,0.817234369 C14.8666205,0.6583175 15.4318714,0.577651515 16,0.577651515 Z" id="Rectangle" fill="#D8D8D8"></path>
+                    <ellipse id="Oval" fill="url(#linearGradient-10)" cx="16" cy="6.3030303" rx="6" ry="5.33333333"></ellipse>
+                </g>
+                <g id="Group-Copy-2" transform="translate(49.000000, 366.000000)">
+                    <ellipse id="Oval" fill="#130532" cx="16" cy="16.4848485" rx="16" ry="15.5151515"></ellipse>
+                    <ellipse id="Oval" fill="#CACACA" cx="16" cy="16.4848485" rx="13" ry="12.6060606"></ellipse>
+                    <ellipse id="Oval" fill="url(#linearGradient-9)" cx="16" cy="16.969697" rx="6" ry="5.33333333"></ellipse>
+                    <g id="Group-4" transform="translate(16.000000, 24.000000) scale(1, -1) translate(-16.000000, -24.000000) translate(8.000000, 14.000000)">
+                        <path d="M8,5.68434189e-14 C11.3413972,5.62296142e-14 14.0501347,2.70873759 14.0501347,6.05013475 C14.0501347,6.60722012 13.9731934,7.1616362 13.8214915,7.69766852 L11.0315784,17.5557094 C10.6581669,18.8751433 9.45377508,19.7859848 8.08251953,19.7859848 C6.7090498,19.7859848 5.50048061,18.8792824 5.11629382,17.5606393 L2.23775901,7.68065327 C1.31056712,4.49825544 3.13877275,1.16677474 6.32117058,0.239582854 C6.86662045,0.0806659847 7.43187137,5.69477824e-14 8,5.68434189e-14 Z" id="Rectangle" fill="#D8D8D8"></path>
+                        <ellipse id="Oval" fill="url(#linearGradient-10)" cx="8" cy="5.72537879" rx="6" ry="5.33333333"></ellipse>
+                    </g>
+                </g>
+                <g id="Group-Copy-3" transform="translate(10.000000, 366.000000)">
+                    <ellipse id="Oval" fill="#130532" cx="16" cy="16.4848485" rx="16" ry="15.5151515"></ellipse>
+                    <ellipse id="Oval" fill="#CACACA" cx="16" cy="16.4848485" rx="13" ry="12.6060606"></ellipse>
+                    <ellipse id="Oval" fill="url(#linearGradient-9)" cx="16" cy="16.969697" rx="6" ry="5.33333333"></ellipse>
+                    <path d="M16,0.577651515 C19.3413972,0.577651515 22.0501347,3.28638911 22.0501347,6.62778626 C22.0501347,7.18487163 21.9731934,7.73928772 21.8214915,8.27532003 L19.0315784,18.1333609 C18.6581669,19.4527948 17.4537751,20.3636364 16.0825195,20.3636364 C14.7090498,20.3636364 13.5004806,19.4569339 13.1162938,18.1382908 L10.237759,8.25830478 C9.31056712,5.07590696 11.1387728,1.74442626 14.3211706,0.817234369 C14.8666205,0.6583175 15.4318714,0.577651515 16,0.577651515 Z" id="Rectangle" fill="#D8D8D8"></path>
+                    <ellipse id="Oval" fill="url(#linearGradient-10)" cx="16" cy="6.3030303" rx="6" ry="5.33333333"></ellipse>
+                </g>
+                <g id="button-off" transform="translate(47.000000, 7.000000)">
+                    <circle id="Oval" fill="#130532" cx="16" cy="16" r="16"></circle>
+                    <circle id="Oval" fill="#831253" cx="16" cy="16" r="12"></circle>
+                </g>
+                <g id="button-off-copy" transform="translate(87.000000, 7.000000)">
+                    <circle id="Oval" fill="#130532" cx="16" cy="16" r="16"></circle>
+                    <circle id="Oval" fill="#831253" cx="16" cy="16" r="12"></circle>
+                </g>
+                <g id="button-off-copy-2" transform="translate(87.000000, 47.000000)">
+                    <circle id="Oval" fill="#130532" cx="16" cy="16" r="16"></circle>
+                    <circle id="Oval" fill="#831253" cx="16" cy="16" r="12"></circle>
+                </g>
+                <g id="button-off-copy-3" transform="translate(8.000000, 47.000000)">
+                    <circle id="Oval" fill="#130532" cx="16" cy="16" r="16"></circle>
+                    <circle id="Oval" fill="#831253" cx="16" cy="16" r="12"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

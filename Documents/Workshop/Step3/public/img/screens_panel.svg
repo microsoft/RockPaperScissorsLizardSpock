@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="759px" viewBox="0 0 1920 759" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>screens_panel</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="23.2911882%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#492F93" offset="0%"></stop>
+            <stop stop-color="#0D0026" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03.-Battle-01" transform="translate(0.000000, -321.000000)" fill="url(#linearGradient-1)">
+            <g id="bg" transform="translate(0.000000, 246.000000)">
+                <path d="M1018.23378,75 C1457.1884,75 1765.4064,104.103569 1920.02809,147.297647 L1920.00593,299 L1920.02793,299 L1920.00593,1133 L0.00592686071,1133 L4.54747351e-13,345 L0.00592686071,345 L-0.000986465929,154.434879 C179.449301,107.340269 555.513744,75 1018.23378,75 Z" id="screens_panel"></path>
+            </g>
+        </g>
+    </g>
+</svg>
