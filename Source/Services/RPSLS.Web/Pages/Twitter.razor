@@ -1,0 +1,42 @@
+﻿@layout MainLayout
+@page "/login/twitter"
+@attribute [Authorize]
+
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="index-content">
+    <div class="login">
+        <div class="login-section">
+            <form action="/api/account/login" method="get" autocomplete="off">
+                <img src='@("/assets/images/png/logo.png")'>
+                <div class="subtitle-container">
+                    <h2 class="subtitle">Play the geek version of rock-paper-scissors.</h2>
+                    <h2 class="subtitle">Pick the challenger you want</h2>
+                </div>
+                <div class="custom-button">
+                    <a class="custom-button-link" href="/challenger">Play against bots</a>
+                </div>
+                <div class="custom-button">
+                    <a class="custom-button-link" href="/lobby">Start a multiplayer game</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+</div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity.AuthenticationType != "Twitter")
+        {
+            NavigationManager.NavigateTo("/challenger");
+        }
+    }
+}

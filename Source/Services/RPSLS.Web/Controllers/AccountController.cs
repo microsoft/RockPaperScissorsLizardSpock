@@ -12,11 +12,12 @@ namespace RPSLS.Web.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
+        private const string twitterRedirectUri = "/login/twitter";
         private const string redirectUri = "/challenger";
 
         [HttpGet("login/twitter")]
         public IActionResult ExternalLogin() =>
-            Challenge(new AuthenticationProperties { RedirectUri = redirectUri }, "Twitter");
+            Challenge(new AuthenticationProperties { RedirectUri = twitterRedirectUri }, "Twitter");
 
         [HttpGet("login")]
         public async Task<IActionResult> Login(string username)

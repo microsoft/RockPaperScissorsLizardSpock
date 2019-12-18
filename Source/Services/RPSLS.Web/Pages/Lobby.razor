@@ -1,0 +1,49 @@
+﻿@layout MainLayout
+@page "/lobby"
+@attribute [Authorize]
+
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JsRuntime
+
+<div class="index-content">
+    <div class="login">
+        <div class="login-section">
+            <form action="/api/account/login" method="get" autocomplete="off">
+                <img src='@("/assets/images/png/logo.png")'>
+                <div class="subtitle-container">
+                    <h2 class="subtitle">Play the geek version of rock-paper-scissors.</h2>
+                    <h2 class="subtitle">Share the link with your opponent</h2>
+                </div>
+                <input class="token-link" type="text" value="@TokenLink" readonly onclick="this.select();document.execCommand('copy');" />
+                <h2 class="wait-text">waiting opponent to join...</h2>
+            </form>
+        </div>
+    </div>
+
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+</div>
+
+@code
+{
+    private string TokenLink { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity.AuthenticationType != "Twitter")
+        {
+            NavigationManager.NavigateTo("/challenger");
+        }
+
+        TokenLink = $"{NavigationManager.BaseUri}api/token/{GenerateToken()}";
+    }
+
+    private string GenerateToken()
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var random = new Random();
+        return new string(Enumerable.Repeat(chars, 5).Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+}
