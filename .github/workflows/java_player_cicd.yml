@@ -59,7 +59,7 @@ jobs:
         helm upgrade --install -f Deploy/powershell/_values-gh.yaml --set image.repository=${{ secrets.ACR_NAME }}.azurecr.io/java.player --set image.tag=gh-${{ github.sha }} --set replicaCount=2  java-player  ${{ secrets.ACR_NAME }}/java-player --version=1.0.0-${{ github.sha }} 
       
         
-    
+  
     
      
        
