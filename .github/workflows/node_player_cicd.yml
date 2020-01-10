@@ -58,10 +58,6 @@ jobs:
         helm repo update
         helm upgrade --install -f Deploy/powershell/_values-gh.yaml --set image.repository=${{ secrets.ACR_NAME }}.azurecr.io/node.player --set image.tag=gh-${{ github.sha }} --set replicaCount=2  node-player  ${{ secrets.ACR_NAME }}/node-player --version=1.0.0-${{ github.sha }}
       
-        
-    
-    
-     
        
        
     
