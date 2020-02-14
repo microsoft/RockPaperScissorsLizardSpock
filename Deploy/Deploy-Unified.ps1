@@ -67,7 +67,7 @@ $gValuesLocation=$(./Join-Path-Recursively.ps1 "..","helm","__values",$gValuesFi
 & ./Generate-Config.ps1 -resourceGroup $resourceGroup -outputFile $gValuesLocation
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 
-# Build an Push
+# Build and Push
 & ./Build-Push.ps1 -resourceGroup $resourceGroup -dockerTag $tag
 if (-not $?) { Pop-Location; Pop-Location; exit 1 }
 

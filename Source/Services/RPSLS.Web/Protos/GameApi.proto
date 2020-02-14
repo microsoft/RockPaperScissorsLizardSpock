@@ -4,29 +4,38 @@ option csharp_namespace = "GameApi.Proto";
 
 package GameManagementApi;
 
-service GameManager {
-	rpc GetChallengers (EmptyRequest) returns (ChallengersList);
+
+service ConfigurationManager {
+	rpc GetSettings (Empty) returns (SettingsResponse);
+}
+
+message SettingsResponse {
+	bool hasMultiplayer = 1;
+}
+
+service BotGameManager {
+	rpc GetChallengers (Empty) returns (ChallengersList);
 	rpc DoPlay (GameRequest) returns (GameResponse);
 }
 
-message EmptyRequest {}
+message Empty {}
 
-message ChallengerDto {
+message ChallengerInfo {
 	string name = 1;
 	string displayName = 2;
 }
 
 message ChallengersList {
 	int32 count = 1;
-	repeated ChallengerDto challengers = 2;
+	repeated ChallengerInfo challengers = 2;
 }
 
 
 message GameRequest {
 	string challenger = 1;
 	string username = 2;
-    int32 pick = 3;
-    bool twitterLogged = 4;
+    bool twitterLogged = 3;
+    int32 pick = 4;
 }
 
 enum Result
@@ -34,8 +43,8 @@ enum Result
 	Tie = 0;
 	Player = 1;
 	Challenger = 2;
+	Pending = 3;
 }
-
 
 message GameResponse {
 	string challenger = 1;
@@ -43,6 +52,77 @@ message GameResponse {
 	string user = 3;
 	int32 userPick = 4;
 	Result result = 5;
-	bool IsValid = 6;
+	bool isValid = 6;
 }
 
+service MultiplayerGameManager {
+	rpc CreatePairing (CreatePairingRequest) returns (stream PairingStatusResponse);
+	rpc JoinPairing (JoinPairingRequest) returns (stream PairingStatusResponse);
+	rpc Pick (PickRequest) returns (Empty);
+	rpc GameStatus (GameStatusRequest) returns (stream GameStatusResponse);
+	rpc Rematch (RematchRequest) returns (stream RematchResponse);
+	rpc Leaderboard (Empty) returns (LeaderboardResponse);
+}
+
+message CreatePairingRequest {
+	string username = 1;
+	bool twitterLogged = 2;
+}
+
+message JoinPairingRequest {
+	string username = 1;
+	bool twitterLogged = 2;
+	string token = 3;
+}
+
+message PairingStatusResponse {
+	string matchId = 1;
+	string status = 2;
+	string token = 3;
+}
+
+message PickRequest {
+	string matchId = 1;
+	string username = 2;
+	bool twitterLogged = 3;
+	int32 pick = 4;
+}
+
+message GameStatusRequest {
+	string matchId = 1;
+	string username = 2;
+	bool twitterLogged = 3;
+}
+
+message GameStatusResponse {
+	string challenger = 1;
+	int32 challengerPick = 2;
+	string user = 3;
+	int32 userPick = 4;
+
+	Result result = 5;
+	bool isCancelled = 6;
+	bool isMaster = 7;
+	bool isFinished = 8;
+}
+
+message RematchRequest {
+	string matchId = 1;
+	string username = 2;
+	bool twitterLogged = 3;
+}
+
+message RematchResponse {
+	bool hasStarted = 1;
+	bool isCancelled = 2;
+}
+
+message LeaderboardResponse {
+	repeated LeaderboardEntryResponse players = 1;
+}
+
+message LeaderboardEntryResponse {
+	string username = 1;
+	bool twitterLogged = 2;
+	int32 score = 3;
+}

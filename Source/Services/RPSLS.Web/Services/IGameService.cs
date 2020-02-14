@@ -1,16 +1,13 @@
-﻿using GameApi.Proto;
-using RPSLS.Web.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using RPSLS.Web.Models;
 
 namespace RPSLS.Web.Services
 {
     public interface IGameService
     {
-        ChallengerDto Challenger { get; set; }
+        string Username { get; set; }
+        bool IsTwitterUser { get; set; }
         int Pick { get; set; }
+        ChallengerDto Challenger { get; set; }
         ResultDto GameResult { get; set; }
-        Task Play(string username, bool isTwitterUser);
-        Task<IEnumerable<ChallengerDto>> Challengers();
     }
 }

@@ -1,27 +1,50 @@
 ﻿@layout MainLayout
-@inject IOptions<TwitterOptions> TwitterOptions
 @page "/"
+
+@inject IOptions<TwitterOptions> TwitterOptions
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IOptions<MultiplayerSettings> MultiplayerSettings
 
 <div class="index-content">
     <div class="login">
         <div class="login-section">
-            <form action="/api/account/login" method="get" autocomplete="off">
-                <img src='@("/assets/images/png/logo.png")'>
+            <RPSLS.Web.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings.Value" />
+            <form>
+                <img src="/assets/images/png/logo.png">
                 <div class="subtitle-container">
-                    <h2 class="subtitle">Play the geek version of rock-paper-scissors.</h2>
-                    <h2 class="subtitle">Can you defeat our bot?</h2>
+                    <h2 class="subtitle">The geek version of rock-paper-scissors.</h2>
+                    <h2 class="subtitle">Play with a friend or try to defeat our bot!</h2>
                 </div>
-                <input name="username" class="user" type="text" placeholder="Type Username" required />
 
-                <div class="sign_twitter">
-                    @if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) && !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
+                @if (string.IsNullOrWhiteSpace(Username))
+                {
+                    <input @bind="@CustomUsername" class="user" type="text" placeholder="Type Username" required />
+
+                    <div class="sign_twitter">
+                        @if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) && !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
+                        {
+                            <span>or <a href="/api/account/login/twitter">Sign in with Twitter</a></span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="subtitle-container">
+                        <h2 class="subtitle">HELLO, @Username.ToUpperInvariant()</h2>
+                    </div>
+                }
+
+                <div class="custom-button-container">
+                    <div class="custom-button">
+                        <button type="button" @onclick="PlayAgainstBots" class="custom-button-link">Play with a bot</button>
+                    </div>
+                    @if (MultiplayerSettings.Value.Enabled)
                     {
-                        <span>or <a href="/api/account/login/twitter"> Sign in with Twitter</a></span>
+                        <div class="custom-button">
+                            <button type="button" @onclick="PlayAgainstHumans" class="custom-button-link">Play with a friend</button>
+                        </div>
                     }
-                </div>
-
-                <div class="custom-button">
-                    <button type="submit" class="custom-button-link">Enter Game</button>
                 </div>
             </form>
         </div>
@@ -33,3 +56,47 @@
 </div>
 
 <CookiesBanner />
+
+@code
+{
+    private string CustomUsername { get; set; }
+
+    [Parameter]
+    public string RedirectUrl { get; set; }
+
+    public string Username { get; set; }
+    public bool IsTwitterUser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        Username = state.User?.Identity?.Name ?? string.Empty;
+        IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
+        if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(RedirectUrl))
+        {
+            NavigationManager.NavigateTo(RedirectUrl);
+        }
+    }
+
+    protected void PlayAgainstBots() => Play("/challenger");
+    protected void PlayAgainstHumans() => Play("/lobby");
+
+    private void Play(string redirect)
+    {
+        if (!string.IsNullOrWhiteSpace(CustomUsername))
+            Username = CustomUsername;
+
+        if (!string.IsNullOrWhiteSpace(Username))
+        {
+            var uri = redirect;
+            if (!IsTwitterUser)
+            {
+                var encodedUsername = System.Web.HttpUtility.UrlEncode(Username);
+                var encodedRedirect = System.Web.HttpUtility.UrlEncode(redirect);
+                uri = $"/api/account/login?username={encodedUsername}&redirectUrl={encodedRedirect}";
+            }
+
+            NavigationManager.NavigateTo(uri, true);
+        }
+    }
+}

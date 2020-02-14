@@ -9,6 +9,35 @@
     position: relative;
 }
 
+/* Leaderboard link */
+.leaderboard-link {
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 50%;
+    color: white;
+    font-family: Voyager;
+    font-size: 1rem;
+    line-height: 20px;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 60px 200px;
+    grid-template-rows: 40px 40px;
+    justify-items: start;
+    align-items: end;
+}
+
+    .leaderboard-link img {
+        width: auto;
+        height: 100px;
+    }
+
+    .leaderboard-link a {
+        color: #FFAA44;
+        align-self: start;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
 /* Login Layout */
 .login {
     width: 100%;
@@ -29,12 +58,13 @@
 }
 
     .login-section .custom-button {
-        margin: 1rem 0rem;
+        margin: 1rem;
     }
 
     .login-section img {
-        width: 75%;
-        position: relative;
+        height: 100%;
+        grid-row: 1 / span 2;
+        /* position: relative; */
     }
 
     .login-section .subtitle-container {
@@ -66,6 +96,7 @@
         width: 100%;
         font-size: 1rem;
     }
+
     .login-section .user {
         width: 25rem;
         font-size: 1.25rem;
@@ -86,6 +117,7 @@
 
     /* Twitter */
     .login-section .sign_twitter {
+        margin-top: 1rem;
         color: #ffffff;
         font-size: 1.1rem;
         margin-bottom: 2.5rem;
@@ -143,7 +175,7 @@ form {
         }
 
         .login-section .subtitle {
-            font-size: 1.25rem;
+            font-size: 2.3rem;
         }
 
     .custom-button {

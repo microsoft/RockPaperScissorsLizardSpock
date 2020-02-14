@@ -110,13 +110,13 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: -10vh;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .custom-button.challengers-select-button {
-    margin-top: -10vh;
+    margin-top: -5vh;
 }
 
 @media (max-width: 768px) {

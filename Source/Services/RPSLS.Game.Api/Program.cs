@@ -14,7 +14,7 @@ namespace RPSLS.Game.Api
         public static void Main(string[] args)
         {
             var configuration = GetStartupConfiguration();
-            CreateHostBuilder(configuration,args).Build().Run();
+            CreateHostBuilder(configuration, args).Build().Run();
         }
 
         private static IConfiguration GetStartupConfiguration()

@@ -16,3 +16,11 @@ data:
   Challengers__2__Selector:  {{ .Values.inf.challengers.python }}
   Challengers__3__Selector:  {{ .Values.inf.challengers.java }}
   Challengers__4__Selector:  {{ .Values.inf.challengers.php }}
+  Multiplayer__Leaderboard__OnlyTwitter: {{ .Values.multiplayer.leaderboard.onlytwitter | quote }}
+  Multiplayer__Leaderboard__Top: {{ .Values.multiplayer.leaderboard.top | quote }}
+{{- if .Values.auth.playfab.title }}
+  Multiplayer__Title: {{ .Values.auth.playfab.title }}
+{{- end -}}
+{{- if .Values.auth.playfab.secret }}
+  Multiplayer__SecretKey: {{ .Values.auth.playfab.secret }}
+{{- end -}}

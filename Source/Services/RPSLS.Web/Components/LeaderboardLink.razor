@@ -1,0 +1,13 @@
+﻿@if (MultiplayerSettings.Enabled)
+{
+    <div class="leaderboard-link">
+        <img src="/assets/images/png/astronaut.png">
+        <span>don't miss</span>
+        <a href="/leaderboard">THE LEADERBOARD</a>
+    </div>
+}
+
+@code
+{
+    [Parameter] public MultiplayerSettings MultiplayerSettings { get; set; }
+}

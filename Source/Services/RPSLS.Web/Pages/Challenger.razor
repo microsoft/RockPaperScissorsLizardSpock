@@ -3,9 +3,10 @@
 
 @using GameApi.Proto
 
-@inject IGameService Game
+@inject IBotGameService Game
 @inject SvgHelper svgHelper
 @inject NavigationManager NavigationManager
+@inject GameSettingsDto GameSettings
 
 <div class="challengers-content">
     <h1 class="challengers-content-title">choose your opponent</h1>
@@ -14,8 +15,7 @@
             @foreach (var challenger in challengers)
             {
                 var active = challenger.Name == Game.Challenger?.Name;
-                <div class="lang-card @(active ? "active" : string.Empty) @(challenger.Name)"
-                        @onclick="() => SelectChallenger(challenger)">
+                <div class="lang-card @(active ? "active" : string.Empty) @(challenger.Name)" @onclick="() => SelectChallenger(challenger)">
 
                     <div class="lang-icon challenger-svg">
                         <img src='@("/assets/images/png/"+challenger.Name+".png")'>
@@ -28,6 +28,10 @@
             <div class="custom-button challengers-select-button">
                 <a class="custom-button-link" href="@battleUrl">Select</a>
             </div>
+            @if (GameSettings.HasMultiplayer)
+            {
+                <a class="secondary-link" href="/lobby">Play with a friend</a>
+            }
         </div>
     </div>
 </div>
@@ -35,8 +39,8 @@
 
 @code
 {
-    string battleUrl = null;
-    IEnumerable<ChallengerDto> challengers = new List<ChallengerDto>();
+    private string battleUrl = null;
+    private IEnumerable<ChallengerDto> challengers = new List<ChallengerDto>();
 
     protected async override Task OnInitializedAsync()
     {

@@ -1,5 +1,5 @@
-ARG sdkTag=3.0
-ARG runtimeTag=3.0
+ARG sdkTag=3.1
+ARG runtimeTag=3.1
 ARG image=mcr.microsoft.com/dotnet/core/aspnet
 ARG sdkImage=mcr.microsoft.com/dotnet/core/sdk
 
@@ -9,7 +9,7 @@ EXPOSE 80
 
 FROM ${sdkImage}:${sdkTag} AS build
 WORKDIR /src/project
-COPY . .
+COPY ./RPSLS.Web .
 RUN dotnet build "RPSLS.Web.csproj" -c Release -o /app
 
 FROM build AS publish

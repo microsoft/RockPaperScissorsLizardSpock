@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RPSLS.Game.Api.Extensions
 {
@@ -16,7 +13,7 @@ namespace RPSLS.Game.Api.Extensions
             var labelpairs = selector.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var pair in labelpairs)
             {
-                string desiredLabel = null;
+                string desiredLabel;
                 string desiredLabelValue = null;
                 var indexOfEquals = pair.IndexOf('=');
                 if (indexOfEquals != -1)

@@ -1,5 +1,5 @@
-ARG sdkTag=3.0
-ARG runtimeTag=3.0
+ARG sdkTag=3.1
+ARG runtimeTag=3.1
 ARG image=mcr.microsoft.com/dotnet/core/aspnet
 ARG sdkImage=mcr.microsoft.com/dotnet/core/sdk
 
@@ -9,11 +9,15 @@ EXPOSE 80
 
 FROM ${sdkImage}:${sdkTag} AS build
 WORKDIR /src/project
-COPY . .
-RUN dotnet build "RPSLS.Game.Api.csproj" -c Release -o /app
+COPY ./RPSLS.Game.Api ./RPSLS.Game.Api/
+COPY ./RPSLS.Game.Multiplayer ./RPSLS.Game.Multiplayer/
+#COPY . .
+RUN dotnet build ./RPSLS.Game.Api/RPSLS.Game.Api.csproj -c Release -o /app
+#RUN dotnet build "RPSLS.Game.Api.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "RPSLS.Game.Api.csproj" -c Release -o /app
+RUN dotnet publish ./RPSLS.Game.Api/RPSLS.Game.Api.csproj -c Release -o /app
+#RUN dotnet publish "RPSLS.Game.Api.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app

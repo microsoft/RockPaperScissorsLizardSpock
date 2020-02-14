@@ -45,7 +45,7 @@ namespace RPSLS.Game.Api.Services
                         var svc = services.Items.FirstOrDefault(s => s.MatchSelector(challengerOptions.Selector));
                         if (svc != null)
                         {
-                            _challengers.Add(new Challenger(challengerOptions, svc, _clientFactory));
+                            _challengers.Add(new InternalChallenger(challengerOptions, svc, _clientFactory));
                         }
                     }
                 }

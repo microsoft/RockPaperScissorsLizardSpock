@@ -29,8 +29,8 @@ services:
   game.api:
     image: ${REGISTRY:-msftrpsls}/game.api:${TAG:-latest}
     build:
-      context: ./Services/RPSLS.Game.Api/
-      dockerfile: Dockerfile
+      context: ./Services/
+      dockerfile: RPSLS.Game.Api/Dockerfile
     depends_on:
       - dotnet.player
       - node.player
@@ -40,12 +40,12 @@ services:
   web:
     image: ${REGISTRY:-msftrpsls}/web:${TAG:-latest}
     build:
-      context: ./Services/RPSLS.Web/
-      dockerfile: Dockerfile
+      context: ./Services/
+      dockerfile: RPSLS.Web/Dockerfile
     depends_on:
       - game.api
   modeluploader:
     image: ${REGISTRY:-msftrpsls}/modeluploader:${TAG:-latest}
     build:
-      context: ./Services/RPSLS.ModelUploader.Web/
-      dockerfile: Dockerfile
+      context: ./Services/
+      dockerfile: RPSLS.ModelUploader.Web/Dockerfile
