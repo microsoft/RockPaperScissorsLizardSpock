@@ -102,6 +102,10 @@ a.secondary-link {
     color: #fff;
 }
 
+.custom-button[disabled]:hover {
+    transition: none;
+}
+
 .custom-button-link {
     font-size: 1.25rem;
     cursor: pointer;
@@ -130,6 +134,17 @@ a.secondary-link {
     transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
 
+.custom-button[disabled] .custom-button-link {
+    background-color: #d9007d;
+    text-shadow: none;
+    cursor: auto;
+    opacity: 0.5;
+}
+
+.custom-button[disabled]:active .custom-button-link {
+    transform: none;
+}
+
 .custom-button:hover a,
 .custom-button:hover button {
     background-color: #ec6a9c;
@@ -143,6 +158,8 @@ a.secondary-link {
     -o-transform: translate(0, 4px);
     transform: translate(0, 4px);
 }
+
+
 
 /* Cookies Banner */
 .cookie-banner {

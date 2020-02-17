@@ -19,7 +19,7 @@
 
                 @if (string.IsNullOrWhiteSpace(Username))
                 {
-                    <input @bind="@CustomUsername" class="user" type="text" placeholder="Type Username" required />
+                    <input @bind-value="@CustomUsername" @bind-value:event="oninput" class="user" type="text" placeholder="Type Username" required />
 
                     <div class="sign_twitter">
                         @if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) && !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
@@ -36,12 +36,12 @@
                 }
 
                 <div class="custom-button-container">
-                    <div class="custom-button">
+                    <div class="custom-button" disabled="@UserNameIsEmpty">
                         <button type="button" @onclick="PlayAgainstBots" class="custom-button-link">Play with a bot</button>
                     </div>
                     @if (MultiplayerSettings.Value.Enabled)
                     {
-                        <div class="custom-button">
+                        <div class="custom-button" disabled="@UserNameIsEmpty">
                             <button type="button" @onclick="PlayAgainstHumans" class="custom-button-link">Play with a friend</button>
                         </div>
                     }
@@ -59,13 +59,15 @@
 
 @code
 {
-    private string CustomUsername { get; set; }
+        private string CustomUsername { get; set; }
 
-    [Parameter]
-    public string RedirectUrl { get; set; }
+        [Parameter]
+        public string RedirectUrl { get; set; }
 
-    public string Username { get; set; }
-    public bool IsTwitterUser { get; set; }
+        public string Username { get; set; }
+        public bool IsTwitterUser { get; set; }
+
+        public bool UserNameIsEmpty => String.IsNullOrEmpty(Username) && String.IsNullOrEmpty(CustomUsername);
 
     protected override async Task OnInitializedAsync()
     {
