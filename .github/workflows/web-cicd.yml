@@ -36,7 +36,7 @@ jobs:
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/web:gh-${{ github.sha }}
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/modeluploader:gh-${{ github.sha }}
     - name: Set AKS kubectl context
-      uses: azure/k8s-actions/aks-set-context@master
+      uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ secrets.CLUSTER_NAME }}
