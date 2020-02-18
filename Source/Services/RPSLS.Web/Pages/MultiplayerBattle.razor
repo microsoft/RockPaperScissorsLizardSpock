@@ -186,6 +186,7 @@ else
         battleToBeStarted = true;
         shakeHand = true;
 
+        StateHasChanged();
         await Task.Delay(2000);
         shakeHand = false;
         userHandToShow = SelectedPick.Image;
