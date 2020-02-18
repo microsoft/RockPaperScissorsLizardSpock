@@ -227,3 +227,21 @@ a.secondary-link {
         padding: 10px 35px;
     }
 }
+
+/* Header Layout */
+.header-layout {
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: flex;
+    width:100%;
+}
+
+.header-layout-item {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.header-layout-item--large {
+    flex-grow: 2;
+}
