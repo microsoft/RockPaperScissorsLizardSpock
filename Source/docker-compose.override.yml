@@ -51,9 +51,10 @@ services:
       - Challengers__4__Url=http://php.player/
       - Multiplayer__Leaderboard__OnlyTwitter=false
       - Multiplayer__Leaderboard__Top=30
-# TODO: remove playfab title credentials
-      - Multiplayer__Title=553C1
-      - Multiplayer__SecretKey=6J3PTBNOU6UASY9HRZTR35EKK19A3FINUTMFE7MZJ7EFNKE685
+      - Multiplayer__Title=B2B6A
+      - Multiplayer__SecretKey=G5U8ZI3RT4GHMJXH9TCPZYTRAU9R1WDB1NHTO6EIU3NGQMN6A6
+      - Multiplayer__Title=
+      - Multiplayer__SecretKey=
   web:
     ports:
       - "5100:80"
@@ -61,9 +62,8 @@ services:
       - APPINSIGHTS_INSTRUMENTATIONKEY=
       - GameManager__Url=http://game.api:81/
       - GameManager__Grpc__GrpcOverHttp=true
-# TODO: remove twitter application credentials account
-      - Authentication__Twitter__ConsumerKey=fDju7VCm3uYPdAUrQpwWE1Zq9
-      - Authentication__Twitter__ConsumerSecret=0kgHQEdxRgXw4CLI5flRV7BvqubuQCICK8KQLaaAHH4OhjEmVC
+      - Authentication__Twitter__ConsumerKey=
+      - Authentication__Twitter__ConsumerSecret=
     volumes:
       - model-data:/app/wwwroot/model
   modeluploader:

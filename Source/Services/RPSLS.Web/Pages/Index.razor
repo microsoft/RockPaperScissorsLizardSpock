@@ -1,9 +1,12 @@
-﻿@layout MainLayout
+﻿@using Microsoft.AspNetCore.Http
+@layout MainLayout
 @page "/"
 
 @inject IOptions<TwitterOptions> TwitterOptions
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
+
 @inject IOptions<MultiplayerSettings> MultiplayerSettings
 
 <div class="index-content">
@@ -31,7 +34,7 @@
                 else
                 {
                     <div class="subtitle-container">
-                        <h2 class="subtitle">HELLO, @Username.ToUpperInvariant()</h2>
+                        <h2 class="subtitle" @onclick="Logout">HELLO, @Username.ToUpperInvariant()</h2>
                     </div>
                 }
 
@@ -98,5 +101,15 @@
 
             NavigationManager.NavigateTo(uri, true);
         }
+    }
+
+    private void Logout()
+    {
+        if (!string.IsNullOrWhiteSpace(Username))
+        {
+            
+        }
+
+        NavigationManager.NavigateTo("/", true);
     }
 }

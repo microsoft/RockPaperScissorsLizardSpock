@@ -1,10 +1,12 @@
-﻿@layout MainLayout
+﻿@using Microsoft.AspNetCore.Http
+@layout MainLayout
 @page "/invite/{token}"
 
 @inject IOptions<TwitterOptions> TwitterOptions
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IMultiplayerGameService Game
+@inject IHttpContextAccessor HttpContextAccessor
 @inject IOptions<MultiplayerSettings> MultiplayerSettings
 
 <div class="index-content">
@@ -20,7 +22,7 @@
                 @if (IsRedirecting)
                 {
                     <div class="subtitle-container">
-                        <h2 class="subtitle">HELLO, @Game.Username.ToUpperInvariant()</h2>
+                        <h2 class="subtitle" @onclick="Logout">HELLO, @Game.Username.ToUpperInvariant()</h2>
                         <h2 class="subtitle">Entering game</h2>
                     </div>
                 }
@@ -31,7 +33,7 @@
 
                     <div class="sign_twitter">
                         @if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) &&
-                           !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
+                         !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
                         {
                             <span>or <a href="/api/account/login/twitter?redirectUrl=@RedirectUrl">Sign in with Twitter</a></span>
                         }
@@ -82,5 +84,15 @@
         await Game.FetchMatchId(Token);
         var redirect = string.IsNullOrWhiteSpace(Game.MatchId) ? "/" : $"/battle/multiplayer/{Game.MatchId}";
         NavigationManager.NavigateTo(redirect);
+    }
+
+    private void Logout()
+    {
+        if (!string.IsNullOrWhiteSpace(Game.Username))
+        {
+            HttpContextAccessor.HttpContext.Session.Clear();
+        }
+
+        NavigationManager.NavigateTo("/", true);
     }
 }
