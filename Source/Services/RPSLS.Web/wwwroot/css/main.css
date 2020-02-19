@@ -102,6 +102,10 @@ a.secondary-link {
     color: #fff;
 }
 
+.custom-button-disabled:hover {
+    transition: none;
+}
+
 .custom-button-link {
     font-size: 1.25rem;
     cursor: pointer;
@@ -130,8 +134,19 @@ a.secondary-link {
     transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
 
+.custom-button-disabled .custom-button-link {
+    background-color: #d9007d;
+    text-shadow: none;
+    cursor: auto;
+    opacity: 0.5;
+}
+
+.custom-button-disabled:active .custom-button-link {
+    transform: none;
+}
+
 .custom-button:hover a,
-.custom-button:hover button {
+.custom-button:hover button:not([disabled]) {
     background-color: #ec6a9c;
     text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
 }
@@ -143,6 +158,8 @@ a.secondary-link {
     -o-transform: translate(0, 4px);
     transform: translate(0, 4px);
 }
+
+
 
 /* Cookies Banner */
 .cookie-banner {
@@ -209,4 +226,22 @@ a.secondary-link {
         font-size: 1rem;
         padding: 10px 35px;
     }
+}
+
+/* Header Layout */
+.header-layout {
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: flex;
+    width:100%;
+}
+
+.header-layout-item {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.header-layout-item--large {
+    flex-grow: 2;
 }

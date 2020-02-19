@@ -1,23 +1,35 @@
 ﻿@layout MainLayout
 @inherits LayoutComponentBase
 @inject SvgHelper svgHelper
+@inject IOptions<MultiplayerSettings> MultiplayerSettings
 
-<div class="game-content">
-    <MainTitle Title="@Title" ShowHelp="@ShowHelp"></MainTitle>
-    <div class="console">
-        <div class="console-content">
-            <div class="console-controls">
-                @svgHelper.GetImage($"/assets/images/svg/controls_left.svg")
+    <div class="game-content">
+        <div class="header-layout">
+            <div class="header-layout-item"></div>
+            <div class="header-layout-item header-layout-item--large">
+                <RPSLS.Web.Components.MainTitle Title="@Title" ShowHelp="@ShowHelp"></RPSLS.Web.Components.MainTitle>
+            </div>            
+            <div class="header-layout-item">
+                @if (ShowLeaderboardLink)
+                {
+                    <RPSLS.Web.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings.Value" />
+                }
             </div>
-            <CascadingValue Value="this">
-                @Body
-            </CascadingValue>
-            <div class="console-controls">
-                @svgHelper.GetImage($"/assets/images/svg/controls_right.svg")
+        </div>
+        <div class="console">
+            <div class="console-content">
+                <div class="console-controls">
+                    @svgHelper.GetImage($"/assets/images/svg/controls_left.svg")
+                </div>
+                <CascadingValue Value="this">
+                    @Body
+                </CascadingValue>
+                <div class="console-controls">
+                    @svgHelper.GetImage($"/assets/images/svg/controls_right.svg")
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 @if (ShowGithub)
 {
@@ -32,12 +44,16 @@
     string Title { get; set; }
     bool ShowHelp { get; set; }
     bool ShowGithub = false;
+    bool ShowLeaderboardLink = false;
 
-    public void Initialize(string title, bool withHelp, bool hasToShowGithub = false)
+
+
+    public void Initialize(string title, bool withHelp, bool hasToShowGithub = false, bool hasToShowLeaderboardLink = false)
     {
         this.Title = title;
         this.ShowHelp = withHelp;
         this.ShowGithub = hasToShowGithub;
+        this.ShowLeaderboardLink = hasToShowLeaderboardLink;
         this.StateHasChanged();
     }
 }

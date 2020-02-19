@@ -11,19 +11,21 @@
 
 /* Leaderboard link */
 .leaderboard-link {
-    height: 30px;
-    margin-top: 20px;
-    margin-left: 50%;
+    align-items: center;
+    display: flex;
     color: white;
     font-family: Voyager;
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: 20px;
     text-align: left;
-    display: grid;
-    grid-template-columns: 60px 200px;
-    grid-template-rows: 40px 40px;
     justify-items: start;
-    align-items: end;
+    padding-top: 1rem;
+}
+
+.leaderboard-link-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
 }
 
     .leaderboard-link img {
@@ -33,9 +35,8 @@
 
     .leaderboard-link a {
         color: #FFAA44;
-        align-self: start;
         text-decoration: none;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
 /* Login Layout */
@@ -52,6 +53,7 @@
     text-align: center;
     align-self: center;
     align-items: center;
+    padding-top: 1rem;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -59,13 +61,7 @@
 
     .login-section .custom-button {
         margin: 1rem;
-    }
-
-    .login-section img {
-        height: 100%;
-        grid-row: 1 / span 2;
-        /* position: relative; */
-    }
+    }    
 
     .login-section .subtitle-container {
         text-align: center;
@@ -115,13 +111,17 @@
         height: 3.5rem;
     }
 
-    /* Twitter */
-    .login-section .sign_twitter {
-        margin-top: 1rem;
-        color: #ffffff;
-        font-size: 1.1rem;
-        margin-bottom: 2.5rem;
+    .login-section .logo {
+        width: 72%;
     }
+
+/* Twitter */
+.login-section .sign_twitter {
+    margin-top: 1rem;
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+}
 
         .login-section .sign_twitter a {
             text-decoration: underline;

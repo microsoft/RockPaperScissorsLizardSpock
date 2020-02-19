@@ -10,7 +10,7 @@
         <a class="custom-button-link" href="/rematch/multiplayer">play again</a>
     </PlayAgainButton>
     <ChooseOpponent>
-        <a class="custom-button-link challenger" href="/login/twitter">choose opponent</a>
+        <a class="custom-button-link challenger" href="/">choose opponent</a>
     </ChooseOpponent>
 </RPSLS.Web.Components.Results>
 
@@ -25,12 +25,12 @@
     {
         if (firstRender)
         {
-            Layout.Initialize(title: "results", withHelp: true, hasToShowGithub: true);
+            Layout.Initialize(title: "results", withHelp: true, hasToShowGithub: true, hasToShowLeaderboardLink: true);
         }
     }
 
     protected override void OnInitialized()
-    {
+    {        
         if (Game.GameResult == null)
         {
             NavigationManager.NavigateTo("/lobby");
