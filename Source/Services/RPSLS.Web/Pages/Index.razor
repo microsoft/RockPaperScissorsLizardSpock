@@ -17,7 +17,7 @@
                 </div>
             </div>
             <form>
-                <img src="/assets/images/png/logo.png">
+                <img class="logo" src="/assets/images/png/logo.png">
                 <div class="subtitle-container">
                     <h2 class="subtitle">The geek version of rock-paper-scissors.</h2>
                     <h2 class="subtitle">Play with a friend or try to defeat our bot!</h2>
@@ -41,14 +41,14 @@
                     </div>
                 }
 
-                <div class="custom-button-container">
-                    <div class="custom-button" disabled="@UserNameIsEmpty">
-                        <button type="button" @onclick="PlayAgainstBots" class="custom-button-link">Play with a bot</button>
+                <div class="custom-button-container" >
+                    <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
+                        <button type="button" @onclick="PlayAgainstBots" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a bot</button>
                     </div>
                     @if (MultiplayerSettings.Value.Enabled)
                     {
-                        <div class="custom-button" disabled="@UserNameIsEmpty">
-                            <button type="button" @onclick="PlayAgainstHumans" class="custom-button-link">Play with a friend</button>
+                        <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
+                            <button type="button" @onclick="PlayAgainstHumans" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a friend</button>
                         </div>
                     }
                 </div>

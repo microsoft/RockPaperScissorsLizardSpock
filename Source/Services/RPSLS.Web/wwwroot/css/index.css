@@ -61,7 +61,7 @@
 
     .login-section .custom-button {
         margin: 1rem;
-    }
+    }    
 
     .login-section .subtitle-container {
         text-align: center;
@@ -111,13 +111,17 @@
         height: 3.5rem;
     }
 
-    /* Twitter */
-    .login-section .sign_twitter {
-        margin-top: 1rem;
-        color: #ffffff;
-        font-size: 1.1rem;
-        margin-bottom: 2.5rem;
+    .login-section .logo {
+        width: 72%;
     }
+
+/* Twitter */
+.login-section .sign_twitter {
+    margin-top: 1rem;
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+}
 
         .login-section .sign_twitter a {
             text-decoration: underline;
