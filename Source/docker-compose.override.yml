@@ -51,8 +51,6 @@ services:
       - Challengers__4__Url=http://php.player/
       - Multiplayer__Leaderboard__OnlyTwitter=false
       - Multiplayer__Leaderboard__Top=30
-      - Multiplayer__Title=B2B6A
-      - Multiplayer__SecretKey=G5U8ZI3RT4GHMJXH9TCPZYTRAU9R1WDB1NHTO6EIU3NGQMN6A6
       - Multiplayer__Title=
       - Multiplayer__SecretKey=
   web:
