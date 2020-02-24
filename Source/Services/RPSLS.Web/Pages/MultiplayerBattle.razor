@@ -15,9 +15,9 @@
             {
                 <div class="pick active toplay">
                     <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
-                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
-                        <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
-                        <img class="base" src="/assets/images/png/hands/user/base.png">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/@playerImage/0.png">
+                        <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/@playerImage/@(battleHelper.GetHandIcon(userHandToShow)).png">
+                        <img class="base" src="/assets/images/png/hands/@playerImage/base_left.png">
                     </div>
                 </div>
             }
@@ -27,7 +27,7 @@
                 {
                     var active = pick.Value == SelectedPick?.Value;
                     <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
-                        <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Image+".png")'></div>
+                        <div class="pick-images"><img src='@("/assets/images/png/hands/"+playerImage+"/"+pick.Value+".png")'></div>
                         <p class="pick-text">@pick.Text</p>
                     </div>
                     @if (pick.BreakAfter)
@@ -78,7 +78,7 @@ else
                         {
                             <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/@Game.Challenger.Name/@(battleHelper.GetHandIcon(Game.GameResult.ChallengerPick)).png">
                         }
-                        <img class="base bot" src="/assets/images/png/hands/@Game.Challenger.Name/base.png">
+                        <img class="base bot" src="/assets/images/png/hands/@Game.Challenger.Name/base_right.png">
                     </div>
                 </div>
             }
@@ -108,9 +108,11 @@ else
 @code
 {
     private bool battleToBeStarted = false;
-    private string userHandToShow = "rock";
+    private int userHandToShow = 0;
     private bool shakeHand = false;
     private RPSLSViewModel[] picks;
+    private string challengerImage;
+    private string playerImage;
 
     [CascadingParameter]
     public ConsoleLayout Layout { get; set; }
@@ -119,6 +121,7 @@ else
     public string MatchId { get; set; }
 
     public RPSLSViewModel SelectedPick { get; set; }
+
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -149,11 +152,14 @@ else
 
     private void Update(ResultDto gameState)
     {
+        SetPlayerImages(gameState);
+
         if (Game.Challenger == null)
         {
+
             Game.Challenger = new ChallengerDto()
             {
-                Name = "human",
+                Name = challengerImage,
                 DisplayName = gameState.Challenger
             };
 
@@ -166,7 +172,7 @@ else
         else if (gameState.IsFinished)
         {
             Game.GameResult = gameState;
-            Game.GameResult.Challenger = "human";
+            Game.GameResult.Challenger = challengerImage;
             if (SelectedPick == null)
             {
                 SelectedPick = picks.FirstOrDefault(p => p.Value == gameState.UserPick);
@@ -189,7 +195,7 @@ else
         StateHasChanged();
         await Task.Delay(2000);
         shakeHand = false;
-        userHandToShow = SelectedPick.Image;
+        userHandToShow = SelectedPick.Value;
         StateHasChanged();
         await Task.Delay(2000);
         NavigationManager.NavigateTo("/result/multiplayer");
@@ -198,5 +204,18 @@ else
     private async Task StartBattle()
     {
         await Game.UserPick(SelectedPick.Value);
+    }
+
+    private void SetPlayerImages(ResultDto gameState)
+    {
+        if (string.IsNullOrEmpty(playerImage))
+        {
+            playerImage = gameState.IsGameInitiator ? "user" : "challenger";
+        }
+
+        if (string.IsNullOrEmpty(challengerImage))
+        {
+            challengerImage = gameState.IsGameInitiator ? "challenger" : "user";
+        }
     }
 }

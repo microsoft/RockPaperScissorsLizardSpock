@@ -1,12 +1,14 @@
-﻿<div class="result console-screen @resultStyle">
+﻿@inject BattleHelper battleHelper
+
+<div class="result console-screen @resultStyle">
     <p class="console-text">@result.User</p>
     <div class="user-picks">
         <div class="user-picks-container">
             <div class="user-picks-items">
                 <div class="user-hand">
-                    <img src='@("/assets/images/png/hands/user/"+MapPick(result.UserPick)+".png")'>
+                    <img src='@("/assets/images/png/hands/"+ userImage +"/"+result.UserPick+".png")'>
                 </div>
-                <p class="pick-text">@MapPick(result.UserPick)</p>
+                <p class="pick-text">@battleHelper.MapPick(result.UserPick)</p>
 
                 <p class="pick-text text-result">@resultMessage</p>
                 @if (userIsWinner || userIsLoser)
@@ -35,9 +37,9 @@
             {
                 <div class="challenger-picks-items">
                     <div class="opponent-hand">
-                        <img src='@("/assets/images/png/hands/" + result.Challenger + "/" + result.ChallengerPick + ".png")' />
+                        <img src='@("/assets/images/png/hands/" + challengerImage + "/" + result.ChallengerPick + ".png")' />
                     </div>
-                    <p class="pick-text">@MapPick(result.ChallengerPick)</p>
+                    <p class="pick-text">@battleHelper.MapPick(result.ChallengerPick)</p>
                 </div>
             }
             else if (error != null)
@@ -69,6 +71,8 @@
     bool userIsWinner = false;
     bool userIsLoser = false;
     string resultStyle = "";
+    string userImage = "";
+    string challengerImage = "";
     ChallengerErrorViewModel error = null;
     ChallengerErrorViewModel[] errors = new ChallengerErrorViewModel[]
     {
@@ -77,7 +81,9 @@
         new ChallengerErrorViewModel() { Name = "dotnet", Text = "how did I end here?", Image = "node-error.png" },
         new ChallengerErrorViewModel() { Name = "java", Text = "how did I end here?", Image = "node-error.png" },
         new ChallengerErrorViewModel() { Name = "php", Text = "how did I end here?", Image = "node-error.png" }
-        };
+    };
+
+
 
     protected override void OnInitialized()
     {
@@ -93,6 +99,9 @@
 
         resultStyle = GetResultClass(result.Result);
         error = errors.FirstOrDefault(c => c.Name == result.Challenger);
+        var imageNames = GetPlayerImages(result);
+        userImage = imageNames.UserImage;
+        challengerImage = imageNames.ChallengerImage;
     }
 
     private string GetResultClass(int result)
@@ -115,19 +124,6 @@
         };
     }
 
-    private static string MapPick(int pick)
-    {
-        return pick switch
-        {
-            0 => "rock",
-            1 => "paper",
-            2 => "scissors",
-            3 => "lizard",
-            4 => "spock",
-            _ => "-"
-        };
-    }
-
     private static string MapAction(int winner, int loser)
     {
         return winner switch
@@ -143,8 +139,8 @@
 
     private string CreateMessage(int userPick, int challengerPick)
     {
-        var userPickText = MapPick(userPick);
-        var challengerPickText = MapPick(challengerPick);
+        var userPickText = battleHelper.MapPick(userPick);
+        var challengerPickText = battleHelper.MapPick(challengerPick);
 
         if (userIsWinner)
         {
@@ -152,5 +148,20 @@
         }
 
         return $"{challengerPickText} {MapAction(result.ChallengerPick, result.UserPick)} {userPickText}";
+    }
+
+    private (string UserImage, string ChallengerImage) GetPlayerImages(ResultDto result)
+    {
+        var humanChallengers = new string[] { "user", "challenger" };
+      
+        if (humanChallengers.Contains(result.Challenger))
+        {
+            return (result.IsGameInitiator ? "user" : "challenger", !result.IsGameInitiator ? "user" : "challenger");
+        }
+
+        return ("user", result.Challenger);
+
+        
+
     }
 }

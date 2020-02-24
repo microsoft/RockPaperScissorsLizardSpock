@@ -89,7 +89,8 @@ namespace RPSLS.Web.Clients
                     UserPick = response.UserPick,
                     Result = (int)response.Result,
                     IsValid = true,
-                    IsFinished = response.IsFinished
+                    IsFinished = response.IsFinished,
+                    IsGameInitiator = response.IsMaster
                 };
 
                 gameListener(resultDto);

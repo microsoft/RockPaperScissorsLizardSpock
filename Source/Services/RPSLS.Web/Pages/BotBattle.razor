@@ -15,9 +15,9 @@
             {
                 <div class="pick active toplay">
                     <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
-                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/0.png">
                         <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
-                        <img class="base" src="/assets/images/png/hands/user/base.png">
+                        <img class="base" src="/assets/images/png/hands/user/base_left.png">
                     </div>
                 </div>
             }
@@ -27,7 +27,7 @@
                 {
                     var active = pick.Value == Game.Pick;
                     <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
-                        <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Image+".png")'></div>
+                        <div class="pick-images"><img src='@("/assets/images/png/hands/user/"+pick.Value+".png")'></div>
                         <p class="pick-text">@pick.Text</p>
                     </div>
                     @if (pick.BreakAfter)
@@ -106,7 +106,7 @@ else
 @code
 {
     private bool battleToBeStarted = false;
-    private string userHandToShow = "rock";
+    private int userHandToShow = 0;
     private bool shakeHand = false;
     private RPSLSViewModel pickedToPlay;
     private RPSLSViewModel[] picks;
@@ -164,7 +164,7 @@ else
 
         await Task.Delay(2000);
         shakeHand = false;
-        userHandToShow = pickedToPlay.Image;
+        userHandToShow = pickedToPlay.Value;
         StateHasChanged();
         await Task.Delay(2000);
     }

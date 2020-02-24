@@ -21,9 +21,9 @@
             <div class="user-picks-container">
                 <div class="pick active toplay">
                     <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
-                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/user/rock.png">
-                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/user/@(battleHelper.GetHandIcon(userHandToShow)).png">
-                        <img class="base" src="/assets/images/png/hands/user/base.png">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/@playerImage/0.png">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/@playerImage)/@(battleHelper.GetHandIcon(userHandToShow)).png">
+                        <img class="base" src="/assets/images/png/hands/@playerImage/base_left.png">
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@ else
                         {
                             <img class="@(battleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/@Game.Challenger.Name/@(battleHelper.GetHandIcon(Game.GameResult.ChallengerPick)).png">
                         }
-                        <img class="base bot" src="/assets/images/png/hands/@Game.Challenger.Name/base.png">
+                        <img class="base bot" src="/assets/images/png/hands/@Game.Challenger.Name/base_right.png">
                     </div>
                 </div>
             }
@@ -109,10 +109,12 @@ else
 {
     private CancellationTokenSource cancellationTokenSource;
     private string guessImage = "";
-    private string userHandToShow = "rock";
+    private int userHandToShow = 0;
     private bool shakeHand = false;
     private bool battleToBeStarted = false;
     private bool isChoiceTaken = false;
+    private string challengerImage;
+    private string playerImage;
 
     [CascadingParameter]
     public ConsoleLayout Layout { get; set; }
@@ -132,6 +134,7 @@ else
         Game.IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
         Game.Pick = -1;
         cancellationTokenSource = new CancellationTokenSource();
+        _ = Game.AddGameListener(Update);
     }
 
 
@@ -154,11 +157,11 @@ else
         {
             var threshold = options.Value.RecognitionThreshold;
             var resultText = await JsRuntime.InvokeAsync<string>("predict", 320, 240, threshold, "#cam-recorder");
-            var result = MapPick(resultText);
+            var result = battleHelper.MapPick(resultText);
             var previousImage = guessImage;
             if (result != -1)
             {
-                guessImage = result == -1 ? "" : $"/assets/images/png/{MapPick(result)}-guess.png";
+                guessImage = result == -1 ? "" : $"/assets/images/png/hands/{playerImage}/{result}.png";
                 Game.Pick = result;
             }
 
@@ -172,9 +175,10 @@ else
         battleToBeStarted = true;
         shakeHand = true;
 
+        StateHasChanged();
         await Task.Delay(2000);
         shakeHand = false;
-        userHandToShow = MapPick(Game.Pick);
+        userHandToShow = Game.Pick;
         StateHasChanged();
         await Task.Delay(2000);
         NavigationManager.NavigateTo("/result/multiplayer");
@@ -190,11 +194,12 @@ else
 
     private void Update(ResultDto gameState)
     {
+        SetPlayerImages(gameState);
         if (Game.Challenger == null)
         {
             Game.Challenger = new ChallengerDto()
             {
-                Name = "human",
+                Name = challengerImage,
                 DisplayName = gameState.Challenger
             };
 
@@ -203,37 +208,21 @@ else
         else if (gameState.IsFinished)
         {
             Game.GameResult = gameState;
-            Game.GameResult.Challenger = "human";
+            Game.GameResult.Challenger = challengerImage;
             _ = ShakeHand();
         }
     }
 
-    private static string MapPick(int pick)
+    private void SetPlayerImages(ResultDto gameState)
     {
-        return pick switch
+        if (string.IsNullOrEmpty(playerImage))
         {
-            0 => "rock",
-            1 => "paper",
-            2 => "scissors",
-            3 => "lizard",
-            4 => "spock",
-            _ => "unknown"
-        };
-    }
+            playerImage = gameState.IsGameInitiator ? "user" : "challenger";
+        }
 
-    private static int MapPick(string pick)
-    {
-        if (int.TryParse(pick, out int result))
-            return result;
-
-        return pick.ToLowerInvariant() switch
+        if (string.IsNullOrEmpty(challengerImage))
         {
-            "rock" => 0,
-            "paper" => 1,
-            "scissors" => 2,
-            "lizard" => 3,
-            "spock" => 4,
-            _ => -1
-        };
+            challengerImage = gameState.IsGameInitiator ? "challenger" : "user";
+        }
     }
 }

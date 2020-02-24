@@ -29,7 +29,7 @@
                 else
                 {
                     <input type="hidden" name="redirectUrl" value="@RedirectUrl" />
-                    <input type="text" name="username" class="user" placeholder="Type Username" required />
+                    <input @bind-value="@userName" @bind-value:event="oninput" type="text" name="username" class="user" placeholder="Type Username" required />
 
                     <div class="sign_twitter">
                         @if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) &&
@@ -39,8 +39,8 @@
                         }
                     </div>
 
-                    <div class="custom-button">
-                        <button type="submit" class="custom-button-link">Enter</button>
+                    <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
+                        <button type="submit" class="custom-button-link" disabled="@UserNameIsEmpty">Enter</button>
                     </div>
                 }
             </form>
@@ -54,11 +54,15 @@
 
 @code
 {
+    private string userName;
+
     [Parameter]
     public string Token { get; set; }
 
     public string RedirectUrl { get; set; }
     public bool IsRedirecting { get; set; }
+    public bool UserNameIsEmpty => String.IsNullOrEmpty(userName);
+
 
     protected override async Task OnInitializedAsync()
     {

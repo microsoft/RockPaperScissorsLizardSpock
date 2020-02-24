@@ -19,15 +19,6 @@ namespace RPSLS.Web.Helpers
             }
         }
 
-        public string GetHandIcon(string userHandToShow)
-        {
-            if (userHandToShow == "lizard")
-            {
-                return $"{userHandToShow}_animated";
-            }
-            return userHandToShow;
-        }
-
         public string GetHandIcon(int challengerPick)
         {
             var hand = challengerPick.ToString();
@@ -36,6 +27,35 @@ namespace RPSLS.Web.Helpers
                 return $"{hand}_animated";
             }
             return hand;
+        }
+
+        public  string MapPick(int pick)
+        {
+            return pick switch
+            {
+                0 => "rock",
+                1 => "paper",
+                2 => "scissors",
+                3 => "lizard",
+                4 => "spock",
+                _ => "-"
+            };
+        }
+
+        public int MapPick(string pick)
+        {
+            if (int.TryParse(pick, out int result))
+                return result;
+
+            return pick.ToLowerInvariant() switch
+            {
+                "rock" => 0,
+                "paper" => 1,
+                "scissors" => 2,
+                "lizard" => 3,
+                "spock" => 4,
+                _ => -1
+            };
         }
 
     }
