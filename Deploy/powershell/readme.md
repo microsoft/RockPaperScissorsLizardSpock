@@ -54,8 +54,8 @@ Helm charts require a YAML file with some values. Those values depends on the Az
 * `ingressClass`: Ingress class for all ingress resources generated. Defaults to `addon-http-application-routing`.
 * `twitterKey`: Key of the twitter app. Needed to enable Login with Twitter in the web.
 * `twitterSecret`: Secret of the twitter app. Needed to enable Login with Twitter in the web.
-* `playfabTitle`: the PlayFab title Id. Needed to enable multiplayer. 
-* `playfabSecret`: the PlayFab secret. Needed to enable multiplayer.
+* `playfabTitle`: PlayFab Title Id. Needed for multiplayer support.
+* `playfabSecret`: PlayFab Secret Key. Needed for multiplayer support.
 * `aksHost`: AKS public host value. Defaults to the value of the Http Application Routing. Is used to set the host value of ingress resources.
 * `sslSupport`: TLS support to install and configure. Can be one of:
     * `none`: No TLS. Ingress resources will be generated without TLS info. **Default value**
