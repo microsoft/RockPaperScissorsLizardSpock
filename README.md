@@ -183,7 +183,7 @@ The KeyVault support is implemented through [FlexVol](https://github.com/Azure/k
 ```
 #### Publish Python Azure Function
 
-To publish the Azure Function you can execute the next command of the Azure Functions Core Tools:
+To publish the Azure Function you can execute the next command of the Azure Functions Core Tools from the folder `/Source/Functions/RPSLS.Python.Api`:
 ```
 func azure functionapp publish <funcapp-name> --no-build
 ```
