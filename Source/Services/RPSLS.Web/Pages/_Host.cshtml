@@ -41,7 +41,7 @@
 </head>
 <body>
     <app>
-        @(await Html.RenderComponentAsync<App>(RenderMode.Server))
+        <component type="typeof(App)" render-mode="Server" />
     </app>
     <script src="_framework/blazor.server.js"></script>
     <script src="/js/tf.min.js"></script>

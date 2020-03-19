@@ -38,7 +38,9 @@ jobs:
         resource-group: ${{ secrets.RESOURCE_GROUP }}        
     - name: Init Helm
       run: |
-        helm init --upgrade
+        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 > get_helm.sh
+        chmod 700 get_helm.sh
+        ./get_helm.sh
         az acr helm repo add -n ${{ secrets.ACR_NAME }}
     - name: Package Helm chart
       run: |
@@ -56,3 +58,4 @@ jobs:
         helm repo update
         helm upgrade --install -f Deploy/powershell/_values-gh.yaml --set kv.clientsecret=${{ secrets.KV_CLIENT_SECRET }} --set kv.enabled=true --set image.repository=${{ secrets.ACR_NAME }}.azurecr.io/game.api --set image.tag=gh-${{ github.sha }} --set replicaCount=2  game-api  ${{ secrets.ACR_NAME }}/game-api --version=1.0.0-${{ github.sha }} 
       
+    
