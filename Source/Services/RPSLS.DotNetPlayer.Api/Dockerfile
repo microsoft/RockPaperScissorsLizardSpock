@@ -1,9 +1,14 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+ARG sdkTag=3.1
+ARG runtimeTag=3.1
+ARG image=mcr.microsoft.com/dotnet/core/aspnet
+ARG sdkImage=mcr.microsoft.com/dotnet/core/sdk
+
+FROM ${image}:${runtimeTag} AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+FROM ${sdkImage}:${sdkTag} AS build
 WORKDIR /src
 COPY ["RPSLS.DotNetPlayer.Api.csproj", ""]
 RUN dotnet restore "./RPSLS.DotNetPlayer.Api.csproj"
