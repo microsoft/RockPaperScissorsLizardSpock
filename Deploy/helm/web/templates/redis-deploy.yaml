@@ -1,6 +1,6 @@
 {{- if .Values.inf.web.scale.enabled -}}
 {{- if and (eq .Values.inf.web.scale.dp.provider "internal") -}}
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "rpsls-web.fullname" . }}data

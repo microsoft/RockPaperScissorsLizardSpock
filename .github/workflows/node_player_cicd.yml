@@ -31,7 +31,7 @@ jobs:
         az acr login -n ${{ secrets.ACR_NAME }}
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/node.player:gh-${{ github.sha }}
     - name: Set AKS kubectl context
-      uses: azure/k8s-actions/aks-set-context@master
+      uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ secrets.CLUSTER_NAME }}

@@ -1,6 +1,6 @@
 # Game Manager Workflow
 
-name: Game Manager 
+name: Game Manager
 
 on: 
   push:
@@ -17,8 +17,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      working-directory: Source/Services/RPSLS.Game.Api
-      run: docker build . --file Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/game.api:gh-${{ github.sha }}
+      working-directory: Source/Services
+      run: docker build . --file RPSLS.Game.Api/Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/game.api:gh-${{ github.sha }}
     - name: Login to Azure
       uses: azure/login@v1
       with:
@@ -31,7 +31,7 @@ jobs:
         az acr login -n ${{ secrets.ACR_NAME }}
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/game.api:gh-${{ github.sha }}
     - name: Set AKS kubectl context
-      uses: azure/k8s-actions/aks-set-context@master
+      uses: azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ secrets.CLUSTER_NAME }}
@@ -52,7 +52,7 @@ jobs:
       shell: pwsh
       run: |
         az extension add --name application-insights
-        Deploy/powershell/Generate-Config.ps1 -gvaluesTemplate gvalues.template.gh -resourceGroup ${{ secrets.RESOURCE_GROUP }} -outputFile _values-gh.yaml -sslSupport custom -aksHost ${{ secrets.AKS_HOST }} -resourceGroupAcr ${{ secrets.RESOURCE_GROUP_ACR }}
+        Deploy/powershell/Generate-Config.ps1 -gvaluesTemplate gvalues.template.gh -resourceGroup ${{ secrets.RESOURCE_GROUP }} -outputFile _values-gh.yaml -sslSupport custom -aksHost ${{ secrets.AKS_HOST }} -resourceGroupAcr ${{ secrets.RESOURCE_GROUP_ACR }} -playfabTitle ${{ secrets.PLAYFAB_TITLE }} -playfabSecret ${{ secrets.PLAYFAB_SECRET }}
     - name: Install Helm Chart
       run: |
         helm repo update

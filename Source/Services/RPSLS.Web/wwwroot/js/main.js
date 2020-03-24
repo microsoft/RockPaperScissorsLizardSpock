@@ -1,12 +1,14 @@
 ﻿function setVideoSource(width, height, videoParentElement) {
 
-  return navigator.mediaDevices
-    .getUserMedia({ video: { width, height } })
-    .catch(() =>
-      navigator.mediaDevices.getUserMedia({
-        video: { width: { exact: width }, height: { exact: height } }
-      })
-    )
+    return navigator.mediaDevices
+        .getUserMedia({ video: { width, height } })
+        .catch(() =>
+            // For some browsers the exact property is required, so we do a second try using the exact property.
+            navigator.mediaDevices.getUserMedia({
+                video: { width: { exact: width }, height: { exact: height } }
+            })
+            .catch((error) => alert(`It is not possible to enable the webcam. ${error}`))
+        )
     .then(stream => {
       const video = document.querySelector(videoParentElement + " video");
       video.srcObject = stream;
