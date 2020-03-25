@@ -25,11 +25,17 @@ namespace RPSLS.Game.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMultiplayer(Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IMatchesCacheService, MatchesCacheService>();
             services.AddApplicationInsightsTelemetry();
             services.AddControllers();
             services.AddHealthChecks();
-            services.AddScoped<ResultsDao>(sp => new ResultsDao(Configuration["cosmos-constr"], sp.GetService<ILoggerFactory>()));
+            services.AddScoped<IMatchesRepository>(sp => new MatchesRepository(
+                Configuration["cosmos-constr"],
+                sp.GetService<IMatchesCacheService>(),
+                sp.GetService<ILoggerFactory>()));
+
             services.AddTransient<IGameService, GameService>();
             services.AddHttpClient("Challenger");
             services.AddGrpc();
@@ -42,7 +48,7 @@ namespace RPSLS.Game.Api
                     sp.GetService<ILoggerFactory>()));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -52,10 +58,12 @@ namespace RPSLS.Game.Api
             app.UseRouting();
             app.UseAuthorization();
             app.UseHealthChecks("/health");
-
+            app.UsePlayFab(applicationLifetime);
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GameManagerService>();
+                endpoints.MapGrpcService<BotGameManagerService>();
+                endpoints.MapGrpcService<MultiplayerGameManagerService>();
+                endpoints.MapGrpcService<ConfigurationManagerService>();
                 endpoints.MapControllers();
             });
         }

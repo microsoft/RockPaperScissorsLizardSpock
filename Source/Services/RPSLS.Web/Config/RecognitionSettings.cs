@@ -4,9 +4,4 @@
     {
         public float RecognitionThreshold { get; set; }
     }
-
-    public class GoogleAnalyticsSettings
-    {
-        public string GoogleAnalytics { get; set; }
-    }
 }

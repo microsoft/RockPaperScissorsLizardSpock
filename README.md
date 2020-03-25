@@ -181,6 +181,14 @@ The KeyVault support is implemented through [FlexVol](https://github.com/Azure/k
 ```
 .\Create-Kv-FlexVolume.ps1
 ```
+#### Publish Python Azure Function
+
+To publish the Azure Function you can execute the next command of the Azure Functions Core Tools from the folder `/Source/Functions/RPSLS.Python.Api`:
+```
+func azure functionapp publish <funcapp-name> --no-build
+```
+The value for `funcapp-name` must be the name of the Function App created in your Azure Resource Group.
+
 #### Configuring services
 
 Before deploying services using Helm, you need to setup the configuration. We refer to the configuration file with the name of _gvalues_ file. This file **contains all secrets** so beware to not commit in your repo accidentally.

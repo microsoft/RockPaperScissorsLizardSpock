@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RPSLS.Game.Api.Data;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,8 +9,8 @@ namespace RPSLS.Game.Api.Controllers
     [Route("api/[controller]")]
     public class GamesController : ControllerBase
     {
-        private readonly ResultsDao _resultDao;
-        public GamesController(ResultsDao resultDao)
+        private readonly IMatchesRepository _resultDao;
+        public GamesController(IMatchesRepository resultDao)
         {
             _resultDao = resultDao;
         }

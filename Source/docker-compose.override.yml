@@ -49,6 +49,10 @@ services:
       - Challengers__2__Url=http://python.player:5000/
       - Challengers__3__Url=http://java.player:8080/
       - Challengers__4__Url=http://php.player/
+      - Multiplayer__Leaderboard__OnlyTwitter=false
+      - Multiplayer__Leaderboard__Top=30
+      - Multiplayer__Title=
+      - Multiplayer__SecretKey=
   web:
     ports:
       - "5100:80"
@@ -59,7 +63,7 @@ services:
       - Authentication__Twitter__ConsumerKey=
       - Authentication__Twitter__ConsumerSecret=
     volumes:
-      - model-data:/app/wwwroot/model      
+      - model-data:/app/wwwroot/model
   modeluploader:
     ports:
       - "5110:80"

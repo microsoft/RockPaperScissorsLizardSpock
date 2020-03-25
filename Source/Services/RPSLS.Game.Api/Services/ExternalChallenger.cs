@@ -15,9 +15,9 @@ namespace RPSLS.Game.Api.Services
             _displayname = options.DisplayName;
         }
 
-        public ChallengerDto Info
+        public ChallengerInfo Info
         {
-            get => new ChallengerDto
+            get => new ChallengerInfo
             {
                 Name = _name,
                 DisplayName = _displayname

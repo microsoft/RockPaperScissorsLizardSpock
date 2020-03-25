@@ -17,6 +17,10 @@ Param (
     [parameter(Mandatory=$false)][string]$twitterKey,
     # Twitter secret (needed for web)
     [parameter(Mandatory=$false)][string]$twitterSecret,
+    # PlayFab Title Id (needed for multiplayer)
+    [parameter(Mandatory=$false)][string]$playfabTitle,
+    # PlayFab Secret (needed for multiplayer)
+    [parameter(Mandatory=$false)][string]$playfabSecret,
     # AKS Host to use (for ingress). If not set, the value of Http Application Routing is assumed
     [parameter(Mandatory=$false)][string]$aksHost="",
     # SSL support to ad (prod, staging, custom, none)
@@ -166,12 +170,14 @@ else {
 
 $tokens.twitterKey = $twitterKey
 $tokens.twitterSecret = $twitterSecret
+$tokens.playfabTitle = $playfabTitle
+$tokens.playfabSecret = $playfabSecret
 
 # get the function access key
 $funcapp=$(az functionapp list -g $resourceGroup --query "[0]" -o json --subscription $subscription | ConvertFrom-Json)
 $funcname="NextMove"
 
-Write-Host "Found funcapp $($funcapp.name) in RG $resourceGroup"
+Write-Host "Found funcapp $($funcapp.name) in RG $resourceGroup" -ForegroundColor Yellow
 
 $funckeys=$(az rest --method post --uri "https://management.azure.com$($funcapp.id)/functions/$funcname/listKeys?api-version=2018-02-01" -o json --subscription $subscription | ConvertFrom-Json)
 $tokens.predictorbaseurl="https://$($funcapp.defaultHostName)/api/challenger/move?code=$($funckeys.default)"

@@ -9,7 +9,7 @@
 
 .challenger-player img {
   max-width: 290px;
-  width: 100%;
+  width: 80%;
   height: 100%;
   object-fit: contain;
 }
@@ -490,39 +490,39 @@
   transition: all 0.5s ease;
 }
 
-li:first-child {
-  margin-left: -90px;
-  margin-top: -20px;
-  width: 60px;
-  height: 60px;
-  background: #fff;
-  border-color: #ba55d3;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  animation: spin 12s infinite linear;
+.challenger-spiral li:first-child {
+    margin-left: -90px;
+    margin-top: -20px;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-color: #ba55d3;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: spin 12s infinite linear;
 }
 
-li:nth-child(2) {
-  margin-left: -80px;
-  margin-top: -10px;
-  width: 40px;
-  height: 40px;
-  border-color: #9370db;
-  border-top-color: transparent;
-  border-right-color: transparent;
-  animation: spin2 12s infinite linear;
-}
+    .challenger-spiral li:nth-child(2) {
+        margin-left: -80px;
+        margin-top: -10px;
+        width: 40px;
+        height: 40px;
+        border-color: #9370db;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        animation: spin2 12s infinite linear;
+    }
 
-li:nth-child(3) {
-  margin-left: -70px;
-  margin-top: 0px;
-  width: 20px;
-  height: 20px;
-  border-color: #ee02f8;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  animation: spin3 4s infinite linear;
-}
+    .challenger-spiral li:nth-child(3) {
+        margin-left: -70px;
+        margin-top: 0px;
+        width: 20px;
+        height: 20px;
+        border-color: #ee02f8;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        animation: spin3 4s infinite linear;
+    }
 
 .challenger-circle {
   background: #ffffff;

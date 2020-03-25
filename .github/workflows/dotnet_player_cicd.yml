@@ -1,6 +1,6 @@
 # Dotnet player workflow
 
-name: DotnetPlayer
+name: DotnetPlayer 
 
 on: 
   push:

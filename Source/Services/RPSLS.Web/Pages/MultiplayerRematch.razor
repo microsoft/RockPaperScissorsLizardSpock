@@ -1,0 +1,43 @@
+﻿@layout MainLayout
+@page "/rematch/multiplayer"
+@attribute [Authorize]
+
+@inject IMultiplayerGameService Game
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="index-content">
+    <div class="login">
+        <div class="login-section">
+            <form action="/api/account/login" method="get" autocomplete="off">
+                <img src='@("/assets/images/png/logo.png")'>
+                <div class="subtitle-container">
+                    <h2 class="subtitle">Awaiting opponent to request a rematch.</h2>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+</div>
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Game.MatchId))
+        {
+            NavigationManager.NavigateTo("/lobby");
+            return;
+        }
+
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        Game.Username = state.User.Identity.Name;
+        Game.IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
+
+        var rematchReplied = await Game.Rematch();
+        var redirect = rematchReplied ? $"/battle/multiplayer/{Game.MatchId}" : "/lobby";
+        NavigationManager.NavigateTo(redirect);
+    }
+}

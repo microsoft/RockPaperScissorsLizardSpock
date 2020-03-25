@@ -1,0 +1,87 @@
+﻿@layout MainLayout
+@page "/lobby"
+@attribute [Authorize]
+
+@inject IMultiplayerGameService Game
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JsRuntime
+@inject GameSettingsDto GameSettings
+
+<div class="index-content">
+    <div class="login">
+        <div class="login-section">
+            <form>
+                <img src='@("/assets/images/png/logo.png")'>
+                <div class="subtitle-container">
+                    <h2 class="subtitle">When the URL is ready,</h2>
+                    <h2 class="subtitle">send it to your friend</h2>
+                </div>
+                <input class="token-link" type="text" value="@TokenLink" readonly onclick="this.select();document.execCommand('copy');" />
+
+                <h2 class="wait-text">@Status</h2>
+                <a class="secondary-link" href="/challenger">Play with a bot</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+</div>
+
+@code
+{
+    private string Token { get; set; }
+    private string TokenLink { get; set; }
+
+    public bool Timeout { get; set; }
+    public string Status { get; set; } = "Generating link...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!GameSettings.HasMultiplayer)
+        {
+            NavigationManager.NavigateTo("/");
+            return;
+        }
+
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        Game.Username = state.User.Identity.Name;
+        Game.IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
+        Timeout = false;
+        _ = Game.FetchMatchId(ProcessMatchId);
+    }
+
+    private void ProcessMatchId(string matchId, string status, string token)
+    {
+        if (!string.IsNullOrWhiteSpace(token))
+        {
+            Token = token;
+            TokenLink = $"{NavigationManager.BaseUri}invite/{token}";
+            Status = GetStatusText("WaitingForPlayers");
+        }
+
+        if (!string.IsNullOrWhiteSpace(matchId))
+        {
+            NavigationManager.NavigateTo($"/battle/multiplayer/{matchId}");
+            return;
+        }
+
+        Status = GetStatusText(status);
+        Timeout = status == "Canceled";
+        StateHasChanged();
+    }
+
+    private static string GetStatusText(string status)
+    {
+        return status switch
+        {
+            "Canceled" => "request cancelled",
+            "Matched" => "starting match",
+            "TokenCreated" => "Waiting for the other player",
+            _ when status.StartsWith("Waiting") => "Waiting for the other player",
+            _ => status
+        };
+    }
+}

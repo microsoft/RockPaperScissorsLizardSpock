@@ -1,6 +1,6 @@
 # Java Player Workflow
 
-name: JavaPlayer
+name: JavaPlayer 
 
 on: 
   push:

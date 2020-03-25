@@ -1,0 +1,221 @@
+@layout ConsoleLayout
+@page "/battle/multiplayer/{matchId}"
+@attribute [Authorize]
+
+@inject IMultiplayerGameService Game
+@inject BattleHelper battleHelper
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="console-screen">
+    <p class="console-text">@Game.Username</p>
+    <div class="user-picks">
+        <div class="user-picks-container">
+            @if (battleToBeStarted)
+            {
+                <div class="pick active toplay">
+                    <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/@playerImage/0.png">
+                        <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/@playerImage/@(battleHelper.GetHandIcon(userHandToShow)).png">
+                        <img class="base" src="/assets/images/png/hands/@playerImage/base_left.png">
+                    </div>
+                </div>
+            }
+            else
+            {
+                @foreach (var pick in picks)
+                {
+                    var active = pick.Value == SelectedPick?.Value;
+                    <div class="pick selectable @(active ? "active" : string.Empty)" @onclick="() => SelectPick(pick)">
+                        <div class="pick-images"><img src='@("/assets/images/png/hands/"+playerImage+"/"+pick.Value+".png")'></div>
+                        <p class="pick-text">@pick.Text</p>
+                    </div>
+                    @if (pick.BreakAfter)
+                    {
+                        <div class="break"></div>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+    @if (!battleToBeStarted)
+    {
+        <div class="cam-content">
+            <div class="cam-button"><a class="cam-link" href="/cambattle/multiplayer/@(MatchId)">use webcam</a></div>
+        </div>
+    }
+</div>
+
+@if (!battleToBeStarted && Game.Pick == -1 && SelectedPick != null)
+{
+    <div class="console-vs">
+        <div class="start-battle-circle" @onclick="StartBattle">
+            <p class="start-battle-text">start</p>
+            <p class="start-battle-text">battle</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="console-vs">
+        <div class="vs-circle">
+            <p class="vs-text">VS</p>
+        </div>
+    </div>
+}
+
+<div class="console-screen">
+    <p class="console-text">@Game.Challenger?.DisplayName</p>
+    <div class="challenger-picks">
+        <div class="challenger-player challenger-picks-container">
+            @if (battleToBeStarted)
+            {
+                <div style="transform: scaleX(-1)" class="pick active toplay">
+                    <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
+                        <img class="@(battleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/@Game.Challenger.Name/0.png">
+                        @if (Game.GameResult != null)
+                        {
+                            <img class="pick @(battleHelper.GetAnimatedClass(shakeHand))" src="/assets/images/png/hands/@Game.Challenger.Name/@(battleHelper.GetHandIcon(Game.GameResult.ChallengerPick)).png">
+                        }
+                        <img class="base bot" src="/assets/images/png/hands/@Game.Challenger.Name/base_right.png">
+                    </div>
+                </div>
+            }
+            else
+            {
+                @if (Game.Challenger != null)
+                {
+                    <div class="challenger-image">
+                        <div class="challenger-spiral">
+                            <ul>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <div class="challenger-circle challenger-circle-big"></div>
+                            <div class="challenger-circle challenger-circle-small"></div>
+                        </div>
+                        <img src='@("/assets/images/png/"+Game.Challenger.Name+".png")'>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+@code
+{
+    private bool battleToBeStarted = false;
+    private int userHandToShow = 0;
+    private bool shakeHand = false;
+    private RPSLSViewModel[] picks;
+    private string challengerImage;
+    private string playerImage;
+
+    [CascadingParameter]
+    public ConsoleLayout Layout { get; set; }
+
+    [Parameter]
+    public string MatchId { get; set; }
+
+    public RPSLSViewModel SelectedPick { get; set; }
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Layout.Initialize(title: "the battle", withHelp: true);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        Game.Username = state.User.Identity.Name;
+        Game.IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
+        Game.Pick = -1;
+        Game.MatchId = MatchId;
+        picks = new RPSLSViewModel[]
+        {
+            new RPSLSViewModel { Text = "Rock", Value = 0, Image = "rock" },
+            new RPSLSViewModel { Text = "Paper", Value = 1, Image = "paper", BreakAfter = true },
+            new RPSLSViewModel { Text = "Scissors", Value = 2, Image = "scissors" },
+            new RPSLSViewModel { Text = "Lizard", Value = 3, Image = "lizard" },
+            new RPSLSViewModel { Text = "Spock", Value = 4, Image = "spock", BreakAfter = true  }
+        };
+
+        _ = Game.AddGameListener(Update);
+    }
+
+    private void Update(ResultDto gameState)
+    {
+        SetPlayerImages(gameState);
+
+        if (Game.Challenger == null)
+        {
+
+            Game.Challenger = new ChallengerDto()
+            {
+                Name = challengerImage,
+                DisplayName = gameState.Challenger
+            };
+
+            StateHasChanged();
+        }
+        else if (Game.Challenger.DisplayName == "-")
+        {
+            return;
+        }
+        else if (gameState.IsFinished)
+        {
+            Game.GameResult = gameState;
+            Game.GameResult.Challenger = challengerImage;
+            if (SelectedPick == null)
+            {
+                SelectedPick = picks.FirstOrDefault(p => p.Value == gameState.UserPick);
+            }
+
+            _ = ShakeHand();
+        }
+    }
+
+    private void SelectPick(RPSLSViewModel pick)
+    {
+        SelectedPick = pick;
+    }
+
+    private async Task ShakeHand()
+    {
+        battleToBeStarted = true;
+        shakeHand = true;
+
+        StateHasChanged();
+        await Task.Delay(2000);
+        shakeHand = false;
+        userHandToShow = SelectedPick.Value;
+        StateHasChanged();
+        await Task.Delay(2000);
+        NavigationManager.NavigateTo("/result/multiplayer");
+    }
+
+    private async Task StartBattle()
+    {
+        await Game.UserPick(SelectedPick.Value);
+    }
+
+    private void SetPlayerImages(ResultDto gameState)
+    {
+        if (string.IsNullOrEmpty(playerImage))
+        {
+            playerImage = gameState.IsGameInitiator ? "user" : "challenger";
+        }
+
+        if (string.IsNullOrEmpty(challengerImage))
+        {
+            challengerImage = gameState.IsGameInitiator ? "challenger" : "user";
+        }
+    }
+}

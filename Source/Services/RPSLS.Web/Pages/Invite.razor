@@ -1,0 +1,102 @@
+﻿@using Microsoft.AspNetCore.Http
+@layout MainLayout
+@page "/invite/{token}"
+
+@inject IOptions<TwitterOptions> TwitterOptions
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IMultiplayerGameService Game
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IOptions<MultiplayerSettings> MultiplayerSettings
+
+<div class="index-content">
+    <div class="login">
+        <div class="login-section">
+            <form action="/api/account/login" method="get" autocomplete="off">
+                <img src='@("/assets/images/png/logo.png")'>
+                <div class="subtitle-container">
+                    <h2 class="subtitle">Your friend has invited you to play</h2>
+                    <h2 class="subtitle">Rock, Paper, Scissors, Lizard, Spock!</h2>
+                </div>
+
+                @if (IsRedirecting)
+                {
+                    <div class="subtitle-container">
+                        <h2 class="subtitle" @onclick="Logout">HELLO, @Game.Username.ToUpperInvariant()</h2>
+                        <h2 class="subtitle">Entering game</h2>
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" name="redirectUrl" value="@RedirectUrl" />
+                    <input @bind-value="@userName" @bind-value:event="oninput" type="text" name="username" class="user" placeholder="Type Username" required />
+
+                    <div class="sign_twitter">
+                        @if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) &&
+                         !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
+                        {
+                            <span>or <a href="/api/account/login/twitter?redirectUrl=@RedirectUrl">Sign in with Twitter</a></span>
+                        }
+                    </div>
+
+                    <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
+                        <button type="submit" class="custom-button-link" disabled="@UserNameIsEmpty">Enter</button>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+</div>
+
+@code
+{
+    private string userName;
+
+    [Parameter]
+    public string Token { get; set; }
+
+    public string RedirectUrl { get; set; }
+    public bool IsRedirecting { get; set; }
+    public bool UserNameIsEmpty => String.IsNullOrEmpty(userName);
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!MultiplayerSettings.Value.Enabled)
+        {
+            NavigationManager.NavigateTo("/");
+            return;
+        }
+
+        RedirectUrl = $"/invite/{Token}";
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        Game.Username = state.User?.Identity?.Name;
+        Game.IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
+        IsRedirecting = state.User.Identity.IsAuthenticated;
+        if (IsRedirecting)
+        {
+            _ = JoinMatch();
+        }
+    }
+
+    private async Task JoinMatch()
+    {
+        await Game.FetchMatchId(Token);
+        var redirect = string.IsNullOrWhiteSpace(Game.MatchId) ? "/" : $"/battle/multiplayer/{Game.MatchId}";
+        NavigationManager.NavigateTo(redirect);
+    }
+
+    private void Logout()
+    {
+        if (!string.IsNullOrWhiteSpace(Game.Username))
+        {
+            HttpContextAccessor.HttpContext.Session.Clear();
+        }
+
+        NavigationManager.NavigateTo("/", true);
+    }
+}
