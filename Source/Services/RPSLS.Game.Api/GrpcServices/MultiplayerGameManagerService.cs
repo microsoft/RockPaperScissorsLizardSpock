@@ -210,7 +210,8 @@ namespace RPSLS.Game.Api.GrpcServices
             return result;
         }
 
-        private static string GetUsername(string username, bool twitterLogged) => twitterLogged ? username : $"${username}";
+        private static string GetUsername(string username, bool twitterLogged) 
+            => twitterLogged ? username.ToUpperInvariant() : $"${username.ToUpperInvariant()}";
 
         private static string GetUserDisplay(string username) => 
             string.IsNullOrWhiteSpace(username) ? "-" :
