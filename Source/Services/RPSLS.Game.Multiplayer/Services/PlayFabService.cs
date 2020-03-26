@@ -128,7 +128,7 @@ namespace RPSLS.Game.Multiplayer.Services
             var loginResult = await Call(
                 PlayFabClientAPI.LoginWithCustomIDAsync,
                 new LoginWithCustomIDRequestBuilder()
-                    .WithUser(username)
+                    .WithUser(username.ToUpperInvariant())
                     .WithAccountInfo()
                     .CreateIfDoesntExist());
 
@@ -176,7 +176,7 @@ namespace RPSLS.Game.Multiplayer.Services
             var loginResult = await Call(
                 PlayFabClientAPI.LoginWithCustomIDAsync,
                 new LoginWithCustomIDRequestBuilder()
-                    .WithUser(username)
+                    .WithUser(username.ToUpperInvariant())
                     .WithAccountInfo()
                     .CreateIfDoesntExist());
 
@@ -187,7 +187,7 @@ namespace RPSLS.Game.Multiplayer.Services
                 await Call(
                     PlayFabClientAPI.UpdateUserTitleDisplayNameAsync,
                     new UpdateUserTitleDisplayNameRequestBuilder()
-                        .WithName(username));
+                        .WithName(username.ToUpperInvariant()));
             }
 
             return userEntity;
@@ -251,7 +251,7 @@ namespace RPSLS.Game.Multiplayer.Services
             if (apiError != null)
             {
                 var detailedError = PlayFabUtil.GenerateErrorReport(apiError);
-                _logger.LogWarning($"Something went wrong with PlayFab API call {playFabCall.Method.Name}.{Environment.NewLine}{detailedError}");
+                _logger.LogError($"Something went wrong with PlayFab API call {playFabCall.Method.Name}.{Environment.NewLine}{detailedError}");
             }
 
             return taskResult;
