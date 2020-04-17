@@ -30,7 +30,7 @@
 
     .leaderboard-link img {
         width: auto;
-        height: 100px;
+        height: 80px;
     }
 
     .leaderboard-link a {
@@ -112,7 +112,7 @@
     }
 
     .login-section .logo {
-        width: 72%;
+        width: 60%;
     }
 
 /* Twitter */
@@ -120,13 +120,30 @@
     margin-top: 1rem;
     color: #ffffff;
     font-size: 1.1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 
         .login-section .sign_twitter a {
             text-decoration: underline;
             color: #ffffff;
         }
+
+/* Contest */
+
+.info-contest {
+    background: rgb(249, 194, 85,0.3);
+    border: 1px solid #f9c255;
+    margin-top: 1.5rem;
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 0.75rem;
+    margin-bottom: 0;
+}
+
+    .info-contest a {
+        text-decoration: underline;
+        color: #ffffff;
+    }
 
 /* Form */
 form {

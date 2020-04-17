@@ -22,6 +22,8 @@ namespace RPSLS.Game.Multiplayer.Services
         private readonly ILogger<PlayFabService> _logger;
         private readonly MultiplayerSettings _settings;
 
+        private Token _entityToken = null;
+
         public bool HasCredentials { get => !string.IsNullOrWhiteSpace(_settings.Title) && !string.IsNullOrWhiteSpace(_settings.SecretKey); }
 
         public PlayFabService(ILogger<PlayFabService> logger, IOptions<MultiplayerSettings> settings)
@@ -43,6 +45,13 @@ namespace RPSLS.Game.Multiplayer.Services
 
         public async Task<string> GetEntityToken(string userTitleId = null)
         {
+            if (_entityToken?.Value != null && !_entityToken.IsExpired)
+            {
+                return _entityToken.Value;
+            }
+
+            PlayFabAuthenticationAPI.ForgetAllCredentials();
+
             var tokenRequestBuilder = new GetEntityTokenRequestBuilder();
             if (!string.IsNullOrWhiteSpace(userTitleId))
             {
@@ -52,7 +61,10 @@ namespace RPSLS.Game.Multiplayer.Services
             var entityTokenResult = await Call(
                 PlayFabAuthenticationAPI.GetEntityTokenAsync,
                 tokenRequestBuilder);
-            return entityTokenResult.EntityToken;
+
+            _entityToken = new Token(entityTokenResult.EntityToken, _settings.EntityTokenExpirationMinutes);
+
+            return _entityToken.Value;
         }
 
         public async Task<string> CreateTicket(string username, string token)
@@ -125,13 +137,7 @@ namespace RPSLS.Game.Multiplayer.Services
                 return;
             }
 
-            var loginResult = await Call(
-                PlayFabClientAPI.LoginWithCustomIDAsync,
-                new LoginWithCustomIDRequestBuilder()
-                    .WithUser(username.ToUpperInvariant())
-                    .WithAccountInfo()
-                    .CreateIfDoesntExist());
-
+            var loginResult = await UserLogin(username.ToUpperInvariant());
             var statsRequestBuilder = new UpdatePlayerStatisticsRequestBuilder()
                 .WithPlayerId(loginResult.PlayFabId)
                 .WithStatsIncrease(TotalStat);
@@ -154,7 +160,7 @@ namespace RPSLS.Game.Multiplayer.Services
                     .WithStats(WinsStat)
                     .WithLimits(0, _settings.Leaderboard.Top));
 
-            var players =  new List<LeaderboardEntry>();
+            var players = new List<LeaderboardEntry>();
             foreach (var entry in leaderboardResult.Leaderboard)
             {
                 var isTwitterUser = !(entry.DisplayName?.StartsWith("$") ?? false);
@@ -173,6 +179,12 @@ namespace RPSLS.Game.Multiplayer.Services
 
         private async Task<EntityKey> GetUserEntity(string username)
         {
+            var loginResult = await UserLogin(username);
+            return loginResult.EntityToken.Entity;
+        }
+
+        private async Task<LoginResult> UserLogin(string username)
+        {
             var loginResult = await Call(
                 PlayFabClientAPI.LoginWithCustomIDAsync,
                 new LoginWithCustomIDRequestBuilder()
@@ -180,7 +192,6 @@ namespace RPSLS.Game.Multiplayer.Services
                     .WithAccountInfo()
                     .CreateIfDoesntExist());
 
-            var userEntity = loginResult.EntityToken.Entity;
             if (loginResult.NewlyCreated || loginResult.InfoResultPayload?.AccountInfo?.TitleInfo?.DisplayName != username)
             {
                 // Add a DisplayName to the title user so its easier to retrieve the user;
@@ -190,7 +201,7 @@ namespace RPSLS.Game.Multiplayer.Services
                         .WithName(username.ToUpperInvariant()));
             }
 
-            return userEntity;
+            return loginResult;
         }
 
         private async Task EnsureQueueExist()

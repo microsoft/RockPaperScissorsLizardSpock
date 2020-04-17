@@ -3,6 +3,7 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using RPSLS.Game.Api.Data;
 using RPSLS.Game.Api.Services;
+using RPSLS.Game.Multiplayer.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,18 +12,21 @@ namespace RPSLS.Game.Api.GrpcServices
 {
     public class BotGameManagerService : BotGameManager.BotGameManagerBase
     {
+        private readonly IPlayFabService _playFabService;
         private readonly IChallengerService _challengersService;
         private readonly IGameService _gameService;
         private readonly IMatchesRepository _resultsDao;
         private readonly ILogger<BotGameManagerService> _logger;
 
         public BotGameManagerService(
+            IPlayFabService playFabService,
             IChallengerService challengers,
             IGameService gameService,
             IMatchesRepository resultsDao,
             ILogger<BotGameManagerService> logger
             )
         {
+            _playFabService = playFabService;
             _challengersService = challengers;
             _gameService = gameService;
             _resultsDao = resultsDao;
@@ -65,6 +69,11 @@ namespace RPSLS.Game.Api.GrpcServices
             if (result.IsValid && request.TwitterLogged)
             {
                 await _resultsDao.SaveMatch(pick, request.Username, request.Pick, result.Result);
+            }
+
+            if (_playFabService.HasCredentials)
+            {
+                await _playFabService.UpdateStats(request.Username, result.Result == Result.Player);
             }
 
             return result;
