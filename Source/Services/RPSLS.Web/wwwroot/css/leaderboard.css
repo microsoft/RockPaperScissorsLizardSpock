@@ -22,7 +22,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    width: 800px;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
 }
@@ -107,6 +107,10 @@
         padding: 0 10px;
     }
 
+    .leaderboard-powered p {
+        margin-top: 0;
+    }
+
     .leaderboard tr th {
         line-height: 30px;
         font-family: "Voyager";
@@ -170,4 +174,72 @@
     height: 70px;
     width: 30%;
     margin: auto;
+}
+
+.footer {
+    position: fixed;
+    z-index: -1;
+}
+
+@media (max-width: 768px) {
+
+    html, body {
+        height: 105vh;
+        padding-bottom: 14px;
+    }
+    
+    .leaderboard {
+        margin-top: 0;
+        height: calc(100% - 120px);
+    }
+
+        .leaderboard-title {
+            font-size: 2rem;
+            padding-top: 20px;
+            line-height: 2rem;
+            height: 55px;
+        }
+        
+        .leaderboard thead {
+            height: auto;
+            padding: 0 10px 5px 10px;
+        }
+
+        .leaderboard tr th {
+            line-height: 1rem;
+            font-size: 1rem;
+        }
+
+        .leaderboard tr td {
+            line-height: 33px;
+            font-size: 1rem;
+            height: 33px;
+            border-bottom: rgba(255, 255, 255, 0.3) solid 1px;
+        }
+
+        .leaderboard tr .lb-position > * {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .leaderboard-container .info-contest {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .leaderboard tbody::-webkit-scrollbar {
+            width: 6px;
+        }
+
+    .leaderboard-subtitle {
+        line-height: 1rem;
+        height: auto;
+        font-size: 1rem;
+    }
+
+    .leaderboard-container {
+        padding: 0.5rem;
+    }
 }
