@@ -22,7 +22,7 @@ class AppInsightsService
 
     public function trackException($ex)
     {
-        $this->telemetryClient->trackException($ex);
-        $this->telemetryClient->flush();
+        $this->_telemetryClient->trackException($ex);
+        $this->_telemetryClient->flush();
     }
 }

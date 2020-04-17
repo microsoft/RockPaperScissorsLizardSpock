@@ -37,7 +37,6 @@ class PickController extends BaseController
                 return response()->json($predicted);
             } catch(\Throwable $e) {
                 Log::error('Predictor had a problem');
-                $this->_appinsights->trackException($e);
             }
         }
 
