@@ -46,17 +46,29 @@
 
 <CookiesBanner />
 
+<style type="text/css" media="screen and (max-width:768px)">
+    html, body {
+        height: 105vh;
+        padding-bottom: 14px;
+    }
+
+    .footer {
+        position: fixed;
+        z-index: -1;
+    }
+</style>
+
 @code
 {
     public LeaderboardDto Board { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        this.Board = new LeaderboardDto
-        {
-            Players = new List<LeaderboardEntryDto>()
-        };
+      this.Board = new LeaderboardDto
+      {
+    Players = new List<LeaderboardEntryDto>()
+      };
 
-        this.Board = await Game.GetLeaderboard();
+      this.Board = await Game.GetLeaderboard();
     }
 }
