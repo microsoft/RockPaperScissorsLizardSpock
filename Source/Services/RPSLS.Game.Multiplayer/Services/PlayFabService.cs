@@ -125,13 +125,7 @@ namespace RPSLS.Game.Multiplayer.Services
                 return;
             }
 
-            var loginResult = await Call(
-                PlayFabClientAPI.LoginWithCustomIDAsync,
-                new LoginWithCustomIDRequestBuilder()
-                    .WithUser(username.ToUpperInvariant())
-                    .WithAccountInfo()
-                    .CreateIfDoesntExist());
-
+            var loginResult = await UserLogin(username.ToUpperInvariant());
             var statsRequestBuilder = new UpdatePlayerStatisticsRequestBuilder()
                 .WithPlayerId(loginResult.PlayFabId)
                 .WithStatsIncrease(TotalStat);
@@ -173,6 +167,12 @@ namespace RPSLS.Game.Multiplayer.Services
 
         private async Task<EntityKey> GetUserEntity(string username)
         {
+            var loginResult = await UserLogin(username);
+            return loginResult.EntityToken.Entity;
+        }
+
+        private async Task<LoginResult> UserLogin(string username)
+        {
             var loginResult = await Call(
                 PlayFabClientAPI.LoginWithCustomIDAsync,
                 new LoginWithCustomIDRequestBuilder()
@@ -180,7 +180,6 @@ namespace RPSLS.Game.Multiplayer.Services
                     .WithAccountInfo()
                     .CreateIfDoesntExist());
 
-            var userEntity = loginResult.EntityToken.Entity;
             if (loginResult.NewlyCreated || loginResult.InfoResultPayload?.AccountInfo?.TitleInfo?.DisplayName != username)
             {
                 // Add a DisplayName to the title user so its easier to retrieve the user;
@@ -190,7 +189,7 @@ namespace RPSLS.Game.Multiplayer.Services
                         .WithName(username.ToUpperInvariant()));
             }
 
-            return userEntity;
+            return loginResult;
         }
 
         private async Task EnsureQueueExist()
