@@ -8,13 +8,14 @@ namespace RPSLS.Game.Api.Data.Models
     public class MatchDto
     {
         [JsonProperty(PropertyName = "id")]
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         [JsonProperty(PropertyName = "whenUtc")]
-        public DateTime WhenUtc { get; }
+        public DateTime WhenUtc { get; set; }
 
         [JsonProperty(PropertyName = "challenger")]
-        public ChallengerDto Challenger { get; }
+        public ChallengerDto Challenger { get; set; }
+
         [JsonProperty(PropertyName = "playerName")]
         public string PlayerName { get; set; }
 

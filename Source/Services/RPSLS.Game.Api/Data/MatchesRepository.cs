@@ -123,7 +123,7 @@ namespace RPSLS.Game.Api.Data
 
             if (allExisting == null || !allExisting.Any()) return;
             var existing = allExisting.First();
-            await cResponse.Container.DeleteItemAsync<MatchDto>(matchId, new PartitionKey(existing.PlayerName));
+            await cResponse.Container.DeleteItemAsync<MatchDto>(existing.Id.ToString(), new PartitionKey(existing.PlayerName));
         }
 
         public async Task SaveMatch(PickDto pick, string username, int userPick, Result result)
