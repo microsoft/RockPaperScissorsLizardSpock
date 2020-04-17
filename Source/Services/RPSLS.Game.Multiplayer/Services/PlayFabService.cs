@@ -22,6 +22,8 @@ namespace RPSLS.Game.Multiplayer.Services
         private readonly ILogger<PlayFabService> _logger;
         private readonly MultiplayerSettings _settings;
 
+        private Token _entityToken = null;
+
         public bool HasCredentials { get => !string.IsNullOrWhiteSpace(_settings.Title) && !string.IsNullOrWhiteSpace(_settings.SecretKey); }
 
         public PlayFabService(ILogger<PlayFabService> logger, IOptions<MultiplayerSettings> settings)
@@ -43,6 +45,13 @@ namespace RPSLS.Game.Multiplayer.Services
 
         public async Task<string> GetEntityToken(string userTitleId = null)
         {
+            if (_entityToken?.Value != null && !_entityToken.IsExpired)
+            {
+                return _entityToken.Value;
+            }
+
+            PlayFabAuthenticationAPI.ForgetAllCredentials();
+
             var tokenRequestBuilder = new GetEntityTokenRequestBuilder();
             if (!string.IsNullOrWhiteSpace(userTitleId))
             {
@@ -52,7 +61,10 @@ namespace RPSLS.Game.Multiplayer.Services
             var entityTokenResult = await Call(
                 PlayFabAuthenticationAPI.GetEntityTokenAsync,
                 tokenRequestBuilder);
-            return entityTokenResult.EntityToken;
+
+            _entityToken = new Token(entityTokenResult.EntityToken, _settings.EntityTokenExpirationMinutes);
+
+            return _entityToken.Value;
         }
 
         public async Task<string> CreateTicket(string username, string token)
@@ -148,7 +160,7 @@ namespace RPSLS.Game.Multiplayer.Services
                     .WithStats(WinsStat)
                     .WithLimits(0, _settings.Leaderboard.Top));
 
-            var players =  new List<LeaderboardEntry>();
+            var players = new List<LeaderboardEntry>();
             foreach (var entry in leaderboardResult.Leaderboard)
             {
                 var isTwitterUser = !(entry.DisplayName?.StartsWith("$") ?? false);
