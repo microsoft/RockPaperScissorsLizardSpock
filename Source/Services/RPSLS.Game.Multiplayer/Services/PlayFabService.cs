@@ -125,6 +125,12 @@ namespace RPSLS.Game.Multiplayer.Services
                 return;
             }
 
+            if (username.Length < 3 || username.Length > 25)
+            {
+                _logger.LogWarning($"User {username} cannot be stored in the leaderboard because doesn't have display name at Playfab.");
+                return;
+            }
+
             var loginResult = await UserLogin(username.ToUpperInvariant());
             var statsRequestBuilder = new UpdatePlayerStatisticsRequestBuilder()
                 .WithPlayerId(loginResult.PlayFabId)

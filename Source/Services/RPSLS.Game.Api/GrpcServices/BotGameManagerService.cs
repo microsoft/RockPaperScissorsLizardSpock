@@ -73,7 +73,8 @@ namespace RPSLS.Game.Api.GrpcServices
 
             if (_playFabService.HasCredentials)
             {
-                await _playFabService.UpdateStats(request.Username, result.Result == Result.Player);
+                var username = !request.TwitterLogged ? $"${request.Username}" : request.Username;
+                await _playFabService.UpdateStats(username, result.Result == Result.Player);
             }
 
             return result;
