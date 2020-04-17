@@ -27,6 +27,11 @@
     flex-direction: column;
 }
 
+    .leaderboard-container .info-contest {
+        text-align: center;
+        margin: 1rem 0;
+    }
+
 .leaderboard-title {
     margin: 0;
     padding-top: 35px;
@@ -52,6 +57,17 @@
     height: 40px;
 }
 
+.leaderboard-powered {
+    color: #FFFFFF;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+    .leaderboard-powered a {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+
 .leaderboard {
     margin-top: 20px;
     font-family: "Work Sans";
@@ -59,7 +75,7 @@
     font-size: 1.5rem;
     color: white;
     border-spacing: 0;
-    height: calc(100% - 270px);
+    height: calc(100% - 400px);
     table-layout: fixed;
 }
 

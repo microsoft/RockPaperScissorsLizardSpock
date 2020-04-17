@@ -24,6 +24,11 @@
                 <div class="subtitle-container">
                     <h2 class="subtitle">The geek version of rock-paper-scissors.</h2>
                     <h2 class="subtitle">Play with a friend or try to defeat our bot!</h2>
+                    <p class="info-contest">
+                        April 17th - May 15th, play to get to a chance to win awesome prizes.
+                        <a href="/assets/pdfs/RPSLS_Rules.pdf" target="_blank">See Rules</a>
+                        for more information.
+                    </p>
                 </div>
 
                 @if (string.IsNullOrWhiteSpace(Username))
@@ -44,7 +49,7 @@
                     </div>
                 }
 
-                <div class="custom-button-container" >
+                <div class="custom-button-container">
                     <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
                         <button type="button" @onclick="PlayAgainstBots" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a bot</button>
                     </div>
@@ -68,15 +73,15 @@
 
 @code
 {
-        private string CustomUsername { get; set; }
+    private string CustomUsername { get; set; }
 
-        [Parameter]
-        public string RedirectUrl { get; set; }
+    [Parameter]
+    public string RedirectUrl { get; set; }
 
-        public string Username { get; set; }
-        public bool IsTwitterUser { get; set; }
+    public string Username { get; set; }
+    public bool IsTwitterUser { get; set; }
 
-        public bool UserNameIsEmpty => String.IsNullOrEmpty(Username) && String.IsNullOrEmpty(CustomUsername);
+    public bool UserNameIsEmpty => String.IsNullOrEmpty(Username) && String.IsNullOrEmpty(CustomUsername);
 
     protected override async Task OnInitializedAsync()
     {
@@ -115,7 +120,7 @@
     {
         if (!string.IsNullOrWhiteSpace(Username))
         {
-            
+
         }
 
         NavigationManager.NavigateTo("/", true);
