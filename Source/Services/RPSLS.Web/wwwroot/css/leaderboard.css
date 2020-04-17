@@ -176,18 +176,7 @@
     margin: auto;
 }
 
-.footer {
-    position: fixed;
-    z-index: -1;
-}
-
 @media (max-width: 768px) {
-
-    html, body {
-        height: 105vh;
-        padding-bottom: 14px;
-    }
-    
     .leaderboard {
         margin-top: 0;
         height: calc(100% - 120px);
