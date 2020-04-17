@@ -102,7 +102,7 @@ namespace RPSLS.Game.Api.GrpcServices
         {
             var username = GetUsername(request.Username, request.TwitterLogged);
             var dto = await _repository.GetMatch(request.MatchId);
-            while (dto.PlayerName == UnknownUser && dto.Challenger.Name == UnknownUser)
+            while (!context.CancellationToken.IsCancellationRequested && (dto == null || (dto.PlayerName == UnknownUser && dto.Challenger.Name == UnknownUser)))
             {
                 await Task.Delay(_multiplayerSettings.GameStatusUpdateDelay);
                 dto = await _repository.GetMatch(request.MatchId);

@@ -118,11 +118,11 @@ namespace RPSLS.Game.Api.Data
             if (_constr == null) return;
 
             var cResponse = await GetContainer();
-            var existing = cResponse.Container.GetItemLinqQueryable<MatchDto>(allowSynchronousQueryExecution: true)
-                .Where(m => m.PlayFabMatchId == matchId)
-                .FirstOrDefault();
+            var allExisting = cResponse.Container.GetItemLinqQueryable<MatchDto>(allowSynchronousQueryExecution: true)
+                .Where(m => m.PlayFabMatchId == matchId).ToList();
 
-            if (existing == null) return;
+            if (allExisting == null || !allExisting.Any()) return;
+            var existing = allExisting.First();
             await cResponse.Container.DeleteItemAsync<MatchDto>(matchId, new PartitionKey(existing.PlayerName));
         }
 
