@@ -45,7 +45,12 @@
                 else
                 {
                     <div class="subtitle-container">
-                        <h2 class="subtitle" @onclick="Logout">HELLO, @Username.ToUpperInvariant()</h2>
+                        <h2 class="subtitle">HELLO, @Username.ToUpperInvariant()</h2> <span @onclick="Logout">LOGOUT</span>
+                    </div>
+                    <div class="leaderboard-link">
+                        <div class="leaderboard-link-info">
+                            <a href="/leaderboard">LOGOUT</a>
+                        </div>
                     </div>
                 }
 
@@ -120,7 +125,7 @@
     {
         if (!string.IsNullOrWhiteSpace(Username))
         {
-
+            UserName = string.Empty;
         }
 
         NavigationManager.NavigateTo("/", true);

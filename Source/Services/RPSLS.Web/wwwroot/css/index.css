@@ -1,201 +1,226 @@
 ﻿/* Index Layout */
 .index-content {
-    font-family: "Segoe UI", sans-serif;
-    background: url(../assets/images/png/planets_home.png);
-    background-size: 100%;
-    background-position-x: 30px;
-    background-repeat: repeat;
-    min-height: calc(100vh - 47px);
-    position: relative;
+  font-family: "Segoe UI", sans-serif;
+  background: url(../assets/images/png/planets_home.png);
+  background-size: 100%;
+  background-position-x: 30px;
+  background-repeat: repeat;
+  min-height: calc(100vh - 47px);
+  position: relative;
 }
 
 /* Leaderboard link */
 .leaderboard-link {
-    align-items: center;
-    display: flex;
-    color: white;
-    font-family: Voyager;
-    font-size: 0.8rem;
-    line-height: 20px;
-    text-align: left;
-    justify-items: start;
-    padding-top: 1rem;
+  align-items: center;
+  display: flex;
+  color: white;
+  font-family: Voyager;
+  font-size: 0.8rem;
+  line-height: 20px;
+  text-align: left;
+  justify-items: start;
+  padding-top: 1rem;
 }
 
 .leaderboard-link-info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
 }
 
-    .leaderboard-link img {
-        width: auto;
-        height: 80px;
-    }
+.leaderboard-link img {
+  width: auto;
+  height: 80px;
+}
 
-    .leaderboard-link a {
-        color: #FFAA44;
-        text-decoration: none;
-        font-size: 1rem;
-    }
+.leaderboard-link a {
+  color: #ffaa44;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* Home Link */
+.home-link {
+  align-items: center;
+  display: flex;
+  color: white;
+  font-family: Voyager;
+  font-size: 0.8rem;
+  line-height: 20px;
+  text-align: left;
+  justify-items: start;
+  padding-top: 1rem;
+}
+
+.home-link-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.home-link a {
+  color: #ffaa44;
+  text-decoration: none;
+  font-size: 2rem;
+}
 
 /* Login Layout */
 .login {
-    width: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 4rem;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4rem;
 }
 
 .login-section {
-    text-align: center;
-    align-self: center;
-    align-items: center;
-    padding-top: 1rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  text-align: center;
+  align-self: center;
+  align-items: center;
+  padding-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-    .login-section .custom-button {
-        margin: 1rem;
-    }    
+.login-section .custom-button {
+  margin: 1rem;
+}
 
-    .login-section .subtitle-container {
-        text-align: center;
-        margin: 1rem 0 1.5rem 0;
-        display: flex;
-        flex-direction: column;
-    }
+.login-section .subtitle-container {
+  text-align: center;
+  margin: 1rem 0 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
 
-    .login-section .subtitle {
-        color: #ffffff;
-        font-family: "Work Sans", sans-serif;
-        font-weight: 300;
-        font-size: 1.5rem;
-        margin: 0;
-        align-self: center;
-    }
+.login-section .subtitle {
+  color: #ffffff;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin: 0;
+  align-self: center;
+}
 
-    .login-section .wait-text {
-        color: #ffffff;
-        font-family: "Work Sans", sans-serif;
-        font-weight: bold;
-        font-size: 2rem;
-        margin: 3rem 0;
-        align-self: center;
-    }
+.login-section .wait-text {
+  color: #ffffff;
+  font-family: "Work Sans", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 3rem 0;
+  align-self: center;
+}
 
-    .login-section .token-link {
-        width: 100%;
-        font-size: 1rem;
-    }
+.login-section .token-link {
+  width: 100%;
+  font-size: 1rem;
+}
 
-    .login-section .user {
-        width: 25rem;
-        font-size: 1.25rem;
-    }
+.login-section .user {
+  width: 25rem;
+  font-size: 1.25rem;
+}
 
-    .login-section .token-link,
-    .login-section .user {
-        font-family: "Voyager";
-        align-self: center;
-        outline: none;
-        border-radius: 30px;
-        border: 1px solid #ffffff;
-        text-align: center;
-        color: #ffffff;
-        background: #000000;
-        height: 3.5rem;
-    }
+.login-section .token-link,
+.login-section .user {
+  font-family: "Voyager";
+  align-self: center;
+  outline: none;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+  text-align: center;
+  color: #ffffff;
+  background: #000000;
+  height: 3.5rem;
+}
 
-    .login-section .logo {
-        width: 60%;
-    }
+.login-section .logo {
+  width: 60%;
+}
 
 /* Twitter */
 .login-section .sign_twitter {
-    margin-top: 1rem;
-    color: #ffffff;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
 }
 
-        .login-section .sign_twitter a {
-            text-decoration: underline;
-            color: #ffffff;
-        }
+.login-section .sign_twitter a {
+  text-decoration: underline;
+  color: #ffffff;
+}
 
 /* Contest */
 
 .info-contest {
-    background: rgb(249, 194, 85,0.3);
-    border: 1px solid #f9c255;
-    margin-top: 1.5rem;
-    border-radius: 5px;
-    color: #ffffff;
-    padding: 0.75rem;
-    margin-bottom: 0;
+  background: rgb(249, 194, 85, 0.3);
+  border: 1px solid #f9c255;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 0.75rem;
+  margin-bottom: 0;
 }
 
-    .info-contest a {
-        text-decoration: underline;
-        color: #ffffff;
-    }
+.info-contest a {
+  text-decoration: underline;
+  color: #ffffff;
+}
 
 /* Form */
 form {
-    display: flex;
-    padding-top: 2rem;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  padding-top: 2rem;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-section input::placeholder {
-    color: #9c989e;
-    opacity: 1; /* Firefox */
+  color: #9c989e;
+  opacity: 1; /* Firefox */
 }
 
 .login-section input:focus::placeholder {
-    color: transparent;
+  color: transparent;
 }
 
 .login-section input:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #9c989e;
+  /* Internet Explorer 10-11 */
+  color: #9c989e;
 }
 
 .login-section input::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: #9c989e;
+  /* Microsoft Edge */
+  color: #9c989e;
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
-    form {
-        padding-top: 2rem;
-    }
+  form {
+    padding-top: 2rem;
+  }
 
-    .login-section {
-        width: 90%;
-    }
+  .login-section {
+    width: 90%;
+  }
 
-        .login-section .user {
-            width: 20rem;
-            height: 2.5rem;
-        }
+  .login-section .user {
+    width: 20rem;
+    height: 2.5rem;
+  }
 
-        .login-section img {
-            width: 50%;
-        }
+  .login-section img {
+    width: 50%;
+  }
 
-        .login-section .subtitle {
-            font-size: 2.3rem;
-        }
+  .login-section .subtitle {
+    font-size: 2.3rem;
+  }
 
-    .custom-button {
-        max-width: 100%;
-    }
+  .custom-button {
+    max-width: 100%;
+  }
 }
