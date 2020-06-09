@@ -123,21 +123,6 @@
 
     private void Logout()
     {
-        if (!string.IsNullOrWhiteSpace(Username))
-        {
-            Username = string.Empty;
-        }
-
-        if (!string.IsNullOrWhiteSpace(CustomUsername))
-        {
-            CustomUsername = string.Empty;
-        }
-
-        if (IsTwitterUser)
-        {
-            IsTwitterUser = false;
-        }
-
         NavigationManager.NavigateTo("/api/account/logout", true);
     }
 }
