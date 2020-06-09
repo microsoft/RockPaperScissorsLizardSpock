@@ -128,6 +128,16 @@
             Username = string.Empty;
         }
 
+        if (!string.IsNullOrWhiteSpace(CustomUsername))
+        {
+            CustomUsername = string.Empty;
+        }
+
+        if (IsTwitterUser)
+        {
+            IsTwitterUser = false;
+        }
+
         NavigationManager.NavigateTo("/", true);
     }
 }
