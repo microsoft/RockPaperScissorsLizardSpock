@@ -47,14 +47,8 @@ namespace RPSLS.Web.Controllers
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
-            if (HttpContext.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme)
-            {
-                await HttpContext.SignOutAsync(TwitterDefaults.AuthenticationScheme);
-            }
-            else
-            {
-               await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            }
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             _logger.LogInformation($"Logout Completed");
             return Redirect(REDIRECT_URI);
         }
