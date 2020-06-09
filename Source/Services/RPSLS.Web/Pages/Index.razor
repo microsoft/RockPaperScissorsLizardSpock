@@ -45,11 +45,11 @@
                 else
                 {
                     <div class="subtitle-container">
-                        <h2 class="subtitle">HELLO, @Username.ToUpperInvariant()</h2> <span @onclick="Logout">LOGOUT</span>
+                        <h2 class="subtitle">HELLO, @Username.ToUpperInvariant()</h2>
                     </div>
                     <div class="leaderboard-link">
                         <div class="leaderboard-link-info">
-                            <a href="/leaderboard">LOGOUT</a>
+                            <a @onclick="Logout" href="">LOGOUT</a>
                         </div>
                     </div>
                 }
