@@ -9,7 +9,7 @@ on:
     - .github/workflows/java_player_cicd.yml
     - Deploy/helm/java-player/**
     branches:
-      - master    
+      - main    
 
 jobs:
   buildpush:

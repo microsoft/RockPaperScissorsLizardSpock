@@ -9,7 +9,7 @@ on:
     - .github/workflows/game-manager_cicd.yml    
     - Deploy/helm/game-api/**
     branches:
-      - master    
+      - main   
 
 jobs:
   buildpush:

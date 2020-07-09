@@ -9,7 +9,7 @@ on:
     - .github/workflows/node_player_cicd.yml    
     - Deploy/helm/node-player/**
     branches:
-      - master    
+      - main    
 
 jobs:
   buildpush:

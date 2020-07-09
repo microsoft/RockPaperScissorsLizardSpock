@@ -9,7 +9,7 @@ on:
     - .github/workflows/python_player_cicd.yml    
     - Deploy/helm/python-player/**         
     branches:
-      - master    
+      - main    
 
 jobs:
   buildpush:

@@ -10,7 +10,7 @@ on:
     - Source/Services/RPSLS.ModelUploader.Web/**
     - Deploy/helm/web/**
     branches:
-      - master    
+      main    
 
 jobs:
   buildpush:

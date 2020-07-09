@@ -9,7 +9,7 @@ on:
     - .github/workflows/php_player_cicd.yml   
     - Deploy/helm/php-player/**     
     branches:
-      - master    
+      - main    
 
 jobs:
   buildpush:

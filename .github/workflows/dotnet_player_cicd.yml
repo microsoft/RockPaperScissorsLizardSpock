@@ -9,7 +9,7 @@ on:
       - .github/workflows/dotnet_player_cicd.yml
       - Deploy/helm/dotnet-player/**
     branches:
-      - master    
+      - main    
 
 jobs:
   buildpush:
