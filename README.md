@@ -18,7 +18,7 @@ products:
 - azure-cognitive-services
 - vs
 - vs-code
-azureDeploy: https://github.com/microsoft/RockPaperScissorsLizardSpock/blob/master/Deploy/arm/deployment.json
+azureDeploy: https://github.com/microsoft/RockPaperScissorsLizardSpock/blob/main/Deploy/arm/deployment.json
 ---
 
 # Rock, Paper, Scissors, Lizard, Spock - Sample Application
@@ -125,7 +125,7 @@ To run RPSLS you need to create the Azure infrastructure. There are two ways to 
 
 An ARM template is provided so you can create the whole infrastructure required for RPSLS
 
-[![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FRockPaperScissorsLizardSpock%2Fmaster%2FDeploy%2Farm%2Fdeployment.json)
+[![Deploy to Azure](Documents/Images/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FRockPaperScissorsLizardSpock%2Fmain%2FDeploy%2Farm%2Fdeployment.json)
 
 - `servicePrincipalId`: Id of the service principal used to create the AKS `Required`
 - `servicePrincipalSecret`: Password of the service principal `Required`
