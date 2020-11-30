@@ -1,0 +1,194 @@
+﻿/* Result Layout */
+
+/* Animations */
+@-webkit-keyframes shadow-drop-center-winner {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    -webkit-box-shadow: 0 0 20px 0px rgb(54, 180, 241);
+    box-shadow: 0 0 20px 0px rgb(54, 180, 241);
+  }
+}
+
+@keyframes shadow-drop-center-winner {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    -webkit-box-shadow: 0 0 20px 0px rgb(54, 180, 241);
+    box-shadow: 0 0 20px 0px rgb(54, 180, 241);
+  }
+}
+
+@-webkit-keyframes shadow-drop-center-loser {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    -webkit-box-shadow: 0 0 20px 0px rgb(253, 52, 104);
+    box-shadow: 0 0 20px 0px rgb(253, 52, 104);
+  }
+}
+
+@keyframes shadow-drop-center-loser {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    -webkit-box-shadow: 0 0 20px 0px rgb(253, 52, 104);
+    box-shadow: 0 0 20px 0px rgb(253, 52, 104);
+  }
+}
+
+/* Challenger Result Console */
+.challenger-player,
+.challenger-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Error displayed */
+.opponent-hand-error {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.opponent-hand-error img {
+  position: absolute;
+  width: auto;
+  height: 20vw;
+  bottom: 0;
+  right: 10px;
+}
+
+.opponent-hand-error h2 {
+  max-width: 30vh;
+  top: 5%;
+  left: 20px;
+  position: absolute;
+  color: #ffffff;
+  font-family: Voyager;
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 24px;
+  text-align: center;
+}
+
+.user-hand,
+.opponent-hand {
+  border-radius: 100%;
+  background: #492f93;
+  box-shadow: inset 0px 0px 0px 2px #492f93;
+  box-sizing: border-box;
+  width: 80%;
+}
+
+.user-hand img,
+.opponent-hand img {
+  width: 100%;
+  height: auto;
+}
+
+.result .pick-text {
+  text-align: center;
+  color: #f2a140;
+  font-size: 1.25rem;
+}
+
+.result .pick-text.text-result {
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.result .pick-text.text-message {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+}
+
+.result .pick-text.text-message:first-letter {
+  text-transform: capitalize;
+}
+
+.result .user-picks-items,
+.result .challenger-picks-items {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Result Buttons */
+.result .custom-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.result .custom-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+.result.winner .user-picks-container {
+  -webkit-animation: shadow-drop-center-winner 2s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: shadow-drop-center-winner 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+}
+
+.result.loser .user-picks-container {
+  -webkit-animation: shadow-drop-center-loser 2s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: shadow-drop-center-loser 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+}
+
+.result.loser .text-result {
+  color: #cb0808;
+}
+
+.opponent-hand {
+  transform: scaleX(-1);
+}
+
+.opponent-hand-error {
+  position: relative;
+}
+
+.result.console-screen {
+  margin-bottom: 35px;
+}
+
+@media (max-width: 992px) {
+  .result .pick-text.text-result {
+    display: block;
+    font-size: 1rem;
+  }
+
+  .user-hand,
+  .opponent-hand {
+    width: 50%;
+    height: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .github-text {
+    font-size: 0.8rem;
+  }
+}

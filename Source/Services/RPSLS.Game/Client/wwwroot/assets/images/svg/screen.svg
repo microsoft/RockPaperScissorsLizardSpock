@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="664px" height="517px" viewBox="0 0 664 517" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>screen</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="78.3129302%" x2="45.3452581%" y2="41.1619036%" id="linearGradient-1">
+            <stop stop-color="#805CC5" offset="0%"></stop>
+            <stop stop-color="#2D1C5F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="118.971946%" id="linearGradient-2">
+            <stop stop-color="#422081" offset="0%"></stop>
+            <stop stop-color="#130A2A" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03.-Battle-01" transform="translate(-180.000000, -378.000000)">
+            <g id="screen1" transform="translate(38.000000, 378.000000)">
+                <g id="screen" transform="translate(142.000000, 0.000000)">
+                    <rect id="bg" fill="url(#linearGradient-1)" x="0" y="44" width="664" height="473" rx="20"></rect>
+                    <rect id="area" fill="#000000" x="24" y="68" width="616" height="425" rx="16"></rect>
+                    <rect id="real_screen" fill="#000000" x="32" y="74" width="600" height="413"></rect>
+                    <g id="name" transform="translate(18.000000, 0.000000)" fill="url(#linearGradient-2)">
+                        <path d="M0,44 L171.005036,38 L176,38 L176,14.9880245 C176,6.71036713 182.715729,0 191,0 L437,0 C445.284271,0 452,6.71036713 452,14.9880245 L452,38 L472.564188,38 L628,43.625 L628,44 L0,44 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

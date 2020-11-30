@@ -1,0 +1,103 @@
+/* SVG Animation */
+@keyframes move-control-down {
+  50% {
+    transform: translate(0, 12%);
+  }
+}
+
+@keyframes move-control-up {
+  50% {
+    transform: translate(0, -12%);
+  }
+}
+
+@keyframes move-control-left {
+  50% {
+    transform: translate(0, -4%);
+  }
+}
+
+.move-control-down {
+  animation: move-control-down 3.15s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+.move-control-up {
+  animation: move-control-up 6s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+.move-control-left {
+  animation: move-control-up 3.5s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+@keyframes pulse-button-1 {
+  0% {
+    fill: #9d7ed6;
+  }
+  25% {
+    fill: #804eda;
+  }
+  50% {
+    fill: #6030b7;
+  }
+  100% {
+    fill: #2b115a;
+  }
+}
+
+@keyframes pulse-button-2 {
+  0% {
+    fill: #2b115a;
+  }
+  25% {
+    fill: #6030b7;
+  }
+  50% {
+    fill: #804eda;
+  }
+  100% {
+    fill: #9d7ed6;
+  }
+}
+
+@keyframes pulse-button-3 {
+  0% {
+    fill: #6030b7;
+  }
+  25% {
+    fill: #804eda;
+  }
+  50% {
+    fill: #2b115a;
+  }
+  100% {
+    fill: #9d7ed6;
+  }
+}
+
+.button-fill-1 {
+  animation: pulse-button-1 5s infinite alternate;
+}
+
+.button-fill-2 {
+  animation: pulse-button-2 5s infinite alternate;
+}
+
+.button-fill-3 {
+  animation: pulse-button-3 3s infinite alternate;
+}
+
+@keyframes pulse-illuminated {
+  0% {
+    fill: #83225b;
+  }
+  100% {
+    fill: #fc03be;
+  }
+}
+
+.button-illuminated-1 {
+  animation: pulse-illuminated 2s infinite alternate;
+}

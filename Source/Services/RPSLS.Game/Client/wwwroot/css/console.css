@@ -1,0 +1,93 @@
+﻿/* Console Layout */
+.game-content {
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("../assets/images/png/planets.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position-x: 30px;
+  background-position-y: top;
+  position: relative;
+  min-height: calc(100vh - 47px);
+}
+
+.console {
+  background-size: 100%;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  min-height: calc(100vh - 199px);
+  background-image: url(../assets/images/svg/screens_panel.svg),
+    url(../assets/images/svg/platform_opponents.svg),
+    linear-gradient(
+      to bottom,
+      rgba(36, 18, 79, 0) 40%,
+      rgba(36, 18, 79, 0) 42%,
+      rgba(36, 18, 79, 1) 43%,
+      rgba(36, 18, 79, 1) 44%,
+      rgba(36, 18, 79, 1) 79%,
+      rgba(36, 18, 79, 1) 80%
+    );
+  background-repeat: no-repeat;
+  background-position-y: 4vh, top;
+}
+
+.console-content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10vh;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.console-controls {
+  padding-top: 2vw;
+  height: 27.4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+}
+
+.console-controls svg {
+  transform: scale(0.8);
+}
+
+@media (max-width: 992px) {
+  .console-controls {
+    display: none;
+  }
+}
+
+/* Github Link */
+.github {
+  justify-content: center;
+  position: relative;
+  top: -30px;
+  height: 0;
+
+  text-align: center;
+  background: #291659;
+  width: 100%;
+  align-items: center;
+  display: flex;
+}
+
+.github-text {
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-family: "Voyager";
+  font-size: 1rem;
+}
+
+.github-text:hover {
+  text-shadow: 0 0 9px rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 992px) {
+  .github {
+    top: 0;
+    width: auto;
+    padding: 30px 0;
+  }
+}

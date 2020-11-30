@@ -1,0 +1,234 @@
+﻿.lb-astronaut {
+    position: absolute;
+    width: 130px;
+    height: auto;
+    left: calc(-560px + 50vw);
+    top: 50px;
+}
+
+.lb-spaceship {
+    position: absolute;
+    width: 120px;
+    height: auto;
+    left: calc(-640px + 50vw);
+    top: 300px;
+}
+
+.leaderboard-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .leaderboard-container .info-contest {
+        text-align: center;
+        margin: 1rem 0;
+    }
+
+.leaderboard-title {
+    margin: 0;
+    padding-top: 35px;
+    font-family: "Voyager";
+    font-weight: 300;
+    font-size: 4rem;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+    line-height: 75px;
+    color: #ffaa44;
+    text-align: center;
+    width: 100%;
+    height: 75px;
+}
+
+.leaderboard-subtitle {
+    margin: 0;
+    color: #FFFFFF;
+    font-family: "Work Sans";
+    font-weight: 300;
+    font-size: 1.3rem;
+    line-height: 40px;
+    text-align: center;
+    height: 40px;
+}
+
+.leaderboard-powered {
+    color: #FFFFFF;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+    .leaderboard-powered a {
+        color: #FFFFFF;
+        text-decoration: underline;
+    }
+
+.leaderboard {
+    margin-top: 20px;
+    font-family: "Work Sans";
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: white;
+    border-spacing: 0;
+    height: calc(100% - 400px);
+    table-layout: fixed;
+}
+
+    .leaderboard tbody {
+        overflow: auto;
+        height: calc(100% - 50px);
+    }
+
+        .leaderboard tbody::-webkit-scrollbar-track {
+            display: none;
+        }
+
+        .leaderboard tbody::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .leaderboard tbody::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+        }
+
+    .leaderboard thead {
+        height: 50px;
+    }
+
+    .leaderboard thead,
+    .leaderboard tbody {
+        display: block;
+        padding: 0 10px;
+    }
+
+    .leaderboard-powered p {
+        margin-top: 0;
+    }
+
+    .leaderboard tr th {
+        line-height: 30px;
+        font-family: "Voyager";
+        font-weight: 300;
+        border-bottom: white solid 2px;
+        padding-bottom: 10px;
+    }
+
+    .leaderboard tr td {
+        line-height: 60px;
+        height: 60px;
+        border-bottom: rgba(255, 255, 255, 0.3) solid 2px;
+    }
+
+    .leaderboard tr .lb-position {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        width: 140px;
+        align-items: center;
+    }
+
+        .leaderboard tr .lb-position > * {
+            display: block;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+    .leaderboard tr:nth-child(1) td.lb-position > * {
+        background-color: #E68F2F;
+    }
+
+    .leaderboard tr:nth-child(2) td.lb-position > * {
+        background-color: #F2455E;
+    }
+
+    .leaderboard tr:nth-child(3) td.lb-position > * {
+        background-color: #6251A7;
+    }
+
+    .leaderboard tr .lb-user {
+        width: 340px;
+        text-align: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+        .leaderboard tr .lb-user > * {
+            padding: 0 10px;
+        }
+
+    .leaderboard tr .lb-points {
+        width: 280px;
+        text-align: center;
+        justify-self: center;
+    }
+
+.leaderboard-buttons {
+    height: 70px;
+    width: 30%;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .leaderboard {
+        margin-top: 0;
+        height: calc(100% - 120px);
+    }
+
+        .leaderboard-title {
+            font-size: 2rem;
+            padding-top: 20px;
+            line-height: 2rem;
+            height: 55px;
+        }
+        
+        .leaderboard thead {
+            height: auto;
+            padding: 0 10px 5px 10px;
+        }
+
+        .leaderboard tr th {
+            line-height: 1rem;
+            font-size: 1rem;
+        }
+
+        .leaderboard tr td {
+            line-height: 33px;
+            font-size: 1rem;
+            height: 33px;
+            border-bottom: rgba(255, 255, 255, 0.3) solid 1px;
+        }
+
+        .leaderboard tr .lb-position > * {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .leaderboard-container .info-contest {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .leaderboard tbody::-webkit-scrollbar {
+            width: 6px;
+        }
+
+    .leaderboard-subtitle {
+        line-height: 1rem;
+        height: auto;
+        font-size: 1rem;
+    }
+
+    .leaderboard-container {
+        padding: 0.5rem;
+    }
+}

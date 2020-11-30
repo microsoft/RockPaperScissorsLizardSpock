@@ -1,0 +1,62 @@
+﻿.no-vertical {
+    display: none;
+}
+
+@media (orientation: portrait) {
+
+    .footer, .challengers-content, .index-content, .game-content {
+        display: none;
+    }
+
+    .no-vertical {
+        display: block;
+        position: absolute;
+        background-color: rgb(2, 0, 36);
+        background: linear-gradient( 180deg, rgba(2, 0, 36, 1) 0%, rgba(41, 6, 59, 1) 35%, rgb(69, 13, 95) 100% );
+        height: 100vh;
+        width: 100vw;
+        z-index: 300;
+        overflow: hidden;
+    }
+
+    .no-vertical .main {
+        font-family: "Segoe UI", sans-serif;
+        font-size: 24px;
+        color: white;
+        text-align: center;
+        position: absolute;
+        background-color: rgba(0,0,0,0.6);
+        height: 100vh;
+        width: 100vw;
+        z-index: 200;
+    }
+
+    .no-vertical .main .content {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+    }
+
+    .no-vertical .main .content svg {
+        max-width: 90%;
+    }
+
+        .no-vertical .background {
+            background: url(../assets/images/png/planets_home.png);
+            background-size: 100%;
+            background-position-x: 30px;
+            background-repeat: repeat;
+            z-index: 100;
+            height: 100vh;
+        }
+
+    .no-vertical .stars-container {
+        height: 100vh;
+        width: 100vw;
+        top: 0;
+        transform: scale(-1.5) rotate(45deg);
+        overflow: hidden;
+    }
+}

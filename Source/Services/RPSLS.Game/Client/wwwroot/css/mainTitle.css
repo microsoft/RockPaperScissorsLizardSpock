@@ -1,0 +1,142 @@
+﻿/* Title */
+.game-content-title {
+    position: relative;
+    margin: 0;
+    padding-top: 40px;
+    margin-bottom: 37px;
+    height: 75px;
+    font-family: "Voyager";
+    font-weight: 300;
+    font-size: 75px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9);
+    line-height: 75px;
+    color: #ffaa44;
+    text-align: center;
+    width: 100%;
+}
+
+.info-icon {
+    width: auto;
+    vertical-align: bottom;
+    height: 75px;
+    cursor: pointer;
+}
+
+/* Modal Layout */
+.modal {
+    position: fixed;
+    display: block;
+    z-index: 1;
+    padding-top: 9rem;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.close {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+    .close:hover {
+        opacity: 1;
+    }
+
+    .close:before,
+    .close:after {
+        position: absolute;
+        left: 15px;
+        content: " ";
+        height: 33px;
+        width: 2px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .close:before {
+        transform: rotate(45deg);
+    }
+
+    .close:after {
+        transform: rotate(-45deg);
+    }
+
+.modal-content {
+    position: relative;
+    background-color: #372369;
+    margin: auto;
+    max-width: 630px;
+}
+
+    .modal-content > div {
+        margin: 1.25rem;
+    }
+
+.relationship-diagram {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+    .relationship-diagram h1 {
+        margin-bottom: 1.25rem;
+        color: #ffffff;
+        font-family: Voyager;
+        font-size: 32px;
+        margin: 2rem 0;
+        font-weight: 300;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    .relationship-diagram img {
+        max-width: 430px;
+        margin-bottom: 100px;
+        height: auto;
+    }
+
+@media (max-width: 992px) {
+    .info-icon {
+        width: auto;
+        vertical-align: bottom;
+        height: 30px;
+        cursor: pointer;
+        margin-left: 15px;
+    }
+
+    .game-content-title {
+        font-size: 2rem;
+        padding-top: 0;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        width: auto;
+        height: auto;
+    }
+
+    .relationship-diagram img {
+        width: 90%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .mainTitle p.header {
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 3.1rem;
+        text-align: center;
+        margin: 0 2rem;
+    }
+}
