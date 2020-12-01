@@ -63,8 +63,8 @@ namespace RPSLS.Game.Server.Controllers
             {
                 userInfo = new UserInfo
                 {
-                    Username = User?.Identity?.Name ?? string.Empty,
-                    IsTwitterUser = User.Identity?.AuthenticationType == TwitterDefaults.AuthenticationScheme
+                    Username = User.Identity.Name ?? string.Empty,
+                    IsTwitterUser = User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme
                 };
             }
 

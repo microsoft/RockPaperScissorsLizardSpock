@@ -1,14 +1,10 @@
 ﻿@using Microsoft.Extensions.Options
-@using RPSLS.Game.Shared
-@using RPSLS.Game.Shared.Models
 @layout MainLayout
 @page "/"
-@*
-    @inject IOptions<TwitterOptions> TwitterOptions
-*@
 @inject NavigationManager NavigationManager
 @inject HttpClient httpClient
 @inject IOptions<MultiplayerSettings> MultiplayerSettings
+@inject IOptions<TwitterSettings> TwitterSettings
 
 <div class="index-content">
     <div class="login">
@@ -37,10 +33,10 @@
                     <input @bind-value="@CustomUsername" @bind-value:event="oninput" class="user" type="text" placeholder="Type Username" required />
 
                     <div class="sign_twitter">
-                        @*@if (!string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerKey) && !string.IsNullOrWhiteSpace(TwitterOptions?.Value?.ConsumerSecret))
-                                                    {
+                        @if (TwitterSettings.Value.IsLoginEnabled)
+                        {
                             <span>or <a href="/api/account/login/twitter">Sign in with Twitter</a></span>
-                                                    }*@
+                        }
                     </div>
                 }
                 else

@@ -1,4 +1,4 @@
-﻿namespace RPSLS.Game.Shared
+﻿namespace RPSLS.Game.Shared.Config
 {
     public class GameManagerSettings
     {
