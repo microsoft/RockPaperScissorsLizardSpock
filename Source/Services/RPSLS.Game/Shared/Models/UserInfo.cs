@@ -3,6 +3,6 @@
     public class UserInfo
     {
         public string Username { get; set; }
-        public bool IsTwitterUser { get; set; }
+        public string AuthenticationType { get; set; }
     }
 }

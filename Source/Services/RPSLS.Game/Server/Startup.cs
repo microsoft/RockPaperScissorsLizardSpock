@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
+using RPSLS.Game.Server.Clients;
+using RPSLS.Game.Server.Config;
+using RPSLS.Game.Shared.Config;
+using System;
 
 namespace RPSLS.Game.Server
 {
@@ -25,6 +28,22 @@ namespace RPSLS.Game.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddAuthentication(Configuration);
+
+            services.AddOptions();
+            services.Configure<RecognitionSettings>(Configuration);
+            services.Configure<GoogleAnalyticsSettings>(Configuration);
+            services.Configure<TwitterSettings>(x=> new TwitterSettings(Configuration["Authorization:Twitter:ConsumerKey"]));
+            services.Configure<GameManagerSettings>(Configuration.GetSection("GameManager"));
+            services.ConfigureOptions<MultiplayerSettingsOptions>();
+            services.ConfigureOptions<ClientSettingsConfigureOptions>();
+
+            if (Configuration.GetValue<bool>("GameManager:Grpc:GrpcOverHttp", false))
+            {
+                AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
+            }
+
+            services.AddSingleton<IConfigurationManagerClient, ConfigurationManagerClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,10 +1,10 @@
 ﻿@page "/challenger"
-@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
 
 @using GameApi.Proto
 
+
 @inject IBotGameService Game
-@inject SvgHelper svgHelper
 @inject NavigationManager NavigationManager
 @inject GameSettingsDto GameSettings
 
@@ -21,7 +21,7 @@
         <img src='@("/assets/images/png/"+challenger.Name+".png")'>
     </div>
     <div class="challenger-name">@challenger.DisplayName</div>
-</div>            }
+</div>      }
         </div>
         <div class="challengers-base">
             <div class="custom-button challengers-select-button">
@@ -29,26 +29,24 @@
             </div>
             @if (GameSettings.HasMultiplayer)
             {
-                <a class="secondary-link" href="/lobby">Play with a friend</a>
-            }
+<a class="secondary-link" href="/lobby">Play with a friend</a>}
         </div>
     </div>
 </div>
 
-
 @code
 { private string battleUrl = null;
-            private IEnumerable<ChallengerDto> challengers = new List<ChallengerDto>();
+    private IEnumerable<ChallengerDto> challengers = new List<ChallengerDto>();
 
-            protected async override Task OnInitializedAsync()
-            {
-                Game.Pick = -1;
-                Game.Challenger = null;
-                this.challengers = await Game.Challengers();
-            }
+    protected async override Task OnInitializedAsync()
+    {
+        Game.Pick = -1;
+        Game.Challenger = null;
+        this.challengers = await Game.Challengers();
+    }
 
-            void SelectChallenger(ChallengerDto challenger)
-            {
-                battleUrl = "/battle";
-                Game.Challenger = challenger;
-            } }
+    void SelectChallenger(ChallengerDto challenger)
+    {
+        battleUrl = "/battle";
+        Game.Challenger = challenger;
+    } }

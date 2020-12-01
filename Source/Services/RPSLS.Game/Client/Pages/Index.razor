@@ -1,8 +1,8 @@
 ﻿@using Microsoft.Extensions.Options
+
 @layout MainLayout
 @page "/"
 @inject NavigationManager NavigationManager
-@inject HttpClient httpClient
 @inject IOptions<MultiplayerSettings> MultiplayerSettings
 @inject IOptions<TwitterSettings> TwitterSettings
 
@@ -75,6 +75,9 @@
 
 @code
 {
+    [CascadingParameter]
+    public Task<AuthenticationState> authenticationState { get; set; }
+
     private string CustomUsername { get; set; }
 
     [Parameter]
@@ -87,10 +90,11 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var state = await authenticationState;
 
-        var userInfo = await httpClient.GetFromJsonAsync<UserInfo>("api/accounts/userinfo");
-        Username = userInfo.Username;
-        IsTwitterUser = userInfo.IsTwitterUser;
+        Username = state.User.GetUsername() ?? string.Empty;
+        IsTwitterUser = state.User.Identity.AuthenticationType == TwitterSettings.Value.AuthenticationScheme;
+
         if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(RedirectUrl))
         {
             NavigationManager.NavigateTo(RedirectUrl);

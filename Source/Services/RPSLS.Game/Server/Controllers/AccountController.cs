@@ -55,20 +55,17 @@ namespace RPSLS.Game.Server.Controllers
         }
 
         [HttpGet("userinfo")]
-        public async Task<ActionResult<UserInfo>> GetCurrentUser()
+        public async Task<IActionResult> GetCurrentUser()
         {
-            UserInfo userInfo = default;
+            var userInfo = new UserInfo();
 
             if (User.Identity.IsAuthenticated)
             {
-                userInfo = new UserInfo
-                {
-                    Username = User.Identity.Name ?? string.Empty,
-                    IsTwitterUser = User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme
-                };
+                userInfo.Username = User.Identity.Name ?? string.Empty;
+                userInfo.AuthenticationType = User.Identity.AuthenticationType;
             }
 
-            return await Task.FromResult(userInfo);
+            return Ok(await Task.FromResult(userInfo));
         }
     }
 }
