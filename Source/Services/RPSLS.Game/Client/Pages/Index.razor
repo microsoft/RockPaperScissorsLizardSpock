@@ -1,17 +1,13 @@
-﻿@using Microsoft.AspNetCore.Http
-@using Microsoft.Extensions.Options
+﻿@using Microsoft.Extensions.Options
 @using RPSLS.Game.Shared
+@using RPSLS.Game.Shared.Models
 @layout MainLayout
 @page "/"
 @*
     @inject IOptions<TwitterOptions> TwitterOptions
 *@
 @inject NavigationManager NavigationManager
-@*
-    @inject AuthenticationStateProvider AuthenticationStateProvider
-    @inject IHttpContextAccessor HttpContextAccessor
-*@
-
+@inject HttpClient httpClient
 @inject IOptions<MultiplayerSettings> MultiplayerSettings
 
 <div class="index-content">
@@ -95,15 +91,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        /*
-        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        Username = state.User?.Identity?.Name ?? string.Empty;
-        // IsTwitterUser = state.User.Identity.AuthenticationType == TwitterDefaults.AuthenticationScheme;
+
+        var userInfo = await httpClient.GetFromJsonAsync<UserInfo>("api/accounts/userinfo");
+        Username = userInfo.Username;
+        IsTwitterUser = userInfo.IsTwitterUser;
         if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(RedirectUrl))
         {
             NavigationManager.NavigateTo(RedirectUrl);
         }
-        */
+
     }
 
     protected void PlayAgainstBots() => Play("/challenger");

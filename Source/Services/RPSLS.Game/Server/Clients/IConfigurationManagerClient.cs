@@ -1,4 +1,5 @@
-﻿using RPSLS.Game.Client.Models;
+﻿
+using RPSLS.Game.Shared;
 
 namespace RPSLS.Game.Server.Clients
 {

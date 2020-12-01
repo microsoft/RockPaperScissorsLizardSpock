@@ -1,4 +1,4 @@
-﻿namespace RPSLS.Game.Client.Models
+﻿namespace RPSLS.Game.Shared
 {
     public class GameSettingsDto
     {
