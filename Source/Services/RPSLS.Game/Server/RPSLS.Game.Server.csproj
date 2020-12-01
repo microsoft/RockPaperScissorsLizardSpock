@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Protos\GameApi.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0" />
   </ItemGroup>
@@ -15,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\Shared\Protos\GameApi.proto" GrpcServices="Server">
-      <Link>Protos\GameApi.proto</Link>
-    </Protobuf>
+    <Protobuf Include="Protos\GameApi.proto" GrpcServices="Client" />
   </ItemGroup>
 
 

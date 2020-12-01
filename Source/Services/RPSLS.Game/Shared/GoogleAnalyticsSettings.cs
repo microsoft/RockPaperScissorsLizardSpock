@@ -1,4 +1,4 @@
-﻿namespace RPSLS.Game.Client.Config
+﻿namespace RPSLS.Game.Shared
 {
     public class GoogleAnalyticsSettings
     {

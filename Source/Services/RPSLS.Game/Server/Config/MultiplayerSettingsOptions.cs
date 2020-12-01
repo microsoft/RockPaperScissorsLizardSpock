@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using RPSLS.Game.Client.Clients;
+using RPSLS.Game.Server.Clients;
+using RPSLS.Game.Shared;
 
-namespace RPSLS.Game.Client.Config
+namespace RPSLS.Game.Server.Config
 {
     public class MultiplayerSettingsOptions : IConfigureOptions<MultiplayerSettings>
     {
@@ -17,11 +18,5 @@ namespace RPSLS.Game.Client.Config
             var gameApiSettingsClient = _configurationManager.GetSettings();
             options.Enabled = gameApiSettingsClient.HasMultiplayer;
         }
-    }
-
-    public class MultiplayerSettings 
-    {
-
-        public bool Enabled { get; set; }
     }
 }

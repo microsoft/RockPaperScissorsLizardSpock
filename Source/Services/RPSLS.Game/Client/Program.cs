@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using RPSLS.Game.Client.Clients;
-using RPSLS.Game.Client.Helpers;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

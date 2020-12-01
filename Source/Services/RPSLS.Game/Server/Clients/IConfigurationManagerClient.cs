@@ -1,6 +1,6 @@
 ﻿using RPSLS.Game.Client.Models;
 
-namespace RPSLS.Game.Client.Clients
+namespace RPSLS.Game.Server.Clients
 {
     public interface IConfigurationManagerClient
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace RPSLS.Game.Client.Clients
+namespace RPSLS.Game.Server.Clients
 {
     public abstract class BaseClient
     {

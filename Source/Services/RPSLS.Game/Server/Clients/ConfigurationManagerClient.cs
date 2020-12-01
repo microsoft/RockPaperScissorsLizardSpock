@@ -2,10 +2,10 @@
 using GameApi.Proto;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Options;
-using RPSLS.Game.Client.Config;
 using RPSLS.Game.Client.Models;
+using RPSLS.Game.Shared;
 
-namespace RPSLS.Game.Client.Clients
+namespace RPSLS.Game.Server.Clients
 {
     public class ConfigurationManagerClient : IConfigurationManagerClient
     {
