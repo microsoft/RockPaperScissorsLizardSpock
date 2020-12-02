@@ -2,7 +2,6 @@
 @using RPSLS.Game.Client.Helpers
 @using RPSLS.Game.Shared
 @inherits LayoutComponentBase
-@inject SvgHelper svgHelper
 @inject IOptions<MultiplayerSettings> MultiplayerSettings
 
 <div class="game-content">
@@ -27,13 +26,13 @@
     <div class="console">
         <div class="console-content">
             <div class="console-controls">
-                @svgHelper.GetImage($"/assets/images/svg/controls_left.svg")
+                <img src="/assets/images/svg/controls_left.svg"/>
             </div>
             <CascadingValue Value="this">
                 @Body
             </CascadingValue>
             <div class="console-controls">
-                @svgHelper.GetImage($"/assets/images/svg/controls_right.svg")
+                <img src="/assets/images/svg/controls_right.svg" />
             </div>
         </div>
     </div>
