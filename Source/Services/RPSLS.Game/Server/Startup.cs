@@ -32,7 +32,7 @@ namespace RPSLS.Game.Server
             services.AddOptions()
                 .Configure<RecognitionSettings>(Configuration)
                 .Configure<GoogleAnalyticsSettings>(Configuration)
-                .Configure<TwitterSettings>(x => x.IsLoginEnabled = !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerKey"]))
+                .Configure<TwitterSettings>(x => x.IsLoginEnabled = !string.IsNullOrWhiteSpace(Configuration["Authentication:Twitter:ConsumerKey"]) && !string.IsNullOrWhiteSpace(Configuration["Authentication:Twitter:ConsumerSecret"]))
                 .Configure<GameManagerSettings>(Configuration.GetSection("GameManager"))
                 .ConfigureOptions<MultiplayerSettingsOptions>()
                 .ConfigureOptions<ClientSettingsConfigureOptions>();
