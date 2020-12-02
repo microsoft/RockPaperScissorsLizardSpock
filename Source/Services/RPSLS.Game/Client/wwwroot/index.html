@@ -2,19 +2,6 @@
 <html>
 
 <head>
-
-    <!--
-        @if (!string.IsNullOrWhiteSpace(options.Value.GoogleAnalytics))
-    {
-    <script async src="https://www.googletagmanager.com/gtag/js?id=@options.Value.GoogleAnalytics"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', '@options.Value.GoogleAnalytics');
-    </script>
-    }-->
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock, Scissors, Paper, Lizard, Spock – Play the game now</title>
@@ -37,11 +24,13 @@
 <body>
     <app id="app"></app>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/Blazor-Analytics/blazor-analytics.js"></script>
 
     <!--
-    <script src="/js/tf.min.js"></script>
-    <script src="/js/main.js"></script>
-    -->
+     <script src="/js/tf.min.js"></script>
+     <script src="/js/main.js"></script>
+     -->
+
     <div id="components-reconnect-modal" class="reconnect-modal components-reconnect-hide">
         <div>
             <h1>Could not reconnect to the server.</h1>

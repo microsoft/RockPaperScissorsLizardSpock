@@ -5,9 +5,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Authorization;
 using RPSLS.Game.Client.Auth;
-using RPSLS.Game.Client.Helpers;
 using RPSLS.Game.Shared.Config;
 using Microsoft.Extensions.Configuration;
+using RPSLS.Game.Client.Clients;
+using RPSLS.Game.Client.Services;
+using Blazor.Analytics;
+using Microsoft.JSInterop;
 
 namespace RPSLS.Game.Client
 {
@@ -22,20 +25,24 @@ namespace RPSLS.Game.Client
             builder.Services.AddScoped<AuthenticationStateProvider, CookieAuthenticationStateProvider>();
 
             var httpClient = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
-
             builder.Services.AddScoped(sp => httpClient);
-            builder.Services.AddScoped<SvgHelper>();
-
-            builder.Services.AddOptions();
 
             using var response = await httpClient.GetAsync("api/settings");
             using var stream = await response.Content.ReadAsStreamAsync();
-
             builder.Configuration.AddJsonStream(stream);
 
             builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(GameSettingsDto)).Get<GameSettingsDto>());
+            builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(GameManagerSettings)).Get<GameManagerSettings>());
+            builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(GoogleAnalyticsSettings)).Get<GoogleAnalyticsSettings>());
+
+            builder.Services.AddScoped<IBotGameManagerClient, BotGameManagerClient>();
+            //services.AddScoped<IMultiplayerGameManagerClient, MultiplayerGameManagerClient>();
+            builder.Services.AddScoped<IBotGameService, BotGameService>();
+            //services.AddScoped<IMultiplayerGameService, MultiplayerGameService>();
+
+            builder.Services.AddGoogleAnalytics();
 
             await builder.Build().RunAsync();
+        }
     }
-}
 }

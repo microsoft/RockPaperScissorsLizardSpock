@@ -3,8 +3,10 @@
 @layout MainLayout
 @page "/"
 @inject NavigationManager NavigationManager
-@inject IOptions<MultiplayerSettings> MultiplayerSettings
-@inject IOptions<TwitterSettings> TwitterSettings
+@inject MultiplayerSettings MultiplayerSettings
+@inject TwitterSettings TwitterSettings
+@inject GoogleAnalyticsSettings GoogleAnalyticsSettings
+@inject IAnalytics Analytics
 
 <div class="index-content">
     <div class="login">
@@ -13,7 +15,7 @@
                 <div class="header-layout-item"></div>
                 <div class="header-layout-item header-layout-item--large"></div>
                 <div class="header-layout-item">
-                    <RPSLS.Game.Client.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings.Value" />
+                    <RPSLS.Game.Client.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings" />
                 </div>
             </div>
             <form>
@@ -33,7 +35,7 @@
                     <input @bind-value="@CustomUsername" @bind-value:event="oninput" class="user" type="text" placeholder="Type Username" required />
 
                     <div class="sign_twitter">
-                        @if (TwitterSettings.Value.IsLoginEnabled)
+                        @if (TwitterSettings.IsLoginEnabled)
                         {
                             <span>or <a href="/api/account/login/twitter">Sign in with Twitter</a></span>
                         }
@@ -55,7 +57,7 @@
                     <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
                         <button type="button" @onclick="PlayAgainstBots" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a bot</button>
                     </div>
-                    @if (MultiplayerSettings.Value.Enabled)
+                    @if (MultiplayerSettings.Enabled)
                     {
                         <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
                             <button type="button" @onclick="PlayAgainstHumans" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a friend</button>
@@ -90,10 +92,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await Analytics.Initialize(GoogleAnalyticsSettings.GoogleAnalytics);
+
         var state = await authenticationState;
 
         Username = state.User.GetUsername() ?? string.Empty;
-        IsTwitterUser = state.User.Identity.AuthenticationType == TwitterSettings.Value.AuthenticationScheme;
+        IsTwitterUser = state.User.Identity.AuthenticationType == TwitterSettings.AuthenticationScheme;
 
         if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(RedirectUrl))
         {
