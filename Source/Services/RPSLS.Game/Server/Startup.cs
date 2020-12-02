@@ -29,13 +29,13 @@ namespace RPSLS.Game.Server
             services.AddRazorPages();
             services.AddAuthentication(Configuration);
 
-            services.AddOptions();
-            services.Configure<RecognitionSettings>(Configuration);
-            services.Configure<GoogleAnalyticsSettings>(Configuration);
-            services.Configure<TwitterSettings>(x=> new TwitterSettings(Configuration["Authorization:Twitter:ConsumerKey"]));
-            services.Configure<GameManagerSettings>(Configuration.GetSection("GameManager"));
-            services.ConfigureOptions<MultiplayerSettingsOptions>();
-            services.ConfigureOptions<ClientSettingsConfigureOptions>();
+            services.AddOptions()
+                .Configure<RecognitionSettings>(Configuration)
+                .Configure<GoogleAnalyticsSettings>(Configuration)
+                .Configure<TwitterSettings>(x => x.IsLoginEnabled = !string.IsNullOrEmpty(Configuration["Authentication:Twitter:ConsumerKey"]))
+                .Configure<GameManagerSettings>(Configuration.GetSection("GameManager"))
+                .ConfigureOptions<MultiplayerSettingsOptions>()
+                .ConfigureOptions<ClientSettingsConfigureOptions>();
 
             if (Configuration.GetValue<bool>("GameManager:Grpc:GrpcOverHttp", false))
             {
@@ -44,11 +44,7 @@ namespace RPSLS.Game.Server
             }
 
             services.AddSingleton<IConfigurationManagerClient, ConfigurationManagerClient>();
-
-            services.AddSingleton(sp =>
-            {
-                return sp.GetService<IConfigurationManagerClient>().GetSettings();
-            });
+            services.AddSingleton(sp => sp.GetService<IConfigurationManagerClient>().GetSettings());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
