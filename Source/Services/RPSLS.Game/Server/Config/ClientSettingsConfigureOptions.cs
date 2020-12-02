@@ -13,21 +13,22 @@ namespace RPSLS.Game.Server.Config
         private readonly IOptions<GameManagerSettings> _gameManagerSettings;
 
         public ClientSettingsConfigureOptions(IOptions<GoogleAnalyticsSettings> googleAnalyticsSettings, 
-            IOptions<RecognitionSettings> recognitionSettings, IOptions<TwitterSettings> twitterSettings, GameSettingsDto gameSettingsDto, IOptions<GameManagerSettings> gameManagerSettings)
+            IOptions<RecognitionSettings> recognitionSettings, IOptions<TwitterSettings> twitterSettings,
+            GameSettingsDto gameSettingsDto, IOptions<GameManagerSettings> gameManagerSettings, IOptions<MultiplayerSettings> multiplayerSettings)
         {
             _googleAnalyticsSettings = googleAnalyticsSettings;
-            //_multiplayerSettings = multiplayerSettings;
             _recognitionSettings = recognitionSettings;
             _twitterSettings = twitterSettings;
             _gameSettingsDto = gameSettingsDto;
             _gameManagerSettings = gameManagerSettings;
+            _multiplayerSettings = multiplayerSettings;
         }
 
 
         public void Configure(ClientSettings options)
         {
             options.GoogleAnalyticsSettings = _googleAnalyticsSettings.Value;
-            //options.MultiplayerSettings = _multiplayerSettings.Value;
+            options.MultiplayerSettings = _multiplayerSettings.Value;
             options.RecognitionSettings = _recognitionSettings.Value;
             options.TwitterSettings = _twitterSettings.Value;
             options.GameSettingsDto = _gameSettingsDto;

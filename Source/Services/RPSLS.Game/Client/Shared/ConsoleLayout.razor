@@ -2,7 +2,7 @@
 @using RPSLS.Game.Client.Helpers
 @using RPSLS.Game.Shared
 @inherits LayoutComponentBase
-@inject IOptions<MultiplayerSettings> MultiplayerSettings
+@inject MultiplayerSettings MultiplayerSettings
 
 <div class="game-content">
     <div class="header-layout">
@@ -19,7 +19,7 @@
         <div class="header-layout-item">
             @if (ShowLeaderboardLink)
             {
-                <RPSLS.Game.Client.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings.Value" />
+                <RPSLS.Game.Client.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings" />
             }
         </div>
     </div>

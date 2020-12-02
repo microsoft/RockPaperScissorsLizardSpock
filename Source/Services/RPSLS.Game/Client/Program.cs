@@ -34,6 +34,8 @@ namespace RPSLS.Game.Client
             builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(GameSettingsDto)).Get<GameSettingsDto>());
             builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(GameManagerSettings)).Get<GameManagerSettings>());
             builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(GoogleAnalyticsSettings)).Get<GoogleAnalyticsSettings>());
+            builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(TwitterSettings)).Get<TwitterSettings>());
+            builder.Services.AddSingleton(_ => builder.Configuration.GetSection(nameof(MultiplayerSettings)).Get<MultiplayerSettings>());
 
             builder.Services.AddScoped<IBotGameManagerClient, BotGameManagerClient>();
             //services.AddScoped<IMultiplayerGameManagerClient, MultiplayerGameManagerClient>();
