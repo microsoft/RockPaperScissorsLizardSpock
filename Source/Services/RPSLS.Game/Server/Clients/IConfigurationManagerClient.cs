@@ -1,4 +1,4 @@
-﻿using RPSLS.Game.Shared.Config;
+﻿using RPSLS.Game.Server.Config;
 
 namespace RPSLS.Game.Server.Clients
 {

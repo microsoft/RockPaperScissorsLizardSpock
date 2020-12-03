@@ -4,7 +4,7 @@
 
 @inject IBotGameService Game
 @inject NavigationManager NavigationManager
-@inject GameSettingsDto GameSettings
+@inject MultiplayerSettings MultiplayerSettings
 
 <div class="challengers-content">
     <h1 class="challengers-content-title">choose your opponent</h1>
@@ -25,7 +25,7 @@
             <div class="custom-button challengers-select-button">
                 <a class="custom-button-link" href="@battleUrl">Select</a>
             </div>
-            @if (GameSettings.HasMultiplayer)
+            @if (MultiplayerSettings.Enabled)
             {
 <a class="secondary-link" href="/lobby">Play with a friend</a>}
         </div>

@@ -7,4 +7,10 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Protos\GameBff.proto">
+      <GrpcServices>Server</GrpcServices>
+    </None>
+  </ItemGroup>
 </Project>

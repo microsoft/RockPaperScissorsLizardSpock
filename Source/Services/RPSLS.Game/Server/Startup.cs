@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RPSLS.Game.Server.Clients;
 using RPSLS.Game.Server.Config;
-using RPSLS.Game.Shared.Config;
+using RPSLS.Game.Server.GrpcServices;
 using System;
 
 namespace RPSLS.Game.Server
@@ -44,7 +42,9 @@ namespace RPSLS.Game.Server
             }
 
             services.AddSingleton<IConfigurationManagerClient, ConfigurationManagerClient>();
-            services.AddSingleton(sp => sp.GetService<IConfigurationManagerClient>().GetSettings());
+            //services.AddSingleton(sp => sp.GetService<IConfigurationManagerClient>().GetSettings());
+
+            services.AddGrpc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,9 +68,11 @@ namespace RPSLS.Game.Server
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseGrpcWeb();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<BotGameManagerService>().EnableGrpcWeb();
+                endpoints.MapGrpcService<GameSettingsManagerService>().EnableGrpcWeb();
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");

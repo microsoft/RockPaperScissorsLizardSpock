@@ -1,6 +1,6 @@
-﻿using GameBff.Proto;
+﻿using GameApi.Proto;
 
-namespace RPSLS.Game.Client.Models
+namespace RPSLS.Game.Server.Models
 {
     public class ChallengerDto
     {

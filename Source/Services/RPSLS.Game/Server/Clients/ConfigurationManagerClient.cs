@@ -2,7 +2,7 @@
 using GameApi.Proto;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Options;
-using RPSLS.Game.Shared.Config;
+using RPSLS.Game.Server.Config;
 
 namespace RPSLS.Game.Server.Clients
 {

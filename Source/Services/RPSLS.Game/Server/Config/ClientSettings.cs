@@ -1,4 +1,4 @@
-﻿namespace RPSLS.Game.Shared.Config
+﻿namespace RPSLS.Game.Server.Config
 {
     public class ClientSettings
     {
@@ -6,7 +6,6 @@
         public MultiplayerSettings MultiplayerSettings { get; set; }
         public RecognitionSettings RecognitionSettings { get; set; }
         public TwitterSettings TwitterSettings { get; set; }
-        public GameSettingsDto GameSettingsDto { get; set; }
         public GameManagerSettings GameManagerSettings { get; set; }
     }
 }

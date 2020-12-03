@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "GameApi.Proto";
+option csharp_namespace = "GameBff.Proto";
 
-package GameManagementApi;
-
+package GameManagementBff;
 
 service ConfigurationManager {
 	rpc GetSettings (Empty) returns (SettingsResponse);
@@ -125,4 +124,33 @@ message LeaderboardEntryResponse {
 	string username = 1;
 	bool twitterLogged = 2;
 	int32 score = 3;
+}
+
+service GameSettingsManager {
+	rpc GetSettings (Empty) returns (GameSettingsResponse);
+}
+
+
+message GoogleAnalyticsSettings {
+	string googleAnalytics = 1;
+}
+
+message RecognitionSettings {
+	float recognitionThreshold = 1;
+}
+
+message TwitterSettings {
+	string authenticationScheme = 1;
+	bool isLoginEnabled = 2;
+}
+
+message MultiplayerSettings {
+	bool enabled = 1;
+}
+
+message GameSettingsResponse {
+	GoogleAnalyticsSettings googleAnalyticsSettings = 1;
+	RecognitionSettings recognitionSettings = 2;
+	TwitterSettings twitterSettings = 3;
+	MultiplayerSettings multiplayerSettings = 4;
 }

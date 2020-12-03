@@ -1,21 +1,19 @@
-﻿using GameApi.Proto;
+﻿using GameBff.Proto;
 using Grpc.Net.Client;
 using RPSLS.Game.Client.Models;
-using RPSLS.Game.Shared.Config;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RPSLS.Game.Client.Clients
 {
-    public class BotGameManagerClient : BaseClient, IBotGameManagerClient
+    public class BotGameManagerClient : IBotGameManagerClient
     {
-        private readonly string _serverUrl;
+        private readonly GrpcChannel _grpcChannel;
 
-        public BotGameManagerClient(GameManagerSettings settings) : base()
+        public BotGameManagerClient(GrpcChannel GrpcChannel)
         {
-            _serverUrl = settings.Url ?? throw new ArgumentNullException("Game Manager Url is null");
+            _grpcChannel = GrpcChannel;
         }
 
         public async Task<ResultDto> Play(string challenger, string username, int pick, bool twitterLogged)
@@ -28,9 +26,8 @@ namespace RPSLS.Game.Client.Clients
                 Pick = pick
             };
 
-            var channel = GrpcChannel.ForAddress(_serverUrl);
-            var client = new BotGameManager.BotGameManagerClient(channel);
-            var result = await client.DoPlayAsync(request, GetRequestMetadata());
+            var client = new BotGameManager.BotGameManagerClient(_grpcChannel);
+            var result = await client.DoPlayAsync(request);
             return new ResultDto()
             {
                 Challenger = result.Challenger,
@@ -44,9 +41,8 @@ namespace RPSLS.Game.Client.Clients
 
         public async Task<IEnumerable<ChallengerDto>> Challengers()
         {
-            var channel = GrpcChannel.ForAddress(_serverUrl);
-            var client = new BotGameManager.BotGameManagerClient(channel);
-            var result = await client.GetChallengersAsync(new Empty(), GetRequestMetadata());
+            var client = new BotGameManager.BotGameManagerClient(_grpcChannel);
+            var result = await client.GetChallengersAsync(new Empty());
             return result.Challengers.Select(ChallengerDto.FromProtoResponse).ToList();
         }
     }

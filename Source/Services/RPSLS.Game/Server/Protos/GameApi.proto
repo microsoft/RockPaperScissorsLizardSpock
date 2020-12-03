@@ -4,7 +4,6 @@ option csharp_namespace = "GameApi.Proto";
 
 package GameManagementApi;
 
-
 service ConfigurationManager {
 	rpc GetSettings (Empty) returns (SettingsResponse);
 }
