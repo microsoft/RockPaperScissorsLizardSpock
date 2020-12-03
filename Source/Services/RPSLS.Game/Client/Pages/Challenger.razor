@@ -34,15 +34,11 @@
 
 @code
 { 
-    [CascadingParameter]
-    public Task<AuthenticationState> authenticationState { get; set; }
-
     private string battleUrl = null;
     private IEnumerable<ChallengerDto> challengers = new List<ChallengerDto>();
 
     protected async override Task OnInitializedAsync()
     {
-        await authenticationState;
         Game.Pick = -1;
         Game.Challenger = null;
         this.challengers = await Game.Challengers();
