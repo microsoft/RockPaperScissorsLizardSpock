@@ -28,6 +28,8 @@ namespace RPSLS.Game.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddAuthentication(Configuration);
+            services.AddApplicationInsightsTelemetry();
+            services.AddHealthChecks();
 
             services.AddOptions()
                 .Configure<RecognitionSettings>(Configuration)
@@ -81,6 +83,7 @@ namespace RPSLS.Game.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseHealthChecks("/health");
             app.UseGrpcWeb();
             app.UseEndpoints(endpoints =>
             {
