@@ -5,8 +5,6 @@
 @inject NavigationManager NavigationManager
 @inject MultiplayerSettings MultiplayerSettings
 @inject TwitterSettings TwitterSettings
-@inject GoogleAnalyticsSettings GoogleAnalyticsSettings
-@inject IAnalytics Analytics
 
 <div class="index-content">
     <div class="login">
@@ -92,8 +90,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Analytics.Initialize(GoogleAnalyticsSettings.GoogleAnalytics);
-
         var state = await authenticationState;
 
         Username = state.User.GetUsername() ?? string.Empty;
