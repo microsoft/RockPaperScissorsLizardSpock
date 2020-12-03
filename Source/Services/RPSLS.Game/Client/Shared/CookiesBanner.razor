@@ -1,11 +1,3 @@
-@*
-    @using Microsoft.AspNetCore.Authentication.Cookies
-*@
-@using Microsoft.AspNetCore.Http
-@*
-    @inject IHttpContextAccessor httpContextAccessor
-*@
-
 @if (!hasCookie)
 {
     <div class="cookie-banner">
@@ -25,12 +17,14 @@
 {
     bool hasCookie = false;
 
-    protected override void OnInitialized()
-    {
-        // var cookieName = CookieAuthenticationDefaults.CookiePrefix + CookieAuthenticationDefaults.AuthenticationScheme;
-        // var cookie = httpContextAccessor.HttpContext.Request.Cookies[cookieName];
+    [CascadingParameter]
+    public Task<AuthenticationState> authenticationState { get; set; }
 
-        //hasCookie = !string.IsNullOrWhiteSpace(cookie);
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await authenticationState;
+
+        hasCookie = state.User.Identity.IsAuthenticated;
     }
 
     void CloseBanner()
