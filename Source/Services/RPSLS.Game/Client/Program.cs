@@ -27,9 +27,14 @@ namespace RPSLS.Game.Client
             var httpClient = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
             builder.Services.AddScoped(sp => httpClient);
 
-            var httpHandler = new GrpcWebHandler(new HttpClientHandler());
+            var httpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWebText, new HttpClientHandler());
             var grpcClient = GrpcChannel.ForAddress(builder.HostEnvironment.BaseAddress, new GrpcChannelOptions { HttpHandler = httpHandler });
-            builder.Services.AddSingleton(services => grpcClient);
+
+            builder.Services.AddGrpcClient<BotGameManager.BotGameManagerClient>((services, options) =>
+            {
+                options.Address = new Uri(builder.HostEnvironment.BaseAddress);
+            })
+            .ConfigurePrimaryHttpMessageHandler(() => httpHandler);
 
             var gameSettingsManager = new GameSettingsManager.GameSettingsManagerClient(grpcClient);
             var settings = await gameSettingsManager.GetSettingsAsync(new Empty());

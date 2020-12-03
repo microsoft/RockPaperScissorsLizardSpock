@@ -9,11 +9,11 @@ namespace RPSLS.Game.Client.Clients
 {
     public class BotGameManagerClient : IBotGameManagerClient
     {
-        private readonly GrpcChannel _grpcChannel;
+        private readonly BotGameManager.BotGameManagerClient _botGameManagerClient;
 
-        public BotGameManagerClient(GrpcChannel GrpcChannel)
+        public BotGameManagerClient(BotGameManager.BotGameManagerClient botGameManagerClient)
         {
-            _grpcChannel = GrpcChannel;
+            _botGameManagerClient = botGameManagerClient;
         }
 
         public async Task<ResultDto> Play(string challenger, string username, int pick, bool twitterLogged)
@@ -26,8 +26,7 @@ namespace RPSLS.Game.Client.Clients
                 Pick = pick
             };
 
-            var client = new BotGameManager.BotGameManagerClient(_grpcChannel);
-            var result = await client.DoPlayAsync(request);
+            var result = await _botGameManagerClient.DoPlayAsync(request);
             return new ResultDto()
             {
                 Challenger = result.Challenger,
@@ -41,8 +40,7 @@ namespace RPSLS.Game.Client.Clients
 
         public async Task<IEnumerable<ChallengerDto>> Challengers()
         {
-            var client = new BotGameManager.BotGameManagerClient(_grpcChannel);
-            var result = await client.GetChallengersAsync(new Empty());
+            var result = await _botGameManagerClient.GetChallengersAsync(new Empty());
             return result.Challengers.Select(ChallengerDto.FromProtoResponse).ToList();
         }
     }
