@@ -1,25 +1,20 @@
-﻿using System;
-using GameApi.Proto;
-using Grpc.Net.Client;
-using Microsoft.Extensions.Options;
+﻿using GameApi.Proto;
 using RPSLS.Game.Server.Config;
 
 namespace RPSLS.Game.Server.Clients
 {
     public class ConfigurationManagerClient : IConfigurationManagerClient
     {
-        private readonly string _serverUrl;
+        private readonly ConfigurationManager.ConfigurationManagerClient _configurationManagerClient;
 
-        public ConfigurationManagerClient(IOptions<GameManagerSettings> settings)
+        public ConfigurationManagerClient(ConfigurationManager.ConfigurationManagerClient configurationManagerClient)
         {
-            _serverUrl = settings.Value.Url ?? throw new ArgumentNullException("Game Manager Url is null");
+            _configurationManagerClient = configurationManagerClient;
         }
 
         public GameSettingsDto GetSettings()
         {
-            var channel = GrpcChannel.ForAddress(_serverUrl);
-            var client = new ConfigurationManager.ConfigurationManagerClient(channel);
-            var result = client.GetSettings(new Empty());
+            var result = _configurationManagerClient.GetSettings(new Empty());
             return new GameSettingsDto
             {
                 HasMultiplayer = result.HasMultiplayer

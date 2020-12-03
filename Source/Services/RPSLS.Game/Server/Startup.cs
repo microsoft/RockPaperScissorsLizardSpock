@@ -44,8 +44,14 @@ namespace RPSLS.Game.Server
             }
 
             services.AddSingleton<IConfigurationManagerClient, ConfigurationManagerClient>();
-
+            
             services.AddGrpcClient<BotGameManager.BotGameManagerClient>((services, options) =>
+            {
+                var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
+                options.Address = new Uri(gameManagerUrl);
+            });
+
+            services.AddGrpcClient<ConfigurationManager.ConfigurationManagerClient>((services, options) =>
             {
                 var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
                 options.Address = new Uri(gameManagerUrl);
