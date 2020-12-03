@@ -1,6 +1,5 @@
 ﻿using GameBff.Proto;
 using Grpc.Core;
-using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
