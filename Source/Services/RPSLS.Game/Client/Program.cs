@@ -11,6 +11,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GameBff.Proto;
+using RPSLS.Game.Client.Helpers;
 
 namespace RPSLS.Game.Client
 {

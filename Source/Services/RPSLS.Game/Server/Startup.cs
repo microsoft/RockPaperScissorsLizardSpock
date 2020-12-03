@@ -1,8 +1,10 @@
+using GameApi.Proto;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using RPSLS.Game.Server.Clients;
 using RPSLS.Game.Server.Config;
 using RPSLS.Game.Server.GrpcServices;
@@ -42,7 +44,12 @@ namespace RPSLS.Game.Server
             }
 
             services.AddSingleton<IConfigurationManagerClient, ConfigurationManagerClient>();
-            //services.AddSingleton(sp => sp.GetService<IConfigurationManagerClient>().GetSettings());
+
+            services.AddGrpcClient<BotGameManager.BotGameManagerClient>((services, options) =>
+            {
+                var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
+                options.Address = new Uri(gameManagerUrl);
+            });
 
             services.AddGrpc();
         }

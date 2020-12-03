@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RPSLS.Game.Client.Helpers
+﻿namespace RPSLS.Game.Client.Helpers
 {
     public class BattleHelper
     {
-        public string GetAnimatedClass(bool isShaking)
+        public static string GetAnimatedClass(bool isShaking)
         {
             if (isShaking)
             {
@@ -19,7 +14,7 @@ namespace RPSLS.Game.Client.Helpers
             }
         }
 
-        public string GetHandIcon(int challengerPick)
+        public static string GetHandIcon(int challengerPick)
         {
             var hand = challengerPick.ToString();
             if (hand == "3")
@@ -29,7 +24,7 @@ namespace RPSLS.Game.Client.Helpers
             return hand;
         }
 
-        public  string MapPick(int pick)
+        public static string MapPick(int pick)
         {
             return pick switch
             {
@@ -42,7 +37,7 @@ namespace RPSLS.Game.Client.Helpers
             };
         }
 
-        public int MapPick(string pick)
+        public static int MapPick(string pick)
         {
             if (int.TryParse(pick, out int result))
                 return result;
