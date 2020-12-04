@@ -1,5 +1,4 @@
 ﻿using GameBff.Proto;
-using Grpc.Net.Client;
 using RPSLS.Game.Client.Models;
 using System.Collections.Generic;
 using System.Linq;

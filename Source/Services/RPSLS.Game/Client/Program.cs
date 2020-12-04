@@ -35,6 +35,12 @@ namespace RPSLS.Game.Client
                 options.Address = new Uri(builder.HostEnvironment.BaseAddress);
             })
             .ConfigurePrimaryHttpMessageHandler(() => httpHandler);
+            
+            builder.Services.AddGrpcClient<MultiplayerGameManager.MultiplayerGameManagerClient>((services, options) =>
+            {
+                options.Address = new Uri(builder.HostEnvironment.BaseAddress);
+            })
+            .ConfigurePrimaryHttpMessageHandler(() => httpHandler);
 
             var gameSettingsManager = new GameSettingsManager.GameSettingsManagerClient(grpcClient);
             var settings = await gameSettingsManager.GetSettingsAsync(new Empty());
@@ -46,8 +52,8 @@ namespace RPSLS.Game.Client
 
             builder.Services.AddScoped<IBotGameManagerClient, BotGameManagerClient>();
             builder.Services.AddScoped<IBotGameService, BotGameService>();
-            //services.AddScoped<IMultiplayerGameManagerClient, MultiplayerGameManagerClient>();
-            //services.AddScoped<IMultiplayerGameService, MultiplayerGameService>();
+            builder.Services.AddScoped<IMultiplayerGameManagerClient, MultiplayerGameManagerClient>();
+            builder.Services.AddScoped<IMultiplayerGameService, MultiplayerGameService>();
 
             builder.Services.AddGoogleAnalytics();
 

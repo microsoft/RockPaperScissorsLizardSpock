@@ -86,7 +86,7 @@
     public string Username { get; set; }
     public bool IsTwitterUser { get; set; }
 
-    public bool UserNameIsEmpty => String.IsNullOrEmpty(Username) && String.IsNullOrEmpty(CustomUsername);
+    public bool UserNameIsEmpty => string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(CustomUsername);
 
     protected override async Task OnInitializedAsync()
     {
@@ -94,7 +94,7 @@
 
         var state = await authenticationState;
 
-        Username = state.User.GetUsername() ?? string.Empty;
+        Username = state.User.Identity.Name ?? string.Empty;
         IsTwitterUser = state.User.Identity.AuthenticationType == TwitterSettings.AuthenticationScheme;
 
         if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(RedirectUrl))

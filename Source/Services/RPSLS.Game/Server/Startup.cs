@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using RPSLS.Game.Api.GrpcServices;
 using RPSLS.Game.Server.Clients;
 using RPSLS.Game.Server.Config;
 using RPSLS.Game.Server.GrpcServices;
@@ -58,6 +59,12 @@ namespace RPSLS.Game.Server
                 var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
                 options.Address = new Uri(gameManagerUrl);
             });
+            
+            services.AddGrpcClient<MultiplayerGameManager.MultiplayerGameManagerClient>((services, options) =>
+            {
+                var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
+                options.Address = new Uri(gameManagerUrl);
+            });
 
             services.AddGrpc();
         }
@@ -89,6 +96,7 @@ namespace RPSLS.Game.Server
             {
                 endpoints.MapGrpcService<BotGameManagerService>().EnableGrpcWeb();
                 endpoints.MapGrpcService<GameSettingsManagerService>().EnableGrpcWeb();
+                endpoints.MapGrpcService<MultiplayerGameManagerService>().EnableGrpcWeb();
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
