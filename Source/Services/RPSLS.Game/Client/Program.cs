@@ -5,13 +5,12 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using RPSLS.Game.Client.Auth;
 using RPSLS.Game.Client.Clients;
-using RPSLS.Game.Client.Extensions;
 using RPSLS.Game.Client.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GameBff.Proto;
-using RPSLS.Game.Client.Helpers;
+using Blazor.Analytics;
 
 namespace RPSLS.Game.Client
 {
@@ -42,6 +41,7 @@ namespace RPSLS.Game.Client
 
             builder.Services.AddSingleton(_ => settings.MultiplayerSettings);
             builder.Services.AddSingleton(_ => settings.TwitterSettings);
+            builder.Services.AddSingleton(_ => settings.GoogleAnalyticsSettings);
             builder.Services.AddSingleton(_ => settings.RecognitionSettings);
 
             builder.Services.AddScoped<IBotGameManagerClient, BotGameManagerClient>();
@@ -49,7 +49,7 @@ namespace RPSLS.Game.Client
             //services.AddScoped<IMultiplayerGameManagerClient, MultiplayerGameManagerClient>();
             //services.AddScoped<IMultiplayerGameService, MultiplayerGameService>();
 
-            builder.Services.AddGoogleAnalyticsAndInitialize(settings.GoogleAnalyticsSettings.GoogleAnalytics);
+            builder.Services.AddGoogleAnalytics();
 
             await builder.Build().RunAsync();
         }
