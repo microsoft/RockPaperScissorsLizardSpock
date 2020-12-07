@@ -20,7 +20,7 @@ namespace RPSLS.Game.Api.GrpcServices
             using var stream = _multiplayerGameManagerClient.CreatePairing(apiRequest, GetRequestMetadata());
 
             GameApi.Proto.PairingStatusResponse response = null;
-            while (await stream.ResponseStream.MoveNext(CancellationToken.None))
+            while (await stream.ResponseStream.MoveNext(context.CancellationToken))
             {
                 response = stream.ResponseStream.Current;
 
@@ -35,22 +35,86 @@ namespace RPSLS.Game.Api.GrpcServices
 
         public override async Task JoinPairing(JoinPairingRequest request, IServerStreamWriter<PairingStatusResponse> responseStream, ServerCallContext context)
         {
-           
+            var apiRequest = new GameApi.Proto.JoinPairingRequest() { Username = request.Username, Token = request.Token, TwitterLogged = request.TwitterLogged };
+            using var stream = _multiplayerGameManagerClient.JoinPairing(apiRequest, GetRequestMetadata());
+            GameApi.Proto.PairingStatusResponse response = null;
+
+            while (await stream.ResponseStream.MoveNext(context.CancellationToken))
+            {
+                response = stream.ResponseStream.Current;
+
+                await responseStream.WriteAsync(new PairingStatusResponse
+                {
+                    MatchId = response.MatchId,
+                    Status = response.Status,
+                    Token = response.Token
+                });
+            }
         }
 
         public override async Task GameStatus(GameStatusRequest request, IServerStreamWriter<GameStatusResponse> responseStream, ServerCallContext context)
         {
-            
+            var apiRequest = new GameApi.Proto.GameStatusRequest()
+            {
+                MatchId = request.MatchId,
+                Username = request.Username,
+                TwitterLogged = request.TwitterLogged
+            };
+
+            using var stream = _multiplayerGameManagerClient.GameStatus(apiRequest, GetRequestMetadata());
+
+            while (await stream.ResponseStream.MoveNext(context.CancellationToken))
+            {
+                var response = stream.ResponseStream.Current;
+                await responseStream.WriteAsync(new GameStatusResponse
+                {
+                    Challenger = response.Challenger,
+                    ChallengerPick = response.ChallengerPick,
+                    User = response.User,
+                    UserPick = response.UserPick,
+                    Result = (Result)(int)response.Result,
+                    IsFinished = response.IsFinished,
+                    IsCancelled = response.IsCancelled,
+                    IsMaster = response.IsMaster
+                });
+            }
         }
 
         public override async Task<Empty> Pick(PickRequest request, ServerCallContext context)
         {
+            var apiRequest = new GameApi.Proto.PickRequest()
+            {
+                MatchId = request.MatchId,
+                Username = request.Username,
+                TwitterLogged = request.TwitterLogged,
+                Pick = request.Pick
+            };
+
+            await _multiplayerGameManagerClient.PickAsync(apiRequest, GetRequestMetadata());
+
             return new Empty();
         }
 
         public override async Task Rematch(RematchRequest request, IServerStreamWriter<RematchResponse> responseStream, ServerCallContext context)
         {
-            
+            var apiRequest = new GameApi.Proto.RematchRequest()
+            {
+                MatchId = request.MatchId,
+                Username = request.Username,
+                TwitterLogged = request.TwitterLogged
+            };
+
+            using var stream = _multiplayerGameManagerClient.Rematch(apiRequest);
+            while (await stream.ResponseStream.MoveNext(context.CancellationToken))
+            {
+                var response = stream.ResponseStream.Current;
+
+                await responseStream.WriteAsync(new RematchResponse
+                {
+                    HasStarted = response.HasStarted,
+                    IsCancelled = response.IsCancelled
+                });
+            }
         }
 
         public override async Task<LeaderboardResponse> Leaderboard(Empty request, ServerCallContext context)
