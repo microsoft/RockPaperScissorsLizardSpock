@@ -28,19 +28,19 @@ namespace RPSLS.Game.Server.GrpcServices
         {
             var result = new GameSettingsResponse()
             {
-                GoogleAnalyticsSettings = new GameBff.Proto.GoogleAnalyticsSettings
+                GoogleAnalyticsSettings = new GoogleAnalyticsSettings
                 {
                     GoogleAnalytics = _googleAnalyticsSettings.Value.GoogleAnalytics,
                 },
-                MultiplayerSettings = new GameBff.Proto.MultiplayerSettings()
+                MultiplayerSettings = new MultiplayerSettings()
                 {
                     Enabled = _multiplayerSettings.Value.Enabled
                 },
-                RecognitionSettings = new GameBff.Proto.RecognitionSettings()
+                RecognitionSettings = new RecognitionSettings()
                 {
                     RecognitionThreshold = _recognitionSettings.Value.RecognitionThreshold
                 },
-                TwitterSettings = new GameBff.Proto.TwitterSettings()
+                TwitterSettings = new TwitterSettings()
                 {
                     IsLoginEnabled = _twitterSettings.Value.IsLoginEnabled,
                     AuthenticationScheme = _twitterSettings.Value.AuthenticationScheme
