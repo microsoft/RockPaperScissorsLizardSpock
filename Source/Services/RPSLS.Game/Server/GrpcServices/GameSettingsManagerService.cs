@@ -1,42 +1,49 @@
 ﻿using GameBff.Proto;
 using Grpc.Core;
 using Microsoft.Extensions.Options;
-using RPSLS.Game.Server.Config;
 using System.Threading.Tasks;
 
 namespace RPSLS.Game.Server.GrpcServices
 {
     public class GameSettingsManagerService : GameSettingsManager.GameSettingsManagerBase
     {
-        private readonly IOptions<ClientSettings> _clientSettings;
+        private readonly IOptions<Config.GoogleAnalyticsSettings> _googleAnalyticsSettings;
+        private readonly IOptions<Config.RecognitionSettings> _recognitionSettings;
+        private readonly IOptions<Config.TwitterSettings> _twitterSettings;
+        private readonly IOptions<Config.MultiplayerSettings> _multiplayerSettings;
 
-        public GameSettingsManagerService(IOptions<ClientSettings> clientSettings)
+        public GameSettingsManagerService(
+            IOptions<Config.GoogleAnalyticsSettings> googleAnalyticsSettings,
+            IOptions<Config.RecognitionSettings> recognitionSettings,
+            IOptions<Config.TwitterSettings> twitterSettings,
+            IOptions<Config.MultiplayerSettings> multiplayerSettings)
         {
-            _clientSettings = clientSettings;
+            _googleAnalyticsSettings = googleAnalyticsSettings;
+            _recognitionSettings = recognitionSettings;
+            _twitterSettings = twitterSettings;
+            _multiplayerSettings = multiplayerSettings;
         }
 
-        public override async Task<GameSettingsResponse> GetSettings(GameBff.Proto.Empty request, ServerCallContext context)
+        public override async Task<GameSettingsResponse> GetSettings(Empty request, ServerCallContext context)
         {
-            var clientSettings = _clientSettings.Value;
-
             var result = new GameSettingsResponse()
             {
                 GoogleAnalyticsSettings = new GameBff.Proto.GoogleAnalyticsSettings
                 {
-                    GoogleAnalytics = clientSettings.GoogleAnalyticsSettings.GoogleAnalytics,
+                    GoogleAnalytics = _googleAnalyticsSettings.Value.GoogleAnalytics,
                 },
                 MultiplayerSettings = new GameBff.Proto.MultiplayerSettings()
                 {
-                    Enabled = clientSettings.MultiplayerSettings.Enabled
+                    Enabled = _multiplayerSettings.Value.Enabled
                 },
                 RecognitionSettings = new GameBff.Proto.RecognitionSettings()
                 {
-                    RecognitionThreshold = clientSettings.RecognitionSettings.RecognitionThreshold
+                    RecognitionThreshold = _recognitionSettings.Value.RecognitionThreshold
                 },
                 TwitterSettings = new GameBff.Proto.TwitterSettings()
                 {
-                    IsLoginEnabled = clientSettings.TwitterSettings.IsLoginEnabled,
-                    AuthenticationScheme = clientSettings.TwitterSettings.AuthenticationScheme
+                    IsLoginEnabled = _twitterSettings.Value.IsLoginEnabled,
+                    AuthenticationScheme = _twitterSettings.Value.AuthenticationScheme
                 }
             };
 

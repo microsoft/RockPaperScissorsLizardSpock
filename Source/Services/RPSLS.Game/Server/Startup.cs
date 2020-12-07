@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using RPSLS.Game.Api.GrpcServices;
-using RPSLS.Game.Server.Clients;
 using RPSLS.Game.Server.Config;
+using RPSLS.Game.Server.GrpcInterceptors;
 using RPSLS.Game.Server.GrpcServices;
 using System;
 
@@ -31,14 +31,14 @@ namespace RPSLS.Game.Server
             services.AddAuthentication(Configuration);
             services.AddApplicationInsightsTelemetry();
             services.AddHealthChecks();
+            services.AddHttpContextAccessor();
 
             services.AddOptions()
-                .Configure<RecognitionSettings>(Configuration)
                 .Configure<GoogleAnalyticsSettings>(Configuration)
+                .Configure<RecognitionSettings>(Configuration)
                 .Configure<TwitterSettings>(x => x.IsLoginEnabled = !string.IsNullOrWhiteSpace(Configuration["Authentication:Twitter:ConsumerKey"]) && !string.IsNullOrWhiteSpace(Configuration["Authentication:Twitter:ConsumerSecret"]))
                 .Configure<GameManagerSettings>(Configuration.GetSection("GameManager"))
-                .ConfigureOptions<MultiplayerSettingsOptions>()
-                .ConfigureOptions<ClientSettingsConfigureOptions>();
+                .ConfigureOptions<MultiplayerSettingsOptions>();
 
             if (Configuration.GetValue<bool>("GameManager:Grpc:GrpcOverHttp", false))
             {
@@ -46,13 +46,13 @@ namespace RPSLS.Game.Server
                 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2Support", true);
             }
 
-            services.AddSingleton<IConfigurationManagerClient, ConfigurationManagerClient>();
-            
+            services.AddSingleton<AzdsMetadataInterceptor>();
+
             services.AddGrpcClient<BotGameManager.BotGameManagerClient>((services, options) =>
             {
                 var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
                 options.Address = new Uri(gameManagerUrl);
-            });
+            }).AddInterceptor<AzdsMetadataInterceptor>();
 
             services.AddGrpcClient<ConfigurationManager.ConfigurationManagerClient>((services, options) =>
             {
@@ -64,7 +64,7 @@ namespace RPSLS.Game.Server
             {
                 var gameManagerUrl = services.GetService<IOptions<GameManagerSettings>>().Value.Url;
                 options.Address = new Uri(gameManagerUrl);
-            });
+            }).AddInterceptor<AzdsMetadataInterceptor>();
 
             services.AddGrpc();
         }

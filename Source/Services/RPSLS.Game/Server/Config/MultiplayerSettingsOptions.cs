@@ -1,21 +1,22 @@
-﻿using Microsoft.Extensions.Options;
-using RPSLS.Game.Server.Clients;
+﻿using GameApi.Proto;
+using Microsoft.Extensions.Options;
+
 
 namespace RPSLS.Game.Server.Config
 {
     public class MultiplayerSettingsOptions : IConfigureOptions<MultiplayerSettings>
     {
-        private readonly IConfigurationManagerClient _configurationManager;
+        private readonly ConfigurationManager.ConfigurationManagerClient _configurationManagerClient;
 
-        public MultiplayerSettingsOptions(IConfigurationManagerClient configurationManager)
+        public MultiplayerSettingsOptions(ConfigurationManager.ConfigurationManagerClient configurationManagerClient)
         {
-            _configurationManager = configurationManager;
+            _configurationManagerClient = configurationManagerClient;
         }
 
-        public void Configure(MultiplayerSettings options)
+        public async void Configure(MultiplayerSettings options)
         {
-            var gameApiSettingsClient = _configurationManager.GetSettings();
-            options.Enabled = gameApiSettingsClient.HasMultiplayer;
+            var settingsResponse = await _configurationManagerClient.GetSettingsAsync(new Empty());
+            options.Enabled = settingsResponse.HasMultiplayer;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RPSLS.Game.Server.GrpcServices
 {
-    public class BotGameManagerService : GameBff.Proto.BotGameManager.BotGameManagerBase
+    public class BotGameManagerService : BotGameManager.BotGameManagerBase
     {
         private readonly GameApi.Proto.BotGameManager.BotGameManagerClient _botGameManagerClient;
         private readonly ILogger<BotGameManagerService> _logger;
@@ -17,9 +17,9 @@ namespace RPSLS.Game.Server.GrpcServices
             _logger = logger;
         }
 
-        public override async Task<GameBff.Proto.ChallengersList> GetChallengers(GameBff.Proto.Empty request, ServerCallContext context)
+        public override async Task<ChallengersList> GetChallengers(Empty request, ServerCallContext context)
         {
-            var challengersListApi = await _botGameManagerClient.GetChallengersAsync(new GameApi.Proto.Empty(), GetRequestMetadata());
+            var challengersListApi = await _botGameManagerClient.GetChallengersAsync(new GameApi.Proto.Empty());
             var result = new ChallengersList();
             foreach (var challenger in challengersListApi.Challengers)
             {
@@ -41,7 +41,7 @@ namespace RPSLS.Game.Server.GrpcServices
                 Pick = request.Pick
             };
 
-            var result = await _botGameManagerClient.DoPlayAsync(playRequest, GetRequestMetadata());
+            var result = await _botGameManagerClient.DoPlayAsync(playRequest);
             return new GameResponse()
             {
                 Challenger = result.Challenger,
@@ -51,13 +51,6 @@ namespace RPSLS.Game.Server.GrpcServices
                 UserPick = result.UserPick,
                 IsValid = result.IsValid
             };
-        }
-
-
-        protected Grpc.Core.Metadata GetRequestMetadata()
-        {
-            var metadata = new Grpc.Core.Metadata();
-            return metadata;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace RPSLS.Game.Api.GrpcServices
         public override async Task CreatePairing(CreatePairingRequest request, IServerStreamWriter<PairingStatusResponse> responseStream, ServerCallContext context)
         {
             var apiRequest = new GameApi.Proto.CreatePairingRequest() { Username = request.Username, TwitterLogged = request.TwitterLogged };
-            using var stream = _multiplayerGameManagerClient.CreatePairing(apiRequest, GetRequestMetadata());
+            using var stream = _multiplayerGameManagerClient.CreatePairing(apiRequest);
 
             GameApi.Proto.PairingStatusResponse response = null;
             while (await stream.ResponseStream.MoveNext(context.CancellationToken))
@@ -36,7 +36,7 @@ namespace RPSLS.Game.Api.GrpcServices
         public override async Task JoinPairing(JoinPairingRequest request, IServerStreamWriter<PairingStatusResponse> responseStream, ServerCallContext context)
         {
             var apiRequest = new GameApi.Proto.JoinPairingRequest() { Username = request.Username, Token = request.Token, TwitterLogged = request.TwitterLogged };
-            using var stream = _multiplayerGameManagerClient.JoinPairing(apiRequest, GetRequestMetadata());
+            using var stream = _multiplayerGameManagerClient.JoinPairing(apiRequest);
             GameApi.Proto.PairingStatusResponse response = null;
 
             while (await stream.ResponseStream.MoveNext(context.CancellationToken))
@@ -61,7 +61,7 @@ namespace RPSLS.Game.Api.GrpcServices
                 TwitterLogged = request.TwitterLogged
             };
 
-            using var stream = _multiplayerGameManagerClient.GameStatus(apiRequest, GetRequestMetadata());
+            using var stream = _multiplayerGameManagerClient.GameStatus(apiRequest);
 
             while (await stream.ResponseStream.MoveNext(context.CancellationToken))
             {
@@ -90,7 +90,7 @@ namespace RPSLS.Game.Api.GrpcServices
                 Pick = request.Pick
             };
 
-            await _multiplayerGameManagerClient.PickAsync(apiRequest, GetRequestMetadata());
+            await _multiplayerGameManagerClient.PickAsync(apiRequest);
 
             return new Empty();
         }
@@ -133,12 +133,6 @@ namespace RPSLS.Game.Api.GrpcServices
             }
 
             return result;
-        }
-
-        protected Grpc.Core.Metadata GetRequestMetadata()
-        {
-            var metadata = new Grpc.Core.Metadata();
-            return metadata;
         }
     }
 }
