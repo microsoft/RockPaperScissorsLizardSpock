@@ -1,9 +1,8 @@
 ﻿using GameBff.Proto;
 using Grpc.Core;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace RPSLS.Game.Api.GrpcServices
+namespace RPSLS.Game.Server.Grpc.Services
 {
     public class MultiplayerGameManagerService : MultiplayerGameManager.MultiplayerGameManagerBase
     {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 
-namespace RPSLS.Game.Server.GrpcServices
+namespace RPSLS.Game.Server.Grpc.Services
 {
     public class BotGameManagerService : BotGameManager.BotGameManagerBase
     {
@@ -33,7 +33,7 @@ namespace RPSLS.Game.Server.GrpcServices
 
         public override async Task<GameResponse> DoPlay(GameRequest request, ServerCallContext context)
         {
-               var playRequest = new GameApi.Proto.GameRequest()
+            var playRequest = new GameApi.Proto.GameRequest()
             {
                 Challenger = request.Challenger,
                 Username = request.Username,

@@ -5,10 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using RPSLS.Game.Api.GrpcServices;
 using RPSLS.Game.Server.Config;
-using RPSLS.Game.Server.GrpcInterceptors;
-using RPSLS.Game.Server.GrpcServices;
+using RPSLS.Game.Server.Grpc.Interceptors;
+using RPSLS.Game.Server.Grpc.Services;
 using System;
 
 namespace RPSLS.Game.Server

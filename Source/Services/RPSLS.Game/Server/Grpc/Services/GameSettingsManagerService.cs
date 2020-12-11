@@ -3,7 +3,7 @@ using Grpc.Core;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
-namespace RPSLS.Game.Server.GrpcServices
+namespace RPSLS.Game.Server.Grpc.Services
 {
     public class GameSettingsManagerService : GameSettingsManager.GameSettingsManagerBase
     {

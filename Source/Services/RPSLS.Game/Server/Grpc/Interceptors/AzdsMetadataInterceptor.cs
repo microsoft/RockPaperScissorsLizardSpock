@@ -3,11 +3,11 @@ using Grpc.Core.Interceptors;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace RPSLS.Game.Server.GrpcInterceptors
+namespace RPSLS.Game.Server.Grpc.Interceptors
 {
     public class AzdsMetadataInterceptor : Interceptor
     {
-        private const string PropagationHeaderKey = "azds-route-as";
+        private const string PropagationHeaderKey = "kubernetes-route-as";
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AzdsMetadataInterceptor(IHttpContextAccessor httpContextAccessor)
