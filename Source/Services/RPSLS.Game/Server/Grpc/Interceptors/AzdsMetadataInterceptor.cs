@@ -7,7 +7,7 @@ namespace RPSLS.Game.Server.Grpc.Interceptors
 {
     public class AzdsMetadataInterceptor : Interceptor
     {
-        private const string PropagationHeaderKey = "kubernetes-route-as";
+        private const string PropagationHeaderKey = "azds-route-as";
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AzdsMetadataInterceptor(IHttpContextAccessor httpContextAccessor)
