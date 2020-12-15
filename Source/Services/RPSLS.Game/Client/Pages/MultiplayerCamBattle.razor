@@ -19,7 +19,7 @@
                 <div class="pick active toplay">
                     <div class="pick-images @(shakeHand ? "shakingHand" : string.Empty)">
                         <img class="@(BattleHelper.GetAnimatedClass(shakeHand)) placeholder" src="/assets/images/png/hands/@playerImage/0.png">
-                        <img class="@(BattleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/@playerImage)/@(BattleHelper.GetHandIcon(userHandToShow)).png">
+                        <img class="@(BattleHelper.GetAnimatedClass(shakeHand)) pick" src="/assets/images/png/hands/@playerImage/@(BattleHelper.GetHandIcon(userHandToShow)).png">
                         <img class="base" src="/assets/images/png/hands/@playerImage/base_left.png">
                     </div>
                 </div>
