@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock, Scissors, Paper, Lizard, Spock – Play the game now</title>
+    <link rel="icon" href="favicon.ico">
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/reconnect.css" rel="stylesheet" />
+    <link href="css/stars.css" rel="stylesheet" />
+    <link href="css/controls.css" rel="stylesheet" />
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/challengers.css" rel="stylesheet" />
+    <link href="css/battle.css" rel="stylesheet" />
+    <link href="css/console.css" rel="stylesheet" />
+    <link href="css/mainTitle.css" rel="stylesheet" />
+    <link href="css/result.css" rel="stylesheet" />
+    <link href="css/leaderboard.css" rel="stylesheet" />
+    <link href="css/no-vertical.css" rel="stylesheet" />
+    <link href="css/not-found.css" rel="stylesheet" />
+</head>
+
+<body>
+    <app id="app"></app>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/Blazor-Analytics/blazor-analytics.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tf.min.js"></script>
+
+    <div id="components-reconnect-modal" class="reconnect-modal components-reconnect-hide">
+        <div>
+            <h1>Could not reconnect to the server.</h1>
+            <h2>Have fun defeating our bot with your <a href="/challenger">language of choice</a>!</h2>
+        </div>
+    </div>
+</body>
+
+</html>

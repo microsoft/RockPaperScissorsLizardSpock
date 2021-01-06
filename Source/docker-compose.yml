@@ -41,7 +41,7 @@ services:
     image: ${REGISTRY:-msftrpsls}/web:${TAG:-latest}
     build:
       context: ./Services/
-      dockerfile: RPSLS.Web/Dockerfile
+      dockerfile: RPSLS.Game/Server/Dockerfile
     depends_on:
       - game.api
   modeluploader:

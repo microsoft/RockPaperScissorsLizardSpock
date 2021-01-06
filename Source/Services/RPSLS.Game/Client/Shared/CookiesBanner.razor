@@ -1,0 +1,34 @@
+@if (!hasCookie)
+{
+    <div class="cookie-banner">
+        <div class="close" @onclick="CloseBanner"></div>
+        <div class="cookie-banner-container">
+            <p>
+                <span>
+                    We use cookies to offer you a better experience. By continuing to use this website, you consent to the use of cookies in accordance with our
+                    <a target="_blank" href="https://privacy.microsoft.com/en-US/">Cookie Policy</a>
+                </span>
+            </p>
+        </div>
+    </div>
+}
+
+@code
+{
+    bool hasCookie = false;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await authenticationState;
+
+        hasCookie = state.User.Identity.IsAuthenticated;
+    }
+
+    void CloseBanner()
+    {
+        hasCookie = true;
+    }
+}

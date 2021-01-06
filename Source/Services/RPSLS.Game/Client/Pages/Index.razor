@@ -1,0 +1,133 @@
+﻿@layout MainLayout
+@page "/"
+@inject NavigationManager NavigationManager
+@inject MultiplayerSettings MultiplayerSettings
+@inject TwitterSettings TwitterSettings
+@inject GoogleAnalyticsSettings GoogleAnalyticsSettings
+@inject IAnalytics Analytics
+
+<div class="index-content">
+    <div class="login">
+        <div class="login-section">
+            <div class="header-layout">
+                <div class="header-layout-item"></div>
+                <div class="header-layout-item header-layout-item--large"></div>
+                <div class="header-layout-item">
+                    <RPSLS.Game.Client.Components.LeaderboardLink MultiplayerSettings="MultiplayerSettings" />
+                </div>
+            </div>
+            <form>
+                <img class="logo" src="/assets/images/png/logo.png">
+                <div class="subtitle-container">
+                    <h2 class="subtitle">The geek version of rock-paper-scissors.</h2>
+                    <h2 class="subtitle">Play with a friend or try to defeat our bot!</h2>
+                    <p class="info-contest">
+                        Winners Have Been Announced for the Game. See <a href="https://twitter.com/isaacrlevin/status/1265770703673888769" target="_blank">here</a> if you get SWAG!
+                        <a href="/assets/pdfs/RPSLS_Rules.pdf" target="_blank">See Rules</a>
+                        for more information.
+                    </p>
+                </div>
+
+                @if (string.IsNullOrWhiteSpace(Username))
+                {
+                    <input @bind-value="@CustomUsername" @bind-value:event="oninput" class="user" type="text" placeholder="Type Username" required />
+
+                    <div class="sign_twitter">
+                        @if (TwitterSettings.IsLoginEnabled)
+                        {
+                            <span>or <a href="/api/account/login/twitter">Sign in with Twitter</a></span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="subtitle-container">
+                        <h2 class="subtitle">HELLO, @Username.ToUpperInvariant()</h2>
+                    </div>
+                    <div class="leaderboard-link">
+                        <div class="leaderboard-link-info">
+                            <a @onclick="Logout" href="">LOGOUT</a>
+                        </div>
+                    </div>
+                }
+
+                <div class="custom-button-container">
+                    <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
+                        <button type="button" @onclick="PlayAgainstBots" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a bot</button>
+                    </div>
+                    @if (MultiplayerSettings.Enabled)
+                    {
+                        <div class="custom-button @(UserNameIsEmpty? "custom-button-disabled" : "")">
+                            <button type="button" @onclick="PlayAgainstHumans" class="custom-button-link" disabled="@UserNameIsEmpty">Play with a friend</button>
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="github">
+        <a class="github-text" target="_blank" href="https://github.com/microsoft/RockPaperScissorsLizardSpock">Get the code from GitHub</a>
+    </div>
+</div>
+
+<CookiesBanner />
+
+@code
+{
+    [CascadingParameter]
+    public Task<AuthenticationState> authenticationState { get; set; }
+
+    private string CustomUsername { get; set; }
+
+    [Parameter]
+    public string RedirectUrl { get; set; }
+
+    public string Username { get; set; }
+    public bool IsTwitterUser { get; set; }
+
+    public bool UserNameIsEmpty => string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(CustomUsername);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Analytics.Initialize(GoogleAnalyticsSettings.GoogleAnalytics);
+
+        var state = await authenticationState;
+
+        Username = state.User.Identity.Name ?? string.Empty;
+        IsTwitterUser = state.User.Identity.AuthenticationType == TwitterSettings.AuthenticationScheme;
+
+        if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(RedirectUrl))
+        {
+            NavigationManager.NavigateTo(RedirectUrl);
+        }
+
+    }
+
+    protected void PlayAgainstBots() => Play("/challenger");
+    protected void PlayAgainstHumans() => Play("/lobby");
+
+    private void Play(string redirect)
+    {
+        if (!string.IsNullOrWhiteSpace(CustomUsername))
+            Username = CustomUsername;
+
+        if (!string.IsNullOrWhiteSpace(Username))
+        {
+            var uri = redirect;
+            if (!IsTwitterUser)
+            {
+                var encodedUsername = System.Web.HttpUtility.UrlEncode(Username);
+                var encodedRedirect = System.Web.HttpUtility.UrlEncode(redirect);
+                uri = $"/api/account/login?username={encodedUsername}&redirectUrl={encodedRedirect}";
+            }
+
+            NavigationManager.NavigateTo(uri, true);
+        }
+    }
+
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/api/account/logout", true);
+    }
+}
