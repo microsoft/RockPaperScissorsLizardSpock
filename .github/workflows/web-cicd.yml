@@ -5,7 +5,7 @@ name: Web
 on: 
   push:
     paths:
-    - Source/Services/RPSLS.Web/**
+    - Source/Services/RPSLS.Game/**
     - .github/workflows/web-cicd.yml
     - Source/Services/RPSLS.ModelUploader.Web/**
     - Deploy/helm/web/**
@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image for Web
       working-directory: Source/Services
-      run: docker build . --file RPSLS.Web/Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/web:gh-${{ github.sha }}
+      run: docker build . --file RPSLS.Game/Server/Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/web:gh-${{ github.sha }}
     - name: Build the Docker image for Model Uploader
       working-directory: Source/Services
       run: docker build . --file RPSLS.ModelUploader.Web/Dockerfile --tag ${{ secrets.ACR_NAME }}.azurecr.io/modeluploader:gh-${{ github.sha }}
