@@ -33,7 +33,8 @@ jobs:
         az account set -s ${{ secrets.AZURE_SUBSCRIPTION }}
     - name: Docker push
       run: |
-        az acr login -n ${{ secrets.ACR_NAME }}
+        az acr login ${{ secrets.ACR_NAME }}.azurecr.io -n ${{ secrets.ACR_NAME }} -u ${{ secrets.ACR_PASSWORD }}
+        docker login -u ${{ secrets.ACR_NAME }} -p 
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/web:gh-${{ github.sha }}
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/modeluploader:gh-${{ github.sha }}
     - name: Set AKS kubectl context
