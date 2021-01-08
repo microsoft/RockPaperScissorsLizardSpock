@@ -3,6 +3,7 @@
 name: NodePlayer
 
 on: 
+  workflow_dispatch:
   push:
     paths:
     - Source/Services/RPSLS.NodePlayer.Api/**

@@ -2,7 +2,8 @@
 
 name: JavaPlayer 
 
-on: 
+on:
+  workflow_dispatch:
   push:
     paths:
     - Source/Services/RPSLS.JavaPlayer.Api/**

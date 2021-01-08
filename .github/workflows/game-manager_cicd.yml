@@ -3,6 +3,7 @@
 name: Game Manager
 
 on: 
+  workflow_dispatch:
   push:
     paths:
     - Source/Services/RPSLS.Game.Api/**

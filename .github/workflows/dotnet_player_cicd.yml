@@ -2,7 +2,8 @@
 
 name: DotnetPlayer 
 
-on: 
+on:
+  workflow_dispatch:
   push:
     paths:
       - Source/Services/RPSLS.DotNetPlayer.Api/**

@@ -3,6 +3,7 @@
 name: PhpPlayer
 
 on: 
+  workflow_dispatch:
   push:
     paths:
     - Source/Services/RPSLS.PHPPlayer.Api/**

@@ -3,6 +3,7 @@
 name: PythonPlayer
 
 on: 
+  workflow_dispatch:
   push:
     paths:
     - Source/Services/RPSLS.PythonPlayer.Api/**
