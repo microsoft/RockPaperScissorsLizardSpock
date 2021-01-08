@@ -39,18 +39,13 @@ jobs:
         resource-group: ${{ secrets.RESOURCE_GROUP }}        
     - name: Init Helm
       run: |
-        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 > get_helm.sh
-        chmod 700 get_helm.sh
-        ./get_helm.sh
-    - name: Login helm to ACR
+        az acr helm repo add -n ${{ secrets.ACR_NAME }}
+    - name: Package Helm chart
       run: |
-        hcid=echo ${{ secrets.AZURE_CREDENTIALS }} | jq .clientId | tr -d '"'
-        hpwd=echo ${{ secrets.AZURE_CREDENTIALS }} | jq .clientSecret | tr -d '"'
-        helm registry login ${{ secrets.ACR_NAME }}.azurecr.io -u $hcid -p $hpwd
+        helm package  Deploy/helm/java-player -d Deploy/helm/__charts --version 1.0.0-${{ github.sha }}
     - name: Upload chart to ACR
       run: |
-        helm chart save Deploy/helm/__charts {{ secrets.ACR_NAME }}.azurecr.io: 1.0.0-${{ github.sha }}
-        helm chart push {{ secrets.ACR_NAME }}.azurecr.io: 1.0.0-${{ github.sha }}
+        az acr helm push Deploy/helm/__charts/java-player-1.0.0-${{ github.sha }}.tgz -n ${{ secrets.ACR_NAME }}
     - name: Generate config file
       shell: pwsh
       run: |
