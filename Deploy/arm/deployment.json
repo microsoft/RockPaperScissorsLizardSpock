@@ -10,7 +10,7 @@
         },
         "aksVersion": {
             "type": "string",
-            "defaultValue": "1.14.7"
+            "defaultValue": "1.18.14"
         },
         "cosmos_databaseName": {
             "type": "string",
