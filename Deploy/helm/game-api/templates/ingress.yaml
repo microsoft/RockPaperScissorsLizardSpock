@@ -2,7 +2,7 @@
 {{- $fullName := include "rpsls-game.fullname" . -}}
 {{- $ingressPath := .Values.inf.ingress.game.path -}}
 
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
