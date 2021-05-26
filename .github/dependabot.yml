@@ -14,7 +14,7 @@ updates:
 
   - package-ecosystem: "nuget"
     # location of package manifests
-    directory: "/"
+    directory: "Source/"
     open-pull-requests-limit: 10
     schedule:
       interval: "daily"
@@ -26,7 +26,43 @@ updates:
 
   - package-ecosystem: "npm"
     # location of package manifests
-    directory: "/"
+    directory: "Source/Services/RPSLS.NodePlayer.Api/"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: "daily"
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: "pip"
+    # location of package manifests
+    directory: "Source/Services/RPSLS.PythonPlayer.Api/"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: "daily"
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: "pip"
+    # location of package manifests
+    directory: "Source/Functions/RPSLS.Python.Api/"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: "daily"
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: "maven"
+    # location of package manifests
+    directory: "Source/Services/RPSLS.JavaPlayer.Api/"
     open-pull-requests-limit: 10
     schedule:
       interval: "daily"
