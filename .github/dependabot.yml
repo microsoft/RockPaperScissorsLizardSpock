@@ -1,0 +1,312 @@
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    # default location of '.github/workflows'
+    directory: '/'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'weekly'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'composer'
+    directory: 'Source/Services/RPSLS.PHPPlayer.Api/src'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.DotNetPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.Game/Server'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.Game.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.JavaPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.ModelUploader.Web'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.NodePlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.PHPPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'docker'
+    directory: 'Source/Services/RPSLS.PythonPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'maven'
+    directory: 'Source/Services/RPSLS.JavaPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Documents/Workshop/Step1'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Documents/Workshop/Step2'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Documents/Workshop/Step3'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Documents/Workshop/Step4'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Documents/Workshop/Step5'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Documents/Workshop/Step6'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'npm'
+    directory: 'Source/Services/RPSLS.NodePlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.DotNetPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.Game/Client'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.Game/Server'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.Game/Shared'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.Game.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.Game.Multiplayer'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'nuget'
+    directory: 'Source/Services/RPSLS.ModelUploader.Web'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'pip'
+    directory: 'Source/Functions/RPSLS.Python.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+  - package-ecosystem: 'pip'
+    directory: 'Source/Services/RPSLS.PythonPlayer.Api'
+    open-pull-requests-limit: 10
+    schedule:
+      interval: 'daily'
+    # target-branch: 'develop'
+    # assignees:
+    #   - assignee_one
+    # reviewers:
+    #   - reviewer_one
+
+# Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
