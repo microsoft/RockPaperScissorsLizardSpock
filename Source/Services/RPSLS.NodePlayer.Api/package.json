@@ -23,6 +23,6 @@
     "@babel/node": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.6.2",
-    "nodemon": "^1.19.3"
+    "nodemon": "^2.0.20"
   }
 }
