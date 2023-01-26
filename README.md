@@ -18,7 +18,6 @@ products:
 - azure-cognitive-services
 - vs
 - vs-code
-azureDeploy: https://github.com/microsoft/RockPaperScissorsLizardSpock/blob/main/Deploy/arm/deployment.json
 ---
 
 # Rock, Paper, Scissors, Lizard, Spock - Sample Application
@@ -35,20 +34,9 @@ The Rock, Paper, Scissors, Lizard, Spock - Sample Application shows a multilangu
 
 [![Application development for everyone](Documents/Images/ScottHa-Keynote.png)](https://aka.ms/devkeynote)
 
-- Play the game hosted in our Azure Subscription: [https://RockPaperScissorsLizardSpock.dev](https://RockPaperScissorsLizardSpock.dev)
-
 ![](Documents/Images/RPSLS.gif)
 
 - Get everything that you need to deploy the code and run in your subscription.
-
-## Build Status
-
-| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/Web%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/Game%20Manager%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/DotnetPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
-| :------------- | :----------: | -----------: |
-| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/NodePlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/PythonPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) | [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/JavaPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
-| [![Actions Status](https://github.com/microsoft/RockPaperScissorsLizardSpock/workflows/PhpPlayer%20CI%2FCD/badge.svg)](https://github.com/microsoft/RockPaperScissorsLizardSpock/actions) |
-
-
 
 # Table of contents
 
