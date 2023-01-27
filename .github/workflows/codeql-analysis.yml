@@ -1,0 +1,50 @@
+name: CodeQL Analysis
+
+on:
+  push:
+    paths:
+      - 'Source/**'
+  pull_request:
+    paths:
+      - 'Source/**'
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [ 'csharp', 'java', 'javascript', 'python' ]
+    steps:
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+
+      - name: Initialize CodeQL
+        id: init_codeql
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+          category: ${{ matrix.language }}
+          queries: security-and-quality
+
+      - if: matrix.language == 'csharp'
+        name: Build C# code
+        id: build_csharp_code
+        uses: github/codeql-action/autobuild@v1
+
+      - if: matrix.language == 'java'
+        name: Build Java code
+        id: build_java_code
+        run: |
+          ./mvnw package
+        working-directory: Source/Services/RPSLS.JavaPlayer.Api/
+
+      - name: Perform CodeQL Analysis
+        id: analyze_codeql
+        uses: github/codeql-action/analyze@v1
+
+# Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
