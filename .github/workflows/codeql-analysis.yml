@@ -25,7 +25,7 @@ jobs:
 
       - name: Initialize CodeQL
         id: init_codeql
-        uses: github/codeql-action/init@v1
+        uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
           category: ${{ matrix.language }}
@@ -34,7 +34,7 @@ jobs:
       - if: matrix.language == 'csharp'
         name: Build C# code
         id: build_csharp_code
-        uses: github/codeql-action/autobuild@v1
+        uses: github/codeql-action/autobuild@v2
 
       - if: matrix.language == 'java'
         name: Build Java code
@@ -45,6 +45,6 @@ jobs:
 
       - name: Perform CodeQL Analysis
         id: analyze_codeql
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
 
 # Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
