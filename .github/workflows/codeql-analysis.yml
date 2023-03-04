@@ -8,7 +8,7 @@ on:
     paths:
       - 'Source/**'
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '*/2 * * * *'
   workflow_dispatch:
 
 jobs:
